@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFMS", "GFMS\GFMS.csproj", "{07325B57-59DF-4733-B828-DE69703C164C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GFMSLibrary", "GFMSLibrary\GFMSLibrary.csproj", "{066230F4-0088-4627-A511-AE1A1D61ECA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07325B57-59DF-4733-B828-DE69703C164C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07325B57-59DF-4733-B828-DE69703C164C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07325B57-59DF-4733-B828-DE69703C164C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07325B57-59DF-4733-B828-DE69703C164C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{066230F4-0088-4627-A511-AE1A1D61ECA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066230F4-0088-4627-A511-AE1A1D61ECA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066230F4-0088-4627-A511-AE1A1D61ECA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066230F4-0088-4627-A511-AE1A1D61ECA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93B964FF-3E62-4249-B1CB-D3A67785C287}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "uYw9l6h7ZP0kEvSnQOkOyaMrPwqdnfpF91ikgbTACetqgE1TI5yISw0Ggvcb0D2mAKj4C91WXWxAhJ4J9w/NcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Dave Orijuela\\source\\repos\\GFMS\\GFMSLibrary\\GFMSLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\mysqlconnector\\2.2.7\\mysqlconnector.2.2.7.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
