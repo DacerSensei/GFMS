@@ -1,9 +1,26 @@
 ﻿<Application x:Class="GFMS.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GFMS"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:GFMS" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:View="clr-namespace:GFMS.Views"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <FontFamily x:Key="PoppinsRegular">./Fonts/Poppins-Regular.ttf#Poppins Regular</FontFamily>
+            <FontFamily x:Key="PoppinsBold">./Fonts/Poppins-Bold.ttf#Poppins Bold</FontFamily>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="LoginBackground" Source="Assets/LoginBackground.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/CloseButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/RadioButtonNoBullet.xaml"/>
+                <ResourceDictionary Source="Styles/AddButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/RefreshButtonStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

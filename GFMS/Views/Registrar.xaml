@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="GFMS.Views.Registrar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GFMS.Views" xmlns:ViewModel="clr-namespace:GFMS.ViewModels"
+             mc:Ignorable="d"
+             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             d:DesignHeight="580" d:DesignWidth="1080">
+    <UserControl.DataContext>
+        <ViewModel:RegistrarViewModel />
+    </UserControl.DataContext>
+    <Grid Background="#212529">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.RowSpan="2" Width="250" materialDesign:ButtonAssist. Panel.ZIndex="0">
+            <StackPanel.Effect>
+                <DropShadowEffect Opacity="0.5" BlurRadius="100"/>
+            </StackPanel.Effect>
+            <StackPanel>
+                <StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding DashboardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                    </StackPanel>
+                    <!--<StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding AnnouncementCommand}" Style="{DynamicResource RadioButtonAnnouncement}"/>
+                    </StackPanel>-->
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Column="1" CornerRadius="25,0,6,0" BorderBrush="White" Margin="25,0,0,0" BorderThickness="0">
+            <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20">
+            </ContentControl>
+        </Border>
+    </Grid>
+</UserControl>

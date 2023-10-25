@@ -4,6 +4,7 @@ using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace GFMSLibrary
 {
     public class LoginCredentials
     {
-        public List<T> Login<T>(string username, string password, string tableName) where T : class, new()
+        public T Login<T>(string username, string password, string tableName) where T : class, new()
         {
             DataProcessor processor = new DataProcessor();
             StringBuilder query = new StringBuilder();
@@ -21,7 +22,8 @@ namespace GFMSLibrary
             MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@password", password);
-            return processor.GetDataQueryAsync<T>(command).Result;
+            List<T> user = processor.GetDataQueryAsync<T>(command).Result;
+            return user.Count > 0 && user[0] != null ? user[0] : null! ;
         }
 
         public bool Register<T>(T data, string tableName) where T : class, new()

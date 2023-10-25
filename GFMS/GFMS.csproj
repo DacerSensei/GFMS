@@ -8,7 +8,47 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Background.png" />
+    <None Remove="Assets\Close.png" />
+    <None Remove="Assets\CloseHover.png" />
+    <None Remove="Assets\LoginBackground.svg" />
+    <None Remove="Assets\Logo.png" />
+    <None Remove="Assets\Maximize.png" />
+    <None Remove="Assets\MaximizeHover.png" />
+    <None Remove="Assets\Minimize.png" />
+    <None Remove="Assets\MinimizeHover.png" />
+    <None Remove="Fonts\Poppins-Bold.ttf" />
+    <None Remove="Fonts\Poppins-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GFMSLibrary\GFMSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\LoginBackground.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Background.png" />
+    <Resource Include="Assets\Close.png" />
+    <Resource Include="Assets\CloseHover.png" />
+    <Resource Include="Assets\Logo.png" />
+    <Resource Include="Assets\Maximize.png" />
+    <Resource Include="Assets\MaximizeHover.png" />
+    <Resource Include="Assets\Minimize.png" />
+    <Resource Include="Assets\MinimizeHover.png" />
+    <Resource Include="Fonts\Poppins-Bold.ttf" />
+    <Resource Include="Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
 
 </Project>

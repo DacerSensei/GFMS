@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Geometry x:Key="LoginBackgroundGeometry1">F1 M1080,580z M0,0z M-114.05551,-27.45475L114.05551,-27.45475 114.05551,9.11665C114.05551,9.11665 110.39759,10.08394 106.22507,12.55579 102.05255,15.02764 97.36543,19.00404 97.36543,19.00404 97.36543,19.00404 91.01408,19.50911 84.58003,21.62179 78.14597,23.73447 71.6292,27.45475 71.6292,27.45475 71.6292,27.45475 61.48998,20.31647 50.25439,19.00405 39.01879,17.69163 26.68682,22.20507 26.68682,22.20507 26.68682,22.20507 17.21588,16.37435 7.45992000000001,13.37497 -2.29603999999999,10.37559 -12.33703,10.20756 -12.33703,10.20756 -12.33703,10.20756 -14.51809,5.73496 -18.51385,3.61332 -22.50961,1.49168 -28.32006,1.721 -28.32006,1.721 -28.32006,1.721 -32.98421,-9.71279 -43.16809,-12.577 -53.35197,-15.44121 -69.05556,-9.73586 -69.05556,-9.73586 -69.05556,-9.73586 -76.55113,-17.33656 -87.12397,-21.01407 -97.69681,-24.69158 -111.34693,-24.4459 -111.34693,-24.4459z</Geometry>
+    <Geometry x:Key="LoginBackgroundGeometry2">F1 M1080,580z M0,0z M-136.82009,31.15479L136.82009,31.15479 136.82009,-31.15479C136.82009,-31.15479 133.38271,-28.77388 127.77548,-27.15725 122.16825,-25.54062 114.39116,-24.68828 114.39116,-24.68828 114.39116,-24.68828 104.3027,-11.17252 89.98399,-9.67137 83.97151,-9.04103 76.13985,-8.99391 70.41662,-11.02696 62.50999,-13.83561 56.42349,-18.91461 56.42349,-18.91461 56.42349,-18.91461 53.21576,-12.78915 47.09566,-9.67137 40.97557,-6.55359 31.94312,-6.44348 31.94312,-6.44348 31.94312,-6.44348 26.16108,-0.0818199999999996 18.30889,0.322340000000001 10.4567,0.726500000000001 0.534349999999979,-4.82685 0.534349999999979,-4.82685 0.534349999999979,-4.82685 -1.23212000000002,-3.44117 -3.65706000000002,-2.97927 -6.08200000000002,-2.51738 -9.16542000000002,-2.97927 -9.16542000000002,-2.97927 -9.16542000000002,-2.97927 -16.29846,5.02885 -25.86986,6.76095 -35.44126,8.49305 -47.45101,3.94914 -47.45101,3.94914 -47.45101,3.94914 -51.53611,9.08771 -57.32268,11.10849 -63.10925,13.12928 -70.59728,12.03228 -70.59728,12.03228 -70.59728,12.03228 -81.39249,21.59828 -96.46177,25.23569 -111.53105,28.8731 -130.87441,26.58193 -130.87441,26.58193z</Geometry>
+    <DrawingGroup x:Key="LoginBackgroundDrawingGroup" ClipGeometry="M0,0 V580 H1080 V0 H0 Z">
+        <DrawingGroup Opacity="1" Transform="2.7504714417,0,0,2.7504714417,774,68">
+            <GeometryDrawing Geometry="{StaticResource LoginBackgroundGeometry1}">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="#ff494d" Thickness="5" DashCap="Round"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Brush>
+                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" MappingMode="RelativeToBoundingBox" SpreadMethod="Pad" Opacity="1">
+                        <GradientStop Color="#720026" Offset="0" />
+                        <GradientStop Color="#831b00" Offset=".1" />
+                        <GradientStop Color="#4f000b" Offset=".2" />
+                    </LinearGradientBrush>
+                </GeometryDrawing.Brush>
+            </GeometryDrawing>
+        </DrawingGroup>
+        <DrawingGroup Opacity="1" Transform="2.7504714417,0,0,2.7504714417,710.5,501.5">
+            <GeometryDrawing Geometry="{StaticResource LoginBackgroundGeometry2}">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="#ff494d" Thickness="5" DashCap="Round" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Brush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" MappingMode="RelativeToBoundingBox" SpreadMethod="Pad" Opacity="1">
+                        <GradientStop Color="#720026" Offset="0" />
+                        <GradientStop Color="#831b00" Offset=".1" />
+                        <GradientStop Color="#4f000b" Offset=".2" />
+                    </LinearGradientBrush>
+                </GeometryDrawing.Brush>
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingGroup>
+    <DrawingImage x:Key="LoginBackgroundDrawingImage" Drawing="{StaticResource LoginBackgroundDrawingGroup}" />
+</ResourceDictionary>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GFMS.ViewModels;
+using GFMS.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,12 @@ namespace GFMS
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow = new Login();
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
+
     }
 }

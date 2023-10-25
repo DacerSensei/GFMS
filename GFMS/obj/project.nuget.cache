@@ -1,11 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "HLS+P0rmyPdE18ssW+5u3Eo7mRFAMRu06NDptxhMlPGYpDSQxmDGRNUHzY4AsexadSZA/iZ+bgqiAJ2WHUF2Gw==",
+  "dgSpecHash": "RncyThixSp7W6FEOsKLAIKkH+lgc+jC61lthGPp1XpSOrlNRP2zvEiP+Mp3c8ELW8XlxA9pXTn3jRvBOHsXBIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dave Orijuela\\source\\repos\\GFMS\\GFMS\\GFMS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\mysqlconnector\\2.2.7\\mysqlconnector.2.2.7.nupkg.sha512",
-    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\sharpvectors.wpf\\1.8.2\\sharpvectors.wpf.1.8.2.nupkg.sha512"
   ],
   "logs": []
 }
