@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFMS.Views.RegistrarView" 
-             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <ViewModel:RegistrarDashboardViewModel />
+    </UserControl.DataContext>
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
@@ -21,11 +24,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <!-- Row 1 -->
-            <lvc:PieChart Grid.ColumnSpan="2" Series="{Binding PieSeries}" LegendPosition="Right"></lvc:PieChart>
-            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarSeries}" LegendPosition="Right"></lvc:CartesianChart>
+            <lvc:PieChart Grid.ColumnSpan="2" Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
+            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarGraph}" LegendPosition="Right"></lvc:CartesianChart>
 
             <!-- Row 2 -->
-            <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="4" Series="{Binding BarSeries}" LegendPosition="Right"></lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="4" Series="{Binding BarGraph}" LegendPosition="Right"></lvc:CartesianChart>
             
             <!-- Row 3 -->
             <Border CornerRadius="6" Grid.Row="2" Margin="5">

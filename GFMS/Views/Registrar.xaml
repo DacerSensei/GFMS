@@ -12,7 +12,7 @@
     <UserControl.DataContext>
         <MyModel:RegistrarViewModel />
     </UserControl.DataContext>
-    <Grid Background="#212529">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -22,29 +22,29 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.RowSpan="2" Width="250">
+        <StackPanel Grid.RowSpan="2" Width="250" Background="#f6f7fb">
             <StackPanel.Effect>
                 <DropShadowEffect Opacity="0.5" BlurRadius="100"/>
             </StackPanel.Effect>
             <StackPanel>
                 <StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding DashboardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding DashboardCommand}" Style="{DynamicResource ButtonDashboard}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding OfficiallyEnrolledCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding OfficiallyEnrolledCommand}" Style="{DynamicResource ButtonOfficiallyEnrolled}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RegisterStudentCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RegisterStudentCommand}" Style="{DynamicResource ButtonRegisterStudent}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource ButtonReportCard}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RequirementsCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RequirementsCommand}" Style="{DynamicResource ButtonRequirements}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding StudentRecordsCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding StudentRecordsCommand}" Style="{DynamicResource ButtonStudentRecords}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
