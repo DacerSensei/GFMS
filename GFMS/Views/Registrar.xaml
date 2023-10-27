@@ -20,7 +20,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.RowSpan="2" Width="250" materialDesign:ButtonAssist. Panel.ZIndex="0">
+        <StackPanel Grid.RowSpan="2" Width="250">
             <StackPanel.Effect>
                 <DropShadowEffect Opacity="0.5" BlurRadius="100"/>
             </StackPanel.Effect>
@@ -29,9 +29,9 @@
                     <StackPanel Cursor="Hand">
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding DashboardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
                     </StackPanel>
-                    <!--<StackPanel Cursor="Hand">
+                    <StackPanel Cursor="Hand">
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding AnnouncementCommand}" Style="{DynamicResource RadioButtonAnnouncement}"/>
-                    </StackPanel>-->
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

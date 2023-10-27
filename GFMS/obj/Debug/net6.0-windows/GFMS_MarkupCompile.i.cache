@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\App.xaml
-13-856264479
+20-891095180
 
-23-1250477165
-209-531911733
-Assets\LoginBackground.xaml;Styles\AddButtonStyle.xaml;Styles\ButtonStyle.xaml;Styles\CloseButtonStyle.xaml;Styles\RadioButtonNoBullet.xaml;Styles\RefreshButtonStyle.xaml;Views\Admin.xaml;Views\Finance.xaml;Views\Login.xaml;Views\MainWindow.xaml;Views\Principal.xaml;Views\Registrar.xaml;Views\Teacher.xaml;
+37287842429
+218-370961119
+Assets\LoginBackground.xaml;Styles\AddButtonStyle.xaml;Styles\ButtonStyle.xaml;Styles\CloseButtonStyle.xaml;Styles\RadioButtonNoBullet.xaml;Styles\RefreshButtonStyle.xaml;Views\Admin.xaml;Views\Finance.xaml;Views\Login.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\Principal.xaml;Views\Registrar.xaml;Views\RegistrarView\RegistrarDashboard.xaml;Views\RegistrarView\RegistrarOfficiallyEnrolled.xaml;Views\RegistrarView\RegistrarRegisterStudent.xaml;Views\RegistrarView\RegistrarReportCard.xaml;Views\RegistrarView\RegistrarRequirements.xaml;Views\RegistrarView\RegistrarStudentRecords.xaml;Views\Teacher.xaml;
 
 True
 
