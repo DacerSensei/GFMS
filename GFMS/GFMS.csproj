@@ -9,14 +9,33 @@
 
   <ItemGroup>
     <None Remove="Assets\Background.png" />
+    <None Remove="Assets\ChangePassword.png" />
+    <None Remove="Assets\ChangePasswordActive.png" />
     <None Remove="Assets\Close.png" />
     <None Remove="Assets\CloseHover.png" />
+    <None Remove="Assets\Dashboard.png" />
+    <None Remove="Assets\DashboardActive.png" />
+    <None Remove="Assets\Enrolled.png" />
+    <None Remove="Assets\EnrolledActive.png" />
     <None Remove="Assets\LoginBackground.svg" />
     <None Remove="Assets\Logo.png" />
+    <None Remove="Assets\MainPageBackground.png" />
     <None Remove="Assets\Maximize.png" />
     <None Remove="Assets\MaximizeHover.png" />
     <None Remove="Assets\Minimize.png" />
     <None Remove="Assets\MinimizeHover.png" />
+    <None Remove="Assets\RecieptPayment.png" />
+    <None Remove="Assets\RecieptPaymentAcitve.png" />
+    <None Remove="Assets\RegisterStudent.png" />
+    <None Remove="Assets\RegisterStudentActive.png" />
+    <None Remove="Assets\ReportCard.png" />
+    <None Remove="Assets\ReportCardActive.png" />
+    <None Remove="Assets\Requirements.png" />
+    <None Remove="Assets\RequirementsActive.png" />
+    <None Remove="Assets\StudentRecords.png" />
+    <None Remove="Assets\StudentRecordsActive.png" />
+    <None Remove="Assets\UsersAccount.png" />
+    <None Remove="Assets\UsersAccountActive.png" />
     <None Remove="Fonts\Poppins-Bold.ttf" />
     <None Remove="Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
@@ -41,13 +60,32 @@
 
   <ItemGroup>
     <Resource Include="Assets\Background.png" />
+    <Resource Include="Assets\ChangePassword.png" />
+    <Resource Include="Assets\ChangePasswordActive.png" />
     <Resource Include="Assets\Close.png" />
     <Resource Include="Assets\CloseHover.png" />
+    <Resource Include="Assets\Dashboard.png" />
+    <Resource Include="Assets\DashboardActive.png" />
+    <Resource Include="Assets\Enrolled.png" />
+    <Resource Include="Assets\EnrolledActive.png" />
     <Resource Include="Assets\Logo.png" />
+    <Resource Include="Assets\MainPageBackground.png" />
     <Resource Include="Assets\Maximize.png" />
     <Resource Include="Assets\MaximizeHover.png" />
     <Resource Include="Assets\Minimize.png" />
     <Resource Include="Assets\MinimizeHover.png" />
+    <Resource Include="Assets\RecieptPayment.png" />
+    <Resource Include="Assets\RecieptPaymentAcitve.png" />
+    <Resource Include="Assets\RegisterStudent.png" />
+    <Resource Include="Assets\RegisterStudentActive.png" />
+    <Resource Include="Assets\ReportCard.png" />
+    <Resource Include="Assets\ReportCardActive.png" />
+    <Resource Include="Assets\Requirements.png" />
+    <Resource Include="Assets\RequirementsActive.png" />
+    <Resource Include="Assets\StudentRecords.png" />
+    <Resource Include="Assets\StudentRecordsActive.png" />
+    <Resource Include="Assets\UsersAccount.png" />
+    <Resource Include="Assets\UsersAccountActive.png" />
     <Resource Include="Fonts\Poppins-Bold.ttf" />
     <Resource Include="Fonts\Poppins-Regular.ttf" />
   </ItemGroup>

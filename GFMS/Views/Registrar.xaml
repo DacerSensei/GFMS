@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GFMS.Views" xmlns:ViewModel="clr-namespace:GFMS.ViewModels"
+             xmlns:local="clr-namespace:GFMS.Views" 
+             xmlns:MyModel="clr-namespace:GFMS.ViewModels"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
              mc:Ignorable="d"
-             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:View="clr-namespace:GFMS.Views.RegistrarView"
              d:DesignHeight="580" d:DesignWidth="1080">
     <UserControl.DataContext>
-        <ViewModel:RegistrarViewModel />
+        <MyModel:RegistrarViewModel />
     </UserControl.DataContext>
     <Grid Background="#212529">
         <Grid.RowDefinitions>
@@ -30,13 +32,48 @@
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding DashboardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
-                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding AnnouncementCommand}" Style="{DynamicResource RadioButtonAnnouncement}"/>
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding OfficiallyEnrolledCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                    </StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RegisterStudentCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                    </StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                    </StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding RequirementsCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
+                    </StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding StudentRecordsCommand}" Style="{DynamicResource RadioButtonDashboard}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
         <Border Grid.Column="1" CornerRadius="25,0,6,0" BorderBrush="White" Margin="25,0,0,0" BorderThickness="0">
             <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type MyModel:MainPageViewModel}">
+                        <local:MainPage />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarDashboardViewModel}">
+                        <View:RegistrarDashboard />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarOfficiallyEnrolledViewModel}">
+                        <View:RegistrarOfficiallyEnrolled />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarRegisterStudentViewModel}">
+                        <View:RegistrarRegisterStudent />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarReportCardViewModel}">
+                        <View:RegistrarReportCard />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarRequirementsViewModel}">
+                        <View:RegistrarRequirements />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:RegistrarStudentRecordsViewModel}">
+                        <View:RegistrarStudentRecords />
+                    </DataTemplate>
+                </ContentControl.Resources>
             </ContentControl>
         </Border>
     </Grid>
