@@ -28,8 +28,8 @@
             <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarGraph}" LegendPosition="Right"></lvc:CartesianChart>
 
             <!-- Row 2 -->
-            <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="4" Series="{Binding BarGraph}" LegendPosition="Right"></lvc:CartesianChart>
-            
+            <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="4" Series="{Binding Series}" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"></lvc:CartesianChart>
+
             <!-- Row 3 -->
             <Border CornerRadius="6" Grid.Row="2" Margin="5">
                 <Border.Effect>
@@ -96,7 +96,7 @@
                 </StackPanel>
             </Border>
 
-           
+
         </Grid>
     </ScrollViewer>
 </UserControl>

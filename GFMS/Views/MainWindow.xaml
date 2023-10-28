@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFMS.Views"
         mc:Ignorable="d"
-        xmlns:ViewModel="clr-namespace:GFMS.ViewModels"
+        xmlns:ViewModel="clr-namespace:GFMS.ViewModels" xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,6 +15,7 @@
         Icon="../Assets/Logo.png"
         Title="GFMS" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize">
+    <md:DialogHost Identifier="RootDialog">
     <Border CornerRadius="6" Background="{StaticResource MaterialDesignPaper}">
         <Grid>
             <Grid.RowDefinitions>
@@ -24,6 +25,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            
+            
             <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type ViewModel:AdminViewModel}">
@@ -79,4 +82,5 @@
             </Grid>
         </Grid>
     </Border>
+    </md:DialogHost>
 </Window>

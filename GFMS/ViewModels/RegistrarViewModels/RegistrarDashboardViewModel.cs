@@ -70,6 +70,39 @@ namespace GFMS.ViewModels.RegistrarViewModels
             return pie;
         }
 
+        public ISeries[] Series { get; set; } =
+    {
+        new LineSeries<double>
+        {
+            Values = new ObservableCollection<double> { 200, 558, 458, 249, 457, 339, 587 },
+        },
+        new LineSeries<double>
+        {
+            Values = new ObservableCollection<double> { 210, 400, 300, 350, 219, 323, 618 },
+        },
+    };
+
+        public Axis[] XAxes { get; set; } =
+    {
+        new Axis
+        {
+            CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
+            CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed, 1),
+            CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
+            Labeler = value => value.ToString("N2")
+        }
+    };
+        public Axis[] YAxes { get; set; } =
+        {
+        new Axis
+        {
+            CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
+            CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed, 1),
+            CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
+            CrosshairSnapEnabled = true // snapping is also supported
+        }
+    };
+
         private enum DataCategory
         {
             PRESCHOOL,
