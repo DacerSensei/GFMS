@@ -167,8 +167,6 @@ namespace GFMS.ViewModels
             {
                 ErrorsViewModel.ClearErrors(nameof(Password));
             }
-
-
         }
 
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;

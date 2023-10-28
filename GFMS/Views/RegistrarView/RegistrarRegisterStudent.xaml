@@ -7,16 +7,21 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <ScrollViewer md:ScrollViewerAssist.IsAutoHideEnabled="True" md:ScrollViewerAssist.BubbleVerticalScroll="True" md:ScrollBarAssist.ThumbWidth="1" Style="{StaticResource MaterialDesignScrollViewer}">
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <ScrollViewer Padding="0,0,5,0" md:ScrollViewerAssist.IsAutoHideEnabled="True" md:ScrollViewerAssist.BubbleVerticalScroll="True" md:ScrollBarAssist.ThumbWidth="1" Style="{StaticResource MaterialDesignScrollViewer}">
         <StackPanel>
-            <ComboBox md:HintAssist.Hint="SELECT SCHOOL LEVEL" Width="256" Margin="10" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                <ComboBoxItem Content="PRE SCHOOL"/>
-                <ComboBoxItem Content="ELEMENTARY" />
-                <ComboBoxItem Content="JUNIOR HIGH SCHOOL" />
-                <ComboBoxItem Content="SENIOR HIGH SCHOOL" />
-            </ComboBox>
-            <md:Card>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10" Text="Register Student" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
+
+                <ComboBox Grid.Row="1" ItemsSource="{Binding GradeLevel}" SelectedItem="{Binding SelectedGradeLevel}" Padding="10" md:HintAssist.Hint="SELECT SCHOOL LEVEL" Width="256" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                <Button Grid.Row="1" Command="{Binding RegisterCommand}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" HorizontalAlignment="Right" Margin="10,0" Height="46">Register Student</Button>
+            </Grid>
+            <md:Card Margin="0,10,0,0">
                 <TabControl HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFilledTabControl}">
                     <TabItem Header="Student and Family">
                         <Grid>
@@ -30,34 +35,33 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.ColumnSpan="2" Margin="10" Text="Student and Family Information" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
                             <StackPanel Grid.Row="1" Margin="15,30,0,30">
-                                <TextBox md:HintAssist.Hint="SCHOOL YEAR" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="LRN" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="LAST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="FIRST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MIDDLE NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NICK NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="ADDRESS" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80"/>
-                                <TextBox md:HintAssist.Hint="BIRTH DATE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MAJOR INTEREST" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NAME OF FATHER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="WORK" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding SchoolYear}" md:HintAssist.Hint="SCHOOL YEAR" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding LRN}" md:HintAssist.Hint="LRN" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding LastName}" md:HintAssist.Hint="LAST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding FirstName}" md:HintAssist.Hint="FIRST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding MiddleName}" md:HintAssist.Hint="MIDDLE NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NickName}" md:HintAssist.Hint="NICK NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding Address}" md:HintAssist.Hint="ADDRESS" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80"/>
+                                <DatePicker Text="{Binding BirthDate}" md:HintAssist.Hint="BIRTH DATE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedDatePicker}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding MajorInterest}" md:HintAssist.Hint="MAJOR INTEREST" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfFather}" md:HintAssist.Hint="NAME OF FATHER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding FatherWork}" md:HintAssist.Hint="WORK" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding FatherMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
 
                             </StackPanel>
                             <StackPanel Grid.Row="1" Margin="0,30,15,30" Grid.Column="1">
-                                <TextBox md:HintAssist.Hint="AGE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="GENDER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="RELIGION" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="BIRTH PLACE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80"/>
-                                <TextBox md:HintAssist.Hint="CITIZENSHIP" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="HEALTH CONDITION ISSUES" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NO. OF SIBLINGS" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="ORDER IN THE FAMILY" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NAME OF MOTHER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="WORK" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-
+                                <TextBox Text="{Binding Age}" md:HintAssist.Hint="AGE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <ComboBox ItemsSource="{Binding SexList}" SelectedItem="{Binding Gender}" md:HintAssist.Hint="GENDER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding MyMobileNumber}" md:HintAssist.Hint="MOBILE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding Religion}" md:HintAssist.Hint="RELIGION" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding BirthPlace}" md:HintAssist.Hint="BIRTH PLACE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80"/>
+                                <TextBox Text="{Binding Citizenship}" md:HintAssist.Hint="CITIZENSHIP" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding HealthIssues}" md:HintAssist.Hint="HEALTH CONDITION ISSUES" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NoOfSiblings}" md:HintAssist.Hint="NO. OF SIBLINGS" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding OrderInFamily}" md:HintAssist.Hint="ORDER IN THE FAMILY" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfMother}" md:HintAssist.Hint="NAME OF MOTHER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding MotherWork}" md:HintAssist.Hint="WORK" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding MotherMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -71,18 +75,19 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="2" Margin="10" Text="Student and Family Information" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
+                            <TextBlock Grid.ColumnSpan="2" Margin="10" Text="Previous School Information" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
                             <StackPanel Grid.Row="1" Margin="15,30,0,30">
-                                <TextBox md:HintAssist.Hint="NAME OF SCHOOL" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NAME OF GUIDANCE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NAME OF PRINCIPAL" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="NAME OF ADVISER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfSchool}" md:HintAssist.Hint="NAME OF SCHOOL" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfGuidance}" md:HintAssist.Hint="NAME OF GUIDANCE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfPrincipal}" md:HintAssist.Hint="NAME OF PRINCIPAL" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding NameOfAdviser}" md:HintAssist.Hint="NAME OF ADVISER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding PrevSchoolAddress}" md:HintAssist.Hint="ADDRESS" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Margin="0,30,15,30" Grid.Column="1">
-                                <TextBox md:HintAssist.Hint="TELEPHONE #" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                <TextBox md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding PrevSchoolMobile}" md:HintAssist.Hint="TELEPHONE #" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding GuidanceMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding PrincipalMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding AdviserMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>

@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFMS.Views.Modals"
              mc:Ignorable="d" 
-             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
+             xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             d:DesignHeight="600"
+             d:DesignWidth="600">
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -16,38 +16,15 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock>New contact:</TextBlock>
-        <TextBox Grid.Row="1"
-             Margin="0,6,0,0"
-             wpf:HintAssist.Hint="Name"
-             FontSize="18"
-             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-        </TextBox>
-        <TextBox Grid.Row="2"
-             Margin="0,8,0,0"
-             wpf:HintAssist.Hint="Number"
-             FontSize="16"
-             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        <StackPanel Grid.Row="3"
-                Margin="0,16,0,0"
-                Orientation="Horizontal">
-            <Button Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
-              IsDefault="True"
-              Style="{StaticResource MaterialDesignFlatButton}">
-                <Button.CommandParameter>
-                    <system:Boolean>True</system:Boolean>
-                </Button.CommandParameter>
-                ACCEPT
-            </Button>
-            <Button Margin="8,0,0,0"
-              Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
-              IsCancel="True"
-              Style="{StaticResource MaterialDesignFlatButton}">
-                <Button.CommandParameter>
-                    <system:Boolean>False</system:Boolean>
-                </Button.CommandParameter>
-                CANCEL
-            </Button>
+        <TextBlock>New Requirement:</TextBlock>
+        <ComboBox Grid.Row="1" md:HintAssist.Hint="Select Requirement" ItemsSource="{Binding RequirementTypes}" SelectedItem="{Binding SelectedRequirement}" Width="256" Margin="10" Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+        <StackPanel Grid.Row="2">
+            <TextBox Margin="20" md:HintAssist.Hint="File Path" Padding="10" Text="{Binding Document}" FontFamily="{StaticResource PoppinsRegular}" IsReadOnly="True" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="80" Width="256"/>
+            <Button Command="{Binding SelectDocumentCommand}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}">Choose File</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="0,16,0,0" Orientation="Horizontal">
+            <Button Command="{Binding AddCommand}" IsDefault="True" Style="{StaticResource MaterialDesignFlatButton}">ADD</Button>
+            <Button  Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource MaterialDesignFlatButton}" Margin="8,0,0,0">CANCEL</Button>
         </StackPanel>
     </Grid>
 </UserControl>
