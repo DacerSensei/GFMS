@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,7 +26,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
     public class RegistrarRegisterStudentViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         private readonly ErrorsViewModel ErrorsViewModel;
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public RegistrarRegisterStudentViewModel()
         {
             ErrorsViewModel = new ErrorsViewModel();
@@ -80,6 +80,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             {
                 ValidateGradeLevel();
                 ValidateAll();
+
+                Debug.WriteLine($"My age = {Age} And the BirthDate is {BirthDate}");
                 if (ErrorsViewModel.HasErrors)
                 {
                     return;
@@ -91,10 +93,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ImageSource ProfilePicture
         {
             get { return _profilePicture; }
-            set 
+            set
             {
                 if (_profilePicture == value) return;
-                _profilePicture = value; 
+                _profilePicture = value;
                 OnPropertyChanged(nameof(ProfilePicture));
             }
         }
@@ -247,7 +249,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 ErrorsViewModel.ClearErrors(nameof(Religion));
             }
 
-            if (string.IsNullOrWhiteSpace(BirthDate))
+            if (BirthDate == null)
             {
                 ErrorsViewModel.AddError(nameof(BirthDate), "This field is cannot be empty");
             }
@@ -431,8 +433,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _selectedGradeLevel;
-        public string SelectedGradeLevel
+        private string? _selectedGradeLevel;
+        public string? SelectedGradeLevel
         {
             get { return _selectedGradeLevel; }
             set
@@ -448,10 +450,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private void ChangeClassList(string value)
+        private void ChangeClassList(string? value)
         {
             ClassLevelList.Clear();
-            switch (value.ToUpper())
+            switch (value!.ToUpper())
             {
                 case "PRE SCHOOL":
                     ClassLevelList.Add("TOODLER");
@@ -492,8 +494,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _schoolYear;
-        public string SchoolYear
+        private string? _schoolYear;
+        public string? SchoolYear
         {
             get { return _schoolYear; }
             set
@@ -507,8 +509,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _lrn;
-        public string LRN
+        private string? _lrn;
+        public string? LRN
         {
             get { return _lrn; }
             set
@@ -522,8 +524,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _lastName;
-        public string LastName
+        private string? _lastName;
+        public string? LastName
         {
             get { return _lastName; }
             set
@@ -537,8 +539,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _firstName;
-        public string FirstName
+        private string? _firstName;
+        public string? FirstName
         {
             get { return _firstName; }
             set
@@ -552,8 +554,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _middleName;
-        public string MiddleName
+        private string? _middleName;
+        public string? MiddleName
         {
             get { return _middleName; }
             set
@@ -567,8 +569,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nickName;
-        public string NickName
+        private string? _nickName;
+        public string? NickName
         {
             get { return _nickName; }
             set
@@ -582,8 +584,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _address;
-        public string Address
+        private string? _address;
+        public string? Address
         {
             get { return _address; }
             set
@@ -597,8 +599,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _birthPlace;
-        public string BirthPlace
+        private string? _birthPlace;
+        public string? BirthPlace
         {
             get { return _birthPlace; }
             set
@@ -612,8 +614,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _majorInterest;
-        public string MajorInterest
+        private string? _majorInterest;
+        public string? MajorInterest
         {
             get { return _majorInterest; }
             set
@@ -627,8 +629,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nameOfFather;
-        public string NameOfFather
+        private string? _nameOfFather;
+        public string? NameOfFather
         {
             get { return _nameOfFather; }
             set
@@ -642,8 +644,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nameOfMother;
-        public string NameOfMother
+        private string? _nameOfMother;
+        public string? NameOfMother
         {
             get { return _nameOfMother; }
             set
@@ -657,10 +659,27 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _age;
-        public string Age
+        private string? _age;
+        public string? Age
         {
-            get { return _age; }
+            get
+            {
+                if (BirthDate != null)
+                {
+                    DateTime today = DateTime.Today;
+                    int ageValue = today.Year - BirthDate.Value.Year;
+                    if (BirthDate.Value.Date > today.AddYears(-ageValue))
+                    {
+                        ageValue--;
+                    }
+                    _age = ageValue.ToString();
+                }
+                else
+                {
+                    _age = string.Empty;
+                }
+                return _age;
+            }
             set
             {
                 if (value == _age)
@@ -672,8 +691,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _gender;
-        public string Gender
+        private string? _gender;
+        public string? Gender
         {
             get { return _gender; }
             set
@@ -687,8 +706,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _myMobileNumber;
-        public string MyMobileNumber
+        private string? _myMobileNumber;
+        public string? MyMobileNumber
         {
             get { return _myMobileNumber; }
             set
@@ -702,8 +721,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _religion;
-        public string Religion
+        private string? _religion;
+        public string? Religion
         {
             get { return _religion; }
             set
@@ -717,8 +736,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _birthDate = DateTime.Now.ToString();
-        public string BirthDate
+        private DateTime? _birthDate = DateTime.Now;
+        public DateTime? BirthDate
         {
             get { return _birthDate; }
             set
@@ -729,11 +748,12 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 }
                 _birthDate = value;
                 OnPropertyChanged(nameof(BirthDate));
+                OnPropertyChanged(nameof(Age));
             }
         }
 
-        private string _citizenship;
-        public string Citizenship
+        private string? _citizenship;
+        public string? Citizenship
         {
             get { return _citizenship; }
             set
@@ -747,8 +767,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _healthIssues;
-        public string HealthIssues
+        private string? _healthIssues;
+        public string? HealthIssues
         {
             get { return _healthIssues; }
             set
@@ -762,8 +782,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _noOfSiblings;
-        public string NoOfSiblings
+        private string? _noOfSiblings;
+        public string? NoOfSiblings
         {
             get { return _noOfSiblings; }
             set
@@ -777,8 +797,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _orderInFamily;
-        public string OrderInFamily
+        private string? _orderInFamily;
+        public string? OrderInFamily
         {
             get { return _orderInFamily; }
             set
@@ -792,8 +812,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _fatherWork;
-        public string FatherWork
+        private string? _fatherWork;
+        public string? FatherWork
         {
             get { return _fatherWork; }
             set
@@ -807,8 +827,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _motherWork;
-        public string MotherWork
+        private string? _motherWork;
+        public string? MotherWork
         {
             get { return _motherWork; }
             set
@@ -822,8 +842,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _classLevel;
-        public string ClassLevel
+        private string? _classLevel;
+        public string? ClassLevel
         {
             get { return _classLevel; }
             set
@@ -837,8 +857,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _fatherMobile;
-        public string FatherMobile
+        private string? _fatherMobile;
+        public string? FatherMobile
         {
             get { return _fatherMobile; }
             set
@@ -852,8 +872,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _motherMobile;
-        public string MotherMobile
+        private string? _motherMobile;
+        public string? MotherMobile
         {
             get { return _motherMobile; }
             set
@@ -868,8 +888,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
         }
 
         // This part is the previous School
-        private string _nameOfSchool;
-        public string NameOfSchool
+        private string? _nameOfSchool;
+        public string? NameOfSchool
         {
             get { return _nameOfSchool; }
             set
@@ -883,8 +903,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nameOfGuidance;
-        public string NameOfGuidance
+        private string? _nameOfGuidance;
+        public string? NameOfGuidance
         {
             get { return _nameOfGuidance; }
             set
@@ -898,8 +918,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nameOfPrincipal;
-        public string NameOfPrincipal
+        private string? _nameOfPrincipal;
+        public string? NameOfPrincipal
         {
             get { return _nameOfPrincipal; }
             set
@@ -913,8 +933,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _nameOfAdviser;
-        public string NameOfAdviser
+        private string? _nameOfAdviser;
+        public string? NameOfAdviser
         {
             get { return _nameOfAdviser; }
             set
@@ -928,8 +948,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _prevSchoolAddress;
-        public string PrevSchoolAddress
+        private string? _prevSchoolAddress;
+        public string? PrevSchoolAddress
         {
             get { return _prevSchoolAddress; }
             set
@@ -943,8 +963,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _prevSchoolMobile;
-        public string PrevSchoolMobile
+        private string? _prevSchoolMobile;
+        public string? PrevSchoolMobile
         {
             get { return _prevSchoolMobile; }
             set
@@ -958,8 +978,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _guidanceMobile;
-        public string GuidanceMobile
+        private string? _guidanceMobile;
+        public string? GuidanceMobile
         {
             get { return _guidanceMobile; }
             set
@@ -973,8 +993,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _principalMobile;
-        public string PrincipalMobile
+        private string? _principalMobile;
+        public string? PrincipalMobile
         {
             get { return _principalMobile; }
             set
@@ -988,8 +1008,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string _adviserMobile;
-        public string AdviserMobile
+        private string? _adviserMobile;
+        public string? AdviserMobile
         {
             get { return _adviserMobile; }
             set
