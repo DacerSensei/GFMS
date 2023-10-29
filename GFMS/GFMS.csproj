@@ -68,7 +68,9 @@
     <Resource Include="Assets\DashboardActive.png" />
     <Resource Include="Assets\Enrolled.png" />
     <Resource Include="Assets\EnrolledActive.png" />
-    <Resource Include="Assets\Logo.png" />
+    <Resource Include="Assets\Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\MainPageBackground.png" />
     <Resource Include="Assets\Maximize.png" />
     <Resource Include="Assets\MaximizeHover.png" />

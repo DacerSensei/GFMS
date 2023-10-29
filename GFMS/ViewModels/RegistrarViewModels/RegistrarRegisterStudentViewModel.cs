@@ -5,16 +5,20 @@ using GFMS.ViewModels.Modals;
 using GFMS.Views.Modals;
 using GFMSLibrary;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -30,6 +34,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             {
                 "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL"
             };
+            ClassLevelList = new ObservableCollection<string>();
             SexList = new ObservableCollection<string>()
             {
                 "MALE", "FEMALE"
@@ -62,6 +67,15 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     }
                 }
             });
+            ChangePictureCommand = new Command(obj =>
+            {
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                fileDialog.Filter = "Choose Picture(*.jpg;*.png)|*.jpg;*png";
+                if (fileDialog.ShowDialog() == true)
+                {
+                    ProfilePicture = new BitmapImage(new Uri(fileDialog.FileName));
+                }
+            });
             RegisterCommand = new Command(obj =>
             {
                 ValidateGradeLevel();
@@ -73,12 +87,27 @@ namespace GFMS.ViewModels.RegistrarViewModels
             });
         }
 
+        private ImageSource _profilePicture = new BitmapImage(new Uri("pack://application:,,,/GFMS;component/Assets/Logo.png"));
+        public ImageSource ProfilePicture
+        {
+            get { return _profilePicture; }
+            set 
+            {
+                if (_profilePicture == value) return;
+                _profilePicture = value; 
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
+
+
         public ICommand DeleteCommand { get; }
         public ICommand AddCommand { get; }
         public ICommand RegisterCommand { get; }
+        public ICommand ChangePictureCommand { get; }
 
         public static ObservableCollection<Requirement>? RequirementList { get; set; }
         public ObservableCollection<string> GradeLevel { get; set; }
+        public ObservableCollection<string> ClassLevelList { get; set; }
         public ObservableCollection<string> SexList { get; set; }
 
         private void ValidateAll()
@@ -408,9 +437,58 @@ namespace GFMS.ViewModels.RegistrarViewModels
             get { return _selectedGradeLevel; }
             set
             {
+                if (value == _selectedGradeLevel)
+                {
+                    return;
+                }
                 _selectedGradeLevel = value;
                 ValidateGradeLevel();
+                ChangeClassList(value);
                 OnPropertyChanged(nameof(SelectedGradeLevel));
+            }
+        }
+
+        private void ChangeClassList(string value)
+        {
+            ClassLevelList.Clear();
+            switch (value.ToUpper())
+            {
+                case "PRE SCHOOL":
+                    ClassLevelList.Add("TOODLER");
+                    ClassLevelList.Add("NURSERY");
+                    ClassLevelList.Add("KINDER 1");
+                    ClassLevelList.Add("KINDER 2");
+                    break;
+                case "ELEMENTARY":
+                    {
+                        ClassLevelList.Add("Grade 1");
+                        ClassLevelList.Add("Grade 2");
+                        ClassLevelList.Add("Grade 3");
+                        ClassLevelList.Add("Grade 4");
+                        ClassLevelList.Add("Grade 5");
+                        ClassLevelList.Add("Grade 6");
+                        break;
+                    }
+                case "JUNIOR HIGH SCHOOL":
+                    {
+                        ClassLevelList.Add("Grade 7");
+                        ClassLevelList.Add("Grade 8");
+                        ClassLevelList.Add("Grade 9");
+                        ClassLevelList.Add("Grade 10");
+                        break;
+                    }
+                case "SENIOR HIGH SCHOOL":
+                    {
+                        ClassLevelList.Add("Grade 11 - ABM");
+                        ClassLevelList.Add("Grade 11 - HUMSS");
+                        ClassLevelList.Add("Grade 11 - STEM");
+                        ClassLevelList.Add("Grade 11 - GA");
+                        ClassLevelList.Add("Grade 12 - ABM");
+                        ClassLevelList.Add("Grade 12 - HUMMS");
+                        ClassLevelList.Add("Grade 12 - STEM");
+                        ClassLevelList.Add("Grade 12 - GAS");
+                        break;
+                    }
             }
         }
 
