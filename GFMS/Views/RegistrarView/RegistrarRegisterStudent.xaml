@@ -9,11 +9,8 @@
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:System="clr-namespace:System;assembly=mscorlib">
-    <UserControl.DataContext>
-        <ViewModel:RegistrarRegisterStudentViewModel />
-    </UserControl.DataContext>
     <ScrollViewer Grid.Row="2" md:ScrollViewerAssist.BubbleVerticalScroll="False" md:ScrollViewerAssist.IsAutoHideEnabled="True">
-        <StackPanel>
+        <StackPanel x:Name="Form">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -63,7 +60,7 @@
                                 <TextBox Text="{Binding FatherMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Margin="0,0,15,30" Grid.Column="1">
-                                <TextBox Text="{Binding Age}" md:HintAssist.Hint="AGE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding Age}" md:HintAssist.Hint="AGE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" IsReadOnly="True"/>
                                 <ComboBox ItemsSource="{Binding SexList}" SelectedItem="{Binding Gender}" md:HintAssist.Hint="GENDER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontFamily="{StaticResource PoppinsRegular}" md:HintAssist.FloatingOffset="0,-17.1"/>
                                 <TextBox Text="{Binding MyMobileNumber}" md:HintAssist.Hint="MOBILE" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
                                 <TextBox Text="{Binding Religion}" md:HintAssist.Hint="RELIGION" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>

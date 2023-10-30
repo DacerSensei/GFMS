@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveChartsCore.Kernel.Sketches;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,6 +49,11 @@ namespace GFMS.ViewModels
                 errors.Remove(propertyName);
                 OnErrorsChanged(propertyName);
             }
+        }
+
+        public void ClearErrors()
+        {
+            errors.Clear();
         }
     }
 }

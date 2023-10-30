@@ -31,5 +31,11 @@ namespace GFMSLibrary
             DataProcessor processor = new DataProcessor();
             return processor.CreateDataQueryAsync(data, tableName).Result;
         }
+
+        public bool RegisterStudent<T>(T data, string tableName) where T : class, new()
+        {
+            DataProcessor processor = new DataProcessor();
+            return processor.CreateDataQueryAsync(data, tableName).Result;
+        }
     }
 }

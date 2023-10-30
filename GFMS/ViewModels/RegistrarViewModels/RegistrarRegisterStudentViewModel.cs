@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -76,17 +77,93 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     ProfilePicture = new BitmapImage(new Uri(fileDialog.FileName));
                 }
             });
-            RegisterCommand = new Command(obj =>
+            RegisterCommand = new Command(async obj =>
             {
                 ValidateGradeLevel();
                 ValidateAll();
-
-                Debug.WriteLine($"My age = {Age} And the BirthDate is {BirthDate}");
                 if (ErrorsViewModel.HasErrors)
                 {
                     return;
                 }
+                Student request = new Student
+                {
+                    LRN = LRN,
+                    LastName = LastName,
+                    FirstName = FirstName,
+                    MiddleName = MiddleName,
+                    NickName = NickName,
+                    Address = Address,
+                    BirthPlace = BirthPlace,
+                    Gender = Gender,
+                    Mobile = MyMobileNumber,
+                    Religion = Religion,
+                    Birthdate = BirthDate!.Value.Date.ToString("MM/dd/yyyy"),
+                    Citizenship = Citizenship,
+                    Siblings = NoOfSiblings,
+                    OrderFamily = OrderInFamily,
+                    Interest = MajorInterest,
+                    Health = HealthIssues,
+                    Father_name = NameOfFather,
+                    Father_work = FatherWork,
+                    Father_mobile = FatherMobile,
+                    Mother_name = NameOfMother,
+                    Mother_work = MotherWork,
+                    Mother_mobile = MotherMobile
+                };
+                LoginCredentials credentials = new LoginCredentials();
+                if (credentials.RegisterStudent(request, "student"))
+                {
+                    MessageDialog Dialog = new MessageDialog("Notice", "Student Registered Successfully");
+                    await DialogHost.Show(Dialog, "RootDialog");
+                    ClearForm();
+                }
+                else
+                {
+                    Debug.WriteLine("Student Failed");
+                }
+
             });
+        }
+
+        private void ClearForm()
+        {
+            SelectedGradeLevel = null;
+            SchoolYear = string.Empty;
+            LRN = string.Empty;
+            LastName = string.Empty;
+            FirstName = string.Empty;
+            MiddleName = string.Empty;
+            NickName = string.Empty;
+            Address = string.Empty;
+            BirthPlace = string.Empty;
+            MajorInterest = string.Empty;
+            NameOfFather = string.Empty;
+            NameOfMother = string.Empty;
+            Gender = null;
+            MyMobileNumber = string.Empty;
+            Religion = string.Empty;
+            Citizenship = string.Empty;
+            HealthIssues = string.Empty;
+            NoOfSiblings = string.Empty;
+            OrderInFamily = string.Empty;
+            FatherWork = string.Empty;
+            MotherWork = string.Empty;
+            ClassLevel = string.Empty;
+            FatherMobile = string.Empty;
+            MotherMobile = string.Empty;
+            NameOfSchool = string.Empty;
+            NameOfGuidance = string.Empty;
+            NameOfPrincipal = string.Empty;
+            NameOfAdviser = string.Empty;
+            PrevSchoolAddress = string.Empty;
+            PrevSchoolMobile = string.Empty;
+            GuidanceMobile = string.Empty;
+            PrincipalMobile = string.Empty;
+            AdviserMobile = string.Empty;
+            BirthDate = DateTime.Now;
+            ErrorsViewModel.ClearErrors(nameof(SelectedGradeLevel));
+            ErrorsViewModel.ClearErrors(nameof(Gender));
+            RequirementList!.Clear();
         }
 
         private ImageSource _profilePicture = new BitmapImage(new Uri("pack://application:,,,/GFMS;component/Assets/Logo.png"));
@@ -453,7 +530,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private void ChangeClassList(string? value)
         {
             ClassLevelList.Clear();
-            switch (value!.ToUpper())
+            if (value == null) return;
+            switch (value.ToUpper())
             {
                 case "PRE SCHOOL":
                     ClassLevelList.Add("TOODLER");
@@ -491,6 +569,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                         ClassLevelList.Add("Grade 12 - GAS");
                         break;
                     }
+                default: break;
             }
         }
 

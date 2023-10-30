@@ -92,4 +92,10 @@
     <Resource Include="Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\Modals\MessageDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
