@@ -12,6 +12,12 @@ namespace GFMSLibrary
 {
     public class LoginCredentials
     {
+        private DataProcessor processor;
+        public LoginCredentials()
+        {
+            processor = new DataProcessor();
+
+        }
         public T Login<T>(string username, string password, string tableName) where T : class, new()
         {
             DataProcessor processor = new DataProcessor();
@@ -36,6 +42,16 @@ namespace GFMSLibrary
         {
             DataProcessor processor = new DataProcessor();
             return processor.CreateDataQueryAsync(data, tableName).Result;
+        }
+
+        public async Task<bool> RegisterStudentAsync<T>(T data, string tableName) where T : class, new()
+        {
+            return await processor.CreateDataQueryAsync(data, tableName);
+        }
+
+        public long GetLastInsertedId()
+        {
+            return processor.LastInsertedId;
         }
     }
 }

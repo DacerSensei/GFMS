@@ -46,7 +46,7 @@
                                 <ComboBox Grid.Row="1" ItemsSource="{Binding ClassLevelList}" SelectedItem="{Binding ClassLevel}" Padding="10" Margin="12" md:HintAssist.Hint="SELECT CLASS" Width="256" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                             </StackPanel>
                             <StackPanel Grid.Row="2" Margin="15,0,0,30">
-                                <TextBox Text="{Binding SchoolYear}" md:HintAssist.Hint="SCHOOL YEAR" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                <TextBox Text="{Binding SchoolYear}" md:HintAssist.Hint="SCHOOL YEAR" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" IsReadOnly="True"/>
                                 <TextBox Text="{Binding LRN}" md:HintAssist.Hint="LRN" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
                                 <TextBox Text="{Binding LastName}" md:HintAssist.Hint="LAST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                                 <TextBox Text="{Binding FirstName}" md:HintAssist.Hint="FIRST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
@@ -127,11 +127,11 @@
                                 </Grid>
                             </Border>
                             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden" Margin="10,0">
-                                <ItemsControl ItemsSource="{Binding RequirementList}" x:Name="MyList" MinHeight="200">
+                                <ItemsControl ItemsSource="{Binding RequirementList}" x:Name="MyList" MinHeight="200" Background="#f6f7fb">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <ContentControl>
-                                                <StackPanel Cursor="Hand" >
+                                                <StackPanel MouseLeftButtonUp="DataHighlight"  Cursor="Hand" >
                                                     <Grid Height="60">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="2*"/>
@@ -170,6 +170,7 @@
                                     </ItemsControl.Style>
                                 </ItemsControl>
                             </ScrollViewer>
+
                         </Grid>
                     </TabItem>
                 </TabControl>

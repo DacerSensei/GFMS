@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Transactions;
 using GFMSLibrary.Config;
@@ -100,6 +101,24 @@ namespace GFMSLibrary.Generics
             return list;
         }
 
+        private long _lastInsertedId;
+        internal long LastInsertedId
+        {
+            get
+            {
+                long value = _lastInsertedId;
+                _lastInsertedId = 0;
+                return value;
+            }
+            private set
+            {
+                if (_lastInsertedId != value)
+                {
+                    _lastInsertedId = value;
+                }
+            }
+        }
+
         public async Task<bool> CreateDataQueryAsync<Data>(Data data, string tableName) where Data : class
         {
             StringBuilder query = new StringBuilder();
@@ -123,6 +142,7 @@ namespace GFMSLibrary.Generics
                         command.Parameters.AddWithValue($"@{dataProperties[i].Name.ToLower()}", dataProperties[i].GetValue(data)?.ToString());
                     }
                     int rowsAffected = await command.ExecuteNonQueryAsync();
+                    LastInsertedId = command.LastInsertedId;
                     await command.Connection!.DisposeAsync();
                     if (rowsAffected > 0)
                     {

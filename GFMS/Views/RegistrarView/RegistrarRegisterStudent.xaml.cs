@@ -31,5 +31,21 @@ namespace GFMS.Views.RegistrarView
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private StackPanel? PreviousHighlight = null;
+        private void DataHighlight(object sender, MouseButtonEventArgs e)
+        {
+            if (PreviousHighlight == null)
+            {
+                PreviousHighlight = sender as StackPanel;
+            }
+            else
+            {
+                PreviousHighlight.Background = new SolidColorBrush(Colors.White);
+                PreviousHighlight = sender as StackPanel;
+            }
+            var ObjectSender = (StackPanel)sender;
+            ObjectSender.Background = new SolidColorBrush(Color.FromRgb(173, 216, 255));
+        }
     }
 }

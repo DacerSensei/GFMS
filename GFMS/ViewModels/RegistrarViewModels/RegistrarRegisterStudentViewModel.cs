@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -111,8 +112,63 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     Mother_mobile = MotherMobile
                 };
                 LoginCredentials credentials = new LoginCredentials();
-                if (credentials.RegisterStudent(request, "student"))
+                if (await credentials.RegisterStudentAsync(request, "student"))
                 {
+                    List<Task> taskList = new List<Task>();
+                    string Id = credentials.GetLastInsertedId().ToString();
+                    PreviousSchool school = new PreviousSchool()
+                    {
+                        student_id = Id,
+                        school_name = NameOfSchool,
+                        school_address = PrevSchoolAddress,
+                        school_mobile = PrevSchoolMobile,
+                        guidance_name = NameOfGuidance,
+                        guidance_mobile = GuidanceMobile,
+                        principal_name = NameOfPrincipal,
+                        principal_mobile = PrincipalMobile,
+                        adviser_name = NameOfAdviser,
+                        adviser_mobile = AdviserMobile,
+                    };
+                    taskList.Add(Task.Run(async () =>
+                    {
+                        await credentials.RegisterStudentAsync(school, "previous_school");
+                    }));
+
+                    if (ProfilePicture is BitmapSource bitmapSource)
+                    {
+                        // Create an encoder to encode the BitmapSource to a memory stream
+                        BitmapEncoder encoder = new PngBitmapEncoder(); // You can choose a different format if needed
+
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            encoder.Save(ms);
+                            byte[] img = ms.ToArray();
+                            Registration registration = new Registration()
+                            {
+                                Student_Id = Id,
+                                Year = SchoolYear,
+                                Registration_Date = DateTime.Now.ToString("MM/dd/yyyy"),
+                                Grade = ClassLevel,
+                                Pic = img.ToString(),
+                                Status = "0"
+                            };
+                            taskList.Add(Task.Run(async () =>
+                            {
+                                await credentials.RegisterStudentAsync(registration, "registration");
+                            }));
+                        }
+                    }
+                    foreach (var item in RequirementList)
+                    {
+                        item.Student_ID = Convert.ToInt32(Id);
+                        taskList.Add(Task.Run(async () =>
+                        {
+                            await credentials.RegisterStudentAsync(item, "student_requirements");
+                        }));
+                    }
+                    await Task.WhenAll(taskList);
                     MessageDialog Dialog = new MessageDialog("Notice", "Student Registered Successfully");
                     await DialogHost.Show(Dialog, "RootDialog");
                     ClearForm();
@@ -161,6 +217,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             PrincipalMobile = string.Empty;
             AdviserMobile = string.Empty;
             BirthDate = DateTime.Now;
+            ProfilePicture = new BitmapImage(new Uri("pack://application:,,,/GFMS;component/Assets/Logo.png"));
             ErrorsViewModel.ClearErrors(nameof(SelectedGradeLevel));
             ErrorsViewModel.ClearErrors(nameof(Gender));
             RequirementList!.Clear();
@@ -573,7 +630,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string? _schoolYear;
+        private string? _schoolYear = "2023-2024";
         public string? SchoolYear
         {
             get { return _schoolYear; }
