@@ -99,6 +99,9 @@
     <Compile Update="Views\Modals\MessageDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Modals\EditOfficiallyEnrolled.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Modals\RequirementListDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

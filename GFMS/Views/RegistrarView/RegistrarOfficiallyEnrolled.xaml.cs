@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,22 @@ namespace GFMS.Views.RegistrarView
         public RegistrarOfficiallyEnrolled()
         {
             InitializeComponent();
+        }
+
+        private StackPanel? PreviousHighlight = null;
+        private void DataHighlight(object sender, MouseButtonEventArgs e)
+        {
+            if (PreviousHighlight == null)
+            {
+                PreviousHighlight = sender as StackPanel;
+            }
+            else
+            {
+                PreviousHighlight.Background = new SolidColorBrush(Colors.White);
+                PreviousHighlight = sender as StackPanel;
+            }
+            var ObjectSender = (StackPanel)sender;
+            ObjectSender.Background = new SolidColorBrush(Color.FromRgb(173, 216, 255));
         }
     }
 }

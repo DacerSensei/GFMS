@@ -69,6 +69,9 @@
     <Page Update="Views\Modals\MessageDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Modals\EditOfficiallyEnrolled.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Modals\RequirementListDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

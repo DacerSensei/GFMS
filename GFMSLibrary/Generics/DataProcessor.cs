@@ -82,6 +82,10 @@ namespace GFMSLibrary.Generics
                                 {
                                     dataProperties[propertyIndex].SetValue(data, (int)dbValue);
                                 }
+                                else if (dbValue.GetType() == typeof(byte[]))
+                                {
+                                    dataProperties[propertyIndex].SetValue(data, dbValue.ToString());
+                                }
                                 else
                                 {
                                     dataProperties[propertyIndex].SetValue(data, Convert.ChangeType(dbValue, dataProperties[propertyIndex].PropertyType));

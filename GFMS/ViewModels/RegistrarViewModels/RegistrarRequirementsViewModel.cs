@@ -70,10 +70,5 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<StudentRequirements> StudentList { get; set; } = new ObservableCollection<StudentRequirements>();
 
         public ICommand ViewCommand { get; }
-
-        private class Where
-        {
-            public int student_id { get; set; }
-        }
     }
 }
