@@ -16,71 +16,71 @@
         Title="GFMS" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize">
     <md:DialogHost Identifier="RootDialog">
-    <Border CornerRadius="6" Background="{StaticResource MaterialDesignPaper}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            
-            <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type ViewModel:AdminViewModel}">
-                        <local:Admin />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type ViewModel:FinanceViewModel}">
-                        <local:Finance />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type ViewModel:PrincipalViewModel}">
-                        <local:Principal />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type ViewModel:RegistrarViewModel}">
-                        <local:Registrar />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type ViewModel:TeacherViewModel}">
-                        <local:Teacher />
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
-
-            <Grid Grid.ColumnSpan="2" Height="50" HorizontalAlignment="Stretch" Margin="0" Background="#fafafa">
+        <Border CornerRadius="6" Background="{StaticResource MaterialDesignPaper}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <Image Margin="25,0,0,0" Source="../Assets/Logo.png" Height="30" Width="30"/>
-                    <Label Content="Grading and Finance Management Information System" Foreground="Black" FontFamily="{StaticResource PoppinsRegular}" FontWeight="Bold" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel  Grid.Column="1" Orientation="Horizontal">
-                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <Button BorderThickness="0" Style="{DynamicResource MinimizeButtonStyle}" Command="{Binding MinimizeCommand}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Assets/Minimize.png" Stretch="Fill"/>
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <Button BorderThickness="0" Style="{DynamicResource MaximizeButtonStyle}" Command="{Binding MaximizeCommand}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Assets/Maximize.png" Stretch="Fill"/>
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <Button BorderThickness="0" Style="{DynamicResource CloseButtonStyle}" Command="{Binding CloseCommand}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Assets/Close.png" Stretch="Fill"/>
-                            </Button.Background>
-                        </Button>
-                    </Border>
-                </StackPanel>
+
+
+                <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type ViewModel:AdminViewModel}">
+                            <local:Admin />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type ViewModel:FinanceViewModel}">
+                            <local:Finance />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type ViewModel:PrincipalViewModel}">
+                            <local:Principal />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type ViewModel:RegistrarViewModel}">
+                            <local:Registrar />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type ViewModel:TeacherViewModel}">
+                            <local:Teacher />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+
+                <Grid Grid.ColumnSpan="2" Height="50" HorizontalAlignment="Stretch" Margin="0" Background="#fafafa">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="25,0,0,0" Source="../Assets/Logo.png" Height="30" Width="30"/>
+                        <Label Content="Grading and Finance Management Information System" Foreground="Black" FontFamily="{StaticResource PoppinsRegular}" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel  Grid.Column="1" Orientation="Horizontal">
+                        <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Button BorderThickness="0" Style="{DynamicResource MinimizeButtonStyle}" Command="{Binding MinimizeCommand}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Assets/Minimize.png" Stretch="Fill"/>
+                                </Button.Background>
+                            </Button>
+                        </Border>
+                        <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Button BorderThickness="0" Style="{DynamicResource MaximizeButtonStyle}" Command="{Binding MaximizeCommand}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Assets/Maximize.png" Stretch="Fill"/>
+                                </Button.Background>
+                            </Button>
+                        </Border>
+                        <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Button BorderThickness="0" Style="{DynamicResource CloseButtonStyle}" Command="{Binding CloseCommand}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Assets/Close.png" Stretch="Fill"/>
+                                </Button.Background>
+                            </Button>
+                        </Border>
+                    </StackPanel>
+                </Grid>
             </Grid>
-        </Grid>
-    </Border>
+        </Border>
     </md:DialogHost>
 </Window>

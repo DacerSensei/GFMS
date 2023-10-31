@@ -170,7 +170,6 @@
                                     </ItemsControl.Style>
                                 </ItemsControl>
                             </ScrollViewer>
-
                         </Grid>
                     </TabItem>
                 </TabControl>

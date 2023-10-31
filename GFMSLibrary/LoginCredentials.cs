@@ -3,7 +3,9 @@ using GFMSLibrary.Static;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +20,7 @@ namespace GFMSLibrary
             processor = new DataProcessor();
 
         }
-        public T Login<T>(string username, string password, string tableName) where T : class, new()
+        public async Task<T> Login<T>(string username, string password, string tableName) where T : class, new()
         {
             DataProcessor processor = new DataProcessor();
             StringBuilder query = new StringBuilder();
@@ -28,7 +30,7 @@ namespace GFMSLibrary
             MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@password", password);
-            List<T> user = processor.GetDataQueryAsync<T>(command).Result;
+            List<T> user = await processor.GetDataQueryAsync<T>(command);
             return user.Count > 0 && user[0] != null ? user[0] : null! ;
         }
 
@@ -52,6 +54,37 @@ namespace GFMSLibrary
         public long GetLastInsertedId()
         {
             return processor.LastInsertedId;
+        }
+
+        public async Task<List<T>> GetAllDataAsync<T>(string tableName) where T : class, new()
+        {
+            DataProcessor processor = new DataProcessor();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT * FROM ");
+            query.Append(tableName);
+            MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
+            return await processor.GetDataQueryAsync<T>(command);
+        }
+
+        public async Task<List<T>> GetAllDataAsync<T, Where>(string tableName, Where wheres) where T : class, new()
+        {
+            PropertyInfo[] whereProperties = typeof(Where).GetProperties();
+            List<string> whereClauses = whereProperties
+                    .Select(property => $"{property.Name.ToLower()} = @{property.Name.ToLower()}")
+                    .ToList();
+            DataProcessor processor = new DataProcessor();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT * FROM ");
+            query.Append(tableName);
+            query.Append(" WHERE ");
+            query.Append(string.Join(" AND ", whereClauses));
+            Debug.WriteLine(query.ToString());
+            MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
+            for (int i = 0; i < whereProperties.Length; i++)
+            {
+                command.Parameters.AddWithValue($"@{whereProperties[i].Name.ToLower()}", whereProperties[i].GetValue(wheres)?.ToString());
+            }
+            return await processor.GetDataQueryAsync<T>(command);
         }
     }
 }

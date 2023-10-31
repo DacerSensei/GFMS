@@ -36,7 +36,7 @@ namespace GFMS.ViewModels
             {
                 if (_loginCommand == null)
                 {
-                    _loginCommand = new Command(obj =>
+                    _loginCommand = new Command(async obj =>
                     {
                         ValidateUsername();
                         ValidatePassword();
@@ -45,7 +45,7 @@ namespace GFMS.ViewModels
                             return;
                         }
                         LoginCredentials credentials = new LoginCredentials();
-                        Users user = credentials.Login<Users>(Username!, Password!, "users");
+                        Users user = await credentials.Login<Users>(Username!, Password!, "users");
                         if (user != null)
                         {
                             AccountType type;
