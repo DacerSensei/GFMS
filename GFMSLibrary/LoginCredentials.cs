@@ -86,5 +86,10 @@ namespace GFMSLibrary
             }
             return await processor.GetDataQueryAsync<T>(command);
         }
+
+        public async Task<bool> DeleteDataAsync<TWhere>(string tableName, TWhere where) where TWhere : class
+        {
+            return await processor.DeleteDataQueryAsync(where, tableName);
+        }
     }
 }

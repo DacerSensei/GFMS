@@ -38,14 +38,16 @@
                 <Border CornerRadius="10,10,0,0" Background="#d32f2f">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="LRN" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Last Name" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="First Name" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Requirements" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Actions" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                     </Grid>
                 </Border>
@@ -58,15 +60,17 @@
                                         <StackPanel MouseLeftButtonUp="DataHighlight"  Cursor="Hand" >
                                             <Grid Height="60">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="1.5*"/>
                                                     <ColumnDefinition Width="2*"/>
                                                     <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="1.5*"/>
                                                     <ColumnDefinition Width="1*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Label Grid.Column="0" Content="{Binding LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <Label Grid.Column="1" Content="{Binding LastName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <Label Grid.Column="2" Content="{Binding FirstName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Label Grid.Column="0" Content="{Binding Student.LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="1" Content="{Binding Student.LastName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="2" Content="{Binding Student.FirstName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="3" Content="{Binding Status}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
+                                                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ViewCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="View Requirement">
                                                         <md:PackIcon Kind="Folder" Height="24" Width="24" />
                                                     </Button>

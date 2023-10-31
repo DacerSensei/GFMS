@@ -214,5 +214,43 @@ namespace GFMSLibrary.Generics
                 return false;
             }
         }
+
+        public async Task<bool> DeleteDataQueryAsync<Where>(Where wheres, string tableName) where Where : class
+        {
+            StringBuilder query = new StringBuilder();
+            ConnectionConfiguration configuration = new ConnectionConfiguration();
+            query.Append($"DELETE FROM {tableName} WHERE ");
+            try
+            {
+                PropertyInfo[] whereProperties = typeof(Where).GetProperties();
+
+                List<string> whereClauses = whereProperties
+                    .Select(property => $"{property.Name.ToLower()} = @{property.Name.ToLower()}")
+                    .ToList();
+                query.Append(string.Join(" AND ", whereClauses));
+                using (MySqlCommand command = new MySqlCommand(query.ToString(), configuration.Connection))
+                {
+                    for (int i = 0; i < whereProperties.Length; i++)
+                    {
+                        command.Parameters.AddWithValue($"@{whereProperties[i].Name.ToLower()}", whereProperties[i].GetValue(wheres)?.ToString());
+                    }
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    await command.Connection!.DisposeAsync();
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

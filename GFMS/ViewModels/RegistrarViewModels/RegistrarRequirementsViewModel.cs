@@ -21,28 +21,53 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public RegistrarRequirementsViewModel()
         {
             LoadAll();
-            ViewCommand = new Command(async obj =>
+            ViewCommand = new Command(obj =>
             {
-                Student? student = obj as Student;
+                StudentRequirements? student = obj as StudentRequirements;
                 if (student != null)
                 {
-                    List<Requirement> list = await Credentials.GetAllDataAsync<Requirement, Where>("student_requirements", new Where { student_id = student.id });
-                    RequirementListDialog Dialog = new RequirementListDialog(list);
-                    Dialog.ShowDialog();
+                    RequirementListDialog Dialog = new RequirementListDialog(student.Requirement!, student.Student!.id.ToString());
+                    if(Dialog.ShowDialog() == true)
+                    {
+                        LoadAll();
+                    }
                 }
             });
         }
 
         private async void LoadAll()
         {
-            var list = await Credentials.GetAllDataAsync<Student>("student");
-            foreach (var student in list )
+            StudentList.Clear();
+            var studentList = await Credentials.GetAllDataAsync<Student>("student");
+            var requirementList = await Credentials.GetAllDataAsync<Requirement>("student_requirements");
+
+            foreach (var student in studentList)
             {
-                StudentList.Add(student);
+                // Find the requirements associated with the current student using the Student_ID
+                var studentRequirements = new StudentRequirements
+                {
+                    Student = student,
+                };
+
+                var requirements = requirementList.Where(r => r.Student_ID == student.id).ToList();
+                studentRequirements.Requirement = requirements;
+                if (requirements.Count == 9)
+                {
+                    studentRequirements.Status = "Completed";
+                    studentRequirements.StatusColor = "#3dc03c";
+                }
+                else
+                {
+                    studentRequirements.Status = $"Missing {9 - requirements.Count}";
+                    studentRequirements.StatusColor = "#fe3839";
+                }
+
+                // Add the StudentRequirements instance to the ObservableCollection
+                StudentList.Add(studentRequirements);
             }
         }
 
-        public ObservableCollection<Student> StudentList { get; set; } = new ObservableCollection<Student>();
+        public ObservableCollection<StudentRequirements> StudentList { get; set; } = new ObservableCollection<StudentRequirements>();
 
         public ICommand ViewCommand { get; }
 
