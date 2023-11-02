@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -146,8 +147,9 @@ namespace GFMS.ViewModels.RegistrarViewModels
                                 Student_Id = Id,
                                 Year = SchoolYear,
                                 Registration_Date = DateTime.Now.ToString("MM/dd/yyyy"),
+                                Level = SelectedGradeLevel,
                                 Grade = ClassLevel,
-                                Pic = img.ToString(),
+                                Pic = Convert.ToBase64String(img),
                                 Status = "0"
                             };
                             taskList.Add(Task.Run(async () =>

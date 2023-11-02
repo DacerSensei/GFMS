@@ -51,6 +51,11 @@ namespace GFMSLibrary
             return await processor.CreateDataQueryAsync(data, tableName);
         }
 
+        public async Task<bool> UpdateStudentAsync<TData, TWhere>(TData data, TWhere wheres , string tableName) where TData : class, new()
+        {
+            return await processor.UpdateDataQueryAsync(data, wheres, tableName);
+        }
+
         public long GetLastInsertedId()
         {
             return processor.LastInsertedId;

@@ -17,10 +17,12 @@ namespace GFMS.ViewModels.RegistrarViewModels
     {
         public RegistrarDashboardViewModel()
         {
+
             PieGraph.Add(CreatePieSeries("Pre School", new[] { 2 }, DataCategory.PRESCHOOL));
             PieGraph.Add(CreatePieSeries("Elementary", new[] { 4 }, DataCategory.ELEMENTARY));
             PieGraph.Add(CreatePieSeries("Junior High School", new[] { 7 }, DataCategory.JUNIOR));
             PieGraph.Add(CreatePieSeries("Senior High School", new[] { 1 }, DataCategory.SENIOR));
+
             BarGraph.Add(CreateBarSeries("Senior High School", new[] { 4, 5, 1, 6 }, DataCategory.SENIOR));
         }
 

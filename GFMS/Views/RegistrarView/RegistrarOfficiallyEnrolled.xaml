@@ -71,7 +71,7 @@
                                                 <Label Grid.Column="2" Content="{Binding Student.FirstName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <Label Grid.Column="3" Content="{Binding Status}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button Background="#ffb302" BorderBrush="#ffb302" Command="{Binding Source={x:Reference MyList}, Path=DataContext.EditCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="View Requirement">
+                                                    <Button Background="#ffb302" BorderBrush="#ffb302" Command="{Binding Source={x:Reference MyList}, Path=DataContext.EditCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Edit Student">
                                                         <md:PackIcon Kind="Pencil" Height="24" Width="24" />
                                                     </Button>
                                                 </StackPanel>

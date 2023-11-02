@@ -4,19 +4,24 @@ using GFMS.ViewModels;
 using GFMS.ViewModels.Modals;
 using GFMSLibrary;
 using MaterialDesignThemes.Wpf;
+using SharpVectors.Dom.Svg;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GFMS.Views.Modals
 {
@@ -28,12 +33,18 @@ namespace GFMS.Views.Modals
         private readonly ErrorsViewModel ErrorsViewModel;
         public string StudentID;
 
-        public EditOfficiallyEnrolled(List<Requirement> requirementList, string Id)
+        public EditOfficiallyEnrolled(RegisteredStudent student)
         {
             InitializeComponent();
             ErrorsViewModel = new ErrorsViewModel();
             ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
-            StudentID = Id;
+            ClassLevelList = new ObservableCollection<string>();
+            ChangeClassList(student.Registration.Level);
+            SexList = new ObservableCollection<string>()
+            {
+                "MALE", "FEMALE"
+            };
+            FillForm(student);
             SaveCommand = new Command(async obj =>
             {
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure?"), "SecondaryDialog");
@@ -43,8 +54,52 @@ namespace GFMS.Views.Modals
                 }
                 List<Task> taskList = new List<Task>();
                 LoginCredentials credentials = new LoginCredentials();
-                await credentials.DeleteDataAsync("student_requirements", new { student_id = StudentID});
-                /////////////////////////
+                Student request = new Student
+                {
+                    LRN = LRN,
+                    LastName = LastName,
+                    FirstName = FirstName,
+                    MiddleName = MiddleName,
+                    NickName = NickName,
+                    Address = Address,
+                    BirthPlace = BirthPlace,
+                    Gender = Gender,
+                    Mobile = MyMobileNumber,
+                    Religion = Religion,
+                    Birthdate = BirthDate!.Value.Date.ToString("MM/dd/yyyy"),
+                    Citizenship = Citizenship,
+                    Siblings = NoOfSiblings,
+                    OrderFamily = OrderInFamily,
+                    Interest = MajorInterest,
+                    Health = HealthIssues,
+                    Father_name = NameOfFather,
+                    Father_work = FatherWork,
+                    Father_mobile = FatherMobile,
+                    Mother_name = NameOfMother,
+                    Mother_work = MotherWork,
+                    Mother_mobile = MotherMobile
+                };
+                NewPreviousSchool previousSchool = new NewPreviousSchool()
+                {
+                    school_name = NameOfSchool,
+                    school_address = PrevSchoolAddress,
+                    school_mobile = PrevSchoolMobile,
+                    guidance_name = NameOfGuidance,
+                    guidance_mobile = GuidanceMobile,
+                    principal_name = NameOfPrincipal,
+                    principal_mobile = PrincipalMobile,
+                    adviser_name = NameOfAdviser,
+                    adviser_mobile = AdviserMobile
+                };
+                string Id = credentials.GetLastInsertedId().ToString();
+                taskList.Add(Task.Run(async () =>
+                {
+                    await credentials.UpdateStudentAsync(previousSchool, new { id = student.PreviousSchool!.id }, "previous_school");
+                }));
+                taskList.Add(Task.Run(async () =>
+                {
+                    await credentials.UpdateStudentAsync(request, new { id = student.Student!.id }, "student");
+                }));
                 await Task.WhenAll(taskList);
                 DialogResult = true;
                 Close();
@@ -57,11 +112,109 @@ namespace GFMS.Views.Modals
             DataContext = this;
         }
 
+        private void FillForm(RegisteredStudent student)
+        {
+            SchoolYear = student.Registration!.Year;
+            LRN = student.Student!.LRN;
+            LastName = student.Student.LastName;
+            FirstName = student.Student.FirstName;
+            MiddleName = student.Student.MiddleName;
+            NickName = student.Student.NickName;
+            Address = student.Student.Address;
+            BirthPlace = student.Student.BirthPlace;
+            MajorInterest = student.Student.Interest;
+            NameOfFather = student.Student.Father_name;
+            NameOfMother = student.Student.Mother_name;
+            Gender = student.Student.Gender;
+            MyMobileNumber = student.Student.Mobile;
+            Religion = student.Student.Religion;
+            Citizenship = student.Student.Citizenship;
+            HealthIssues = student.Student.Health;
+            NoOfSiblings = student.Student.Siblings;
+            OrderInFamily = student.Student.OrderFamily;
+            FatherWork = student.Student.Father_work;
+            MotherWork = student.Student.Mother_work;
+            ClassLevel = student.Registration.Grade;
+            FatherMobile = student.Student.Father_mobile;
+            MotherMobile = student.Student.Mother_mobile;
+            NameOfSchool = student.PreviousSchool!.school_name;
+            NameOfGuidance = student.PreviousSchool.guidance_name;
+            NameOfPrincipal = student.PreviousSchool.principal_name;
+            NameOfAdviser = student.PreviousSchool.adviser_name;
+            PrevSchoolAddress = student.PreviousSchool.school_address;
+            PrevSchoolMobile = student.PreviousSchool.school_mobile;
+            GuidanceMobile = student.PreviousSchool.guidance_mobile;
+            PrincipalMobile = student.PreviousSchool.principal_mobile;
+            AdviserMobile = student.PreviousSchool.adviser_mobile;
+            BirthDate = DateTime.Parse(student.Student.Birthdate!);
+            ProfilePicture = StringToImageSource(student.Registration.Pic!);
+        }
+
+        private ImageSource _profilePicture;
+        public ImageSource ProfilePicture
+        {
+            get { return _profilePicture; }
+            set
+            {
+                if (_profilePicture == value) return;
+                _profilePicture = value;
+                OnPropertyChanged(nameof(ProfilePicture));
+            }
+        }
+
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
+        public ObservableCollection<string> ClassLevelList { get; set; }
+        public ObservableCollection<string> SexList { get; set; }
 
-        private string? _schoolYear = "2023-2024";
+        private void ChangeClassList(string? value)
+        {
+            ClassLevelList.Clear();
+            if (value == null) return;
+            switch (value.ToUpper())
+            {
+                case "PRE SCHOOL":
+                    ClassLevelList.Add("TOODLER");
+                    ClassLevelList.Add("NURSERY");
+                    ClassLevelList.Add("KINDER 1");
+                    ClassLevelList.Add("KINDER 2");
+                    break;
+                case "ELEMENTARY":
+                    {
+                        ClassLevelList.Add("Grade 1");
+                        ClassLevelList.Add("Grade 2");
+                        ClassLevelList.Add("Grade 3");
+                        ClassLevelList.Add("Grade 4");
+                        ClassLevelList.Add("Grade 5");
+                        ClassLevelList.Add("Grade 6");
+                        break;
+                    }
+                case "JUNIOR HIGH SCHOOL":
+                    {
+                        ClassLevelList.Add("Grade 7");
+                        ClassLevelList.Add("Grade 8");
+                        ClassLevelList.Add("Grade 9");
+                        ClassLevelList.Add("Grade 10");
+                        break;
+                    }
+                case "SENIOR HIGH SCHOOL":
+                    {
+                        ClassLevelList.Add("Grade 11 - ABM");
+                        ClassLevelList.Add("Grade 11 - HUMSS");
+                        ClassLevelList.Add("Grade 11 - STEM");
+                        ClassLevelList.Add("Grade 11 - GA");
+                        ClassLevelList.Add("Grade 12 - ABM");
+                        ClassLevelList.Add("Grade 12 - HUMMS");
+                        ClassLevelList.Add("Grade 12 - STEM");
+                        ClassLevelList.Add("Grade 12 - GAS");
+                        break;
+                    }
+                default: break;
+            }
+        }
+
+        private string? _schoolYear;
         public string? SchoolYear
         {
             get { return _schoolYear; }
@@ -618,6 +771,43 @@ namespace GFMS.Views.Modals
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private ImageSource StringToImageSource(string imageString)
+        {
+            try
+            {
+                byte[] imageBytes = Convert.FromBase64String(imageString);
+
+                using (MemoryStream ms = new MemoryStream(imageBytes))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+
+                    return bitmapImage;
+                }
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Error converting base64 string: " + ex.Message);
+                return null;
+            }
+        }
+
+        private class NewPreviousSchool
+        {
+            public string? school_name { get; set; }
+            public string? school_address { get; set; }
+            public string? school_mobile { get; set; }
+            public string? guidance_name { get; set; }
+            public string? guidance_mobile { get; set; }
+            public string? principal_name { get; set; }
+            public string? principal_mobile { get; set; }
+            public string? adviser_name { get; set; }
+            public string? adviser_mobile { get; set; }
         }
     }
 }

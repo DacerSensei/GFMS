@@ -39,7 +39,20 @@ namespace GFMSLibrary.Generics
 
                             if (propertyIndex != -1)
                             {
-                                dataProperties[propertyIndex].SetValue(data, Convert.ChangeType(reader.GetValue(i), dataProperties[propertyIndex].PropertyType));
+                                object dbValue = reader.GetValue(i);
+
+                                if (dataProperties[propertyIndex].PropertyType == typeof(int?))
+                                {
+                                    dataProperties[propertyIndex].SetValue(data, (int)dbValue);
+                                }
+                                else if (dbValue.GetType() == typeof(byte[]))
+                                {
+                                    dataProperties[propertyIndex].SetValue(data, Encoding.UTF8.GetString((byte[])dbValue));
+                                }
+                                else
+                                {
+                                    dataProperties[propertyIndex].SetValue(data, Convert.ChangeType(dbValue, dataProperties[propertyIndex].PropertyType));
+                                }
                             }
                         }
 
@@ -84,7 +97,7 @@ namespace GFMSLibrary.Generics
                                 }
                                 else if (dbValue.GetType() == typeof(byte[]))
                                 {
-                                    dataProperties[propertyIndex].SetValue(data, dbValue.ToString());
+                                    dataProperties[propertyIndex].SetValue(data, Encoding.UTF8.GetString((byte[])dbValue));
                                 }
                                 else
                                 {

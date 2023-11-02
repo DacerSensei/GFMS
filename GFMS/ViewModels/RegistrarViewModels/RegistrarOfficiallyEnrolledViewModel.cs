@@ -1,6 +1,7 @@
 ﻿using GFMS.Commands;
 using GFMS.Core;
 using GFMS.Models;
+using GFMS.Views.Modals;
 using GFMSLibrary;
 using System;
 using System.Collections.ObjectModel;
@@ -18,6 +19,11 @@ namespace GFMS.ViewModels.RegistrarViewModels
             EditCommand = new Command(obj =>
             {
                 RegisteredStudent? student = obj as RegisteredStudent;
+                EditOfficiallyEnrolled window = new EditOfficiallyEnrolled(student!);
+                if (window.ShowDialog() == true)
+                {
+                    LoadAll();
+                }
             });
         }
 
