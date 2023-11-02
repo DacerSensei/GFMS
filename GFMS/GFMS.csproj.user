@@ -10,6 +10,15 @@
     <Compile Update="Views\Admin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\AdminView\AdminChangePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminView\AdminDashboard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AdminView\AdminUsersAccount.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Finance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +61,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Admin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminView\AdminChangePassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminView\AdminDashboard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AdminView\AdminUsersAccount.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Finance.xaml">

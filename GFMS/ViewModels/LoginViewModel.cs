@@ -17,6 +17,8 @@ using System.Runtime.CompilerServices;
 using GFMS.Views;
 using System.Threading.Channels;
 using GFMS.Enum;
+using GFMS.Views.Modals;
+using MaterialDesignThemes.Wpf;
 
 namespace GFMS.ViewModels
 {
@@ -48,33 +50,46 @@ namespace GFMS.ViewModels
                         Users user = await credentials.Login<Users>(Username!, Password!, "users");
                         if (user != null)
                         {
-                            AccountType type;
-                            if (user.Usertype!.ToUpper() == AccountType.ADMIN.ToString())
+                            if (user.Status != 0)
                             {
-                                type = AccountType.ADMIN;
-                            }else if(user.Usertype!.ToUpper() == AccountType.FINANCE.ToString())
-                            {
-                                type = AccountType.FINANCE;
-                            }else if(user.Usertype!.ToUpper() == AccountType.PRINCIPAL.ToString())
-                            {
-                                type = AccountType.PRINCIPAL;
-                            }else if(user.Usertype!.ToUpper() == AccountType.REGISTRAR.ToString())
-                            {
-                                type = AccountType.REGISTRAR;
-                            }else if(user.Usertype!.ToUpper() == AccountType.TEACHER.ToString())
-                            {
-                                type = AccountType.TEACHER;
+                                AccountType type;
+                                if (user.Usertype!.ToUpper() == AccountType.ADMIN.ToString())
+                                {
+                                    type = AccountType.ADMIN;
+                                }
+                                else if (user.Usertype!.ToUpper() == AccountType.FINANCE.ToString())
+                                {
+                                    type = AccountType.FINANCE;
+                                }
+                                else if (user.Usertype!.ToUpper() == AccountType.PRINCIPAL.ToString())
+                                {
+                                    type = AccountType.PRINCIPAL;
+                                }
+                                else if (user.Usertype!.ToUpper() == AccountType.REGISTRAR.ToString())
+                                {
+                                    type = AccountType.REGISTRAR;
+                                }
+                                else if (user.Usertype!.ToUpper() == AccountType.TEACHER.ToString())
+                                {
+                                    type = AccountType.TEACHER;
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                                MainWindow window = new MainWindow(type);
+                                window.Show();
+                                Application.Current.MainWindow.Close();
                             }else
                             {
+                                var result = await DialogHost.Show(new MessageDialog("Oops!", "Your account has been deactivated please contact admin"), "RootDialog");
                                 return;
                             }
-                            MainWindow window = new MainWindow(type);
-                            window.Show();
-                            Application.Current.MainWindow.Close();
                         }
                         else
                         {
-                            Debug.WriteLine("Wrong Password");
+                            var result = await DialogHost.Show(new MessageDialog("Oops!", "Username or Password is Incorrect"), "RootDialog");
+                            return;
                         }
                     });
                 }
@@ -131,7 +146,7 @@ namespace GFMS.ViewModels
                     return;
                 }
                 _password = value;
-                if(!string.IsNullOrWhiteSpace(Password))
+                if (!string.IsNullOrWhiteSpace(Password))
                 {
                     ErrorsViewModel.ClearErrors(nameof(Password));
                 }
@@ -151,7 +166,7 @@ namespace GFMS.ViewModels
                 ErrorsViewModel.AddError(nameof(Username), "Username cannot be empty.");
             }
             else
-            {   
+            {
                 ErrorsViewModel.ClearErrors(nameof(Username));
             }
 

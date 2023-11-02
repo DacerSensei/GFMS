@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFMS.Views" 
+             mc:Ignorable="d"
              xmlns:MyModel="clr-namespace:GFMS.ViewModels"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
-             mc:Ignorable="d"
-             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:View="clr-namespace:GFMS.Views.RegistrarView"
+             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:View="clr-namespace:GFMS.Views.RegistrarView"
              d:DesignHeight="580" d:DesignWidth="1080">
     <UserControl.DataContext>
         <MyModel:RegistrarViewModel />

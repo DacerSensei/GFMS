@@ -17,48 +17,50 @@
     <Window.DataContext>
         <ViewModel:LoginViewModel />
     </Window.DataContext>
-    <Border CornerRadius="6" Background="{StaticResource MaterialDesignPaper}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2" HorizontalAlignment="Right" CornerRadius="10">
-                <Image>
-                    <Image.Source>
-                        <DrawingImage Drawing="{StaticResource LoginBackgroundDrawingGroup}" />
-                    </Image.Source>
-                </Image>
-            </Border>
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <Border CornerRadius="6" Background="{StaticResource MaterialDesignPaper}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2" HorizontalAlignment="Right" CornerRadius="10">
+                    <Image>
+                        <Image.Source>
+                            <DrawingImage Drawing="{StaticResource LoginBackgroundDrawingGroup}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
 
-            <StackPanel VerticalAlignment="Center" Margin="50">
-                <Label Content="Hello," FontFamily="{StaticResource PoppinsBold}" FontSize="40" HorizontalContentAlignment="Center"/>
-                <Label Content="Sign in to your account" FontFamily="{StaticResource PoppinsRegular}" HorizontalContentAlignment="Center"/>
-                <TextBox FontSize="14" Margin="0,30,0,5" Padding="12,12,12,8" materialDesign:HintAssist.Foreground="#d32f2f" materialDesign:HintAssist.Hint="Username" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <StackPanel VerticalAlignment="Center" Margin="50">
+                    <Label Content="Hello," FontFamily="{StaticResource PoppinsBold}" FontSize="40" HorizontalContentAlignment="Center"/>
+                    <Label Content="Sign in to your account" FontFamily="{StaticResource PoppinsRegular}" HorizontalContentAlignment="Center"/>
+                    <TextBox FontSize="14" Margin="0,30,0,5" Padding="12,12,12,8" materialDesign:HintAssist.Foreground="#d32f2f" materialDesign:HintAssist.Hint="Username" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                <PasswordBox FontSize="14" Margin="0,20" Padding="12,12,12,8" materialDesign:HintAssist.Foreground="#d32f2f" materialDesign:HintAssist.Hint="Password" Name="Password" 
+                    <PasswordBox FontSize="14" Margin="0,20" Padding="12,12,12,8" materialDesign:HintAssist.Foreground="#d32f2f" materialDesign:HintAssist.Hint="Password" Name="Password" 
                              materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
-                <TextBlock Text="Forgot Password" TextDecorations="Underline" FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Foreground="#d32f2f"/>
+                    <TextBlock Text="Forgot Password" TextDecorations="Underline" FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Foreground="#d32f2f"/>
 
-                <Button Command="{Binding LoginCommand}" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Login" Margin="100,50,100,2.5" Style="{StaticResource MaterialDesignFlatDarkBgButton}" FontFamily="{StaticResource PoppinsBold}"/>
-                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Command="{Binding LoginCommand}" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Login" Margin="100,50,100,2.5" Style="{StaticResource MaterialDesignFlatDarkBgButton}" FontFamily="{StaticResource PoppinsBold}"/>
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                     <TextBlock Text="Don't have an Account? " FontSize="14" FontFamily="{StaticResource PoppinsRegular}"/>
                     <TextBlock Text="Create" FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Foreground="#d32f2f"/>
                 </StackPanel>-->
 
-            </StackPanel>
+                </StackPanel>
 
 
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50" Grid.Column="1">
-                <Image Source="/Assets/Logo.png" Height="150" Margin="10"/>
-                <TextBlock TextAlignment="Center" FontSize="24" Text="Grading and Finance Management" FontFamily="{StaticResource PoppinsBold}"/>
-                <TextBlock TextAlignment="Center" FontSize="24" Text="Information System" FontFamily="{StaticResource PoppinsBold}"/>
-            </StackPanel>
-        </Grid>
-    </Border>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50" Grid.Column="1">
+                    <Image Source="/Assets/Logo.png" Height="150" Margin="10"/>
+                    <TextBlock TextAlignment="Center" FontSize="24" Text="Grading and Finance Management" FontFamily="{StaticResource PoppinsBold}"/>
+                    <TextBlock TextAlignment="Center" FontSize="24" Text="Information System" FontFamily="{StaticResource PoppinsBold}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
 </Window>
