@@ -8,9 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <UserControl.DataContext>
-        <ViewModel:RegistrarRequirementsViewModel />
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,8 +22,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2" Text="Requirements List" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
-            <TextBox md:HintAssist.Hint="Search Student" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
+            <TextBlock Grid.ColumnSpan="2" Text="REQUIREMENT LIST" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
+            <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Student" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
         </Grid>
         <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
             <Grid>
@@ -34,7 +31,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <Border CornerRadius="10,10,0,0" Background="#d32f2f">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -45,8 +41,8 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="LRN" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
-                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Last Name" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
-                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="First Name" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Student Name" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Contact" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Requirements" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Actions" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                     </Grid>
@@ -67,8 +63,8 @@
                                                     <ColumnDefinition Width="1*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Label Grid.Column="0" Content="{Binding Student.LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <Label Grid.Column="1" Content="{Binding Student.LastName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <Label Grid.Column="2" Content="{Binding Student.FirstName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="1" Content="{Binding StudentName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="2" Content="{Binding Student.Mobile}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <Label Grid.Column="3" Content="{Binding Status}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ViewCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="View Requirement">

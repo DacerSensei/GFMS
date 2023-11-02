@@ -5,8 +5,100 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFMS.Views.RegistrarView"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.DataContext>
+        <ViewModel:RegistrarReportCardViewModel />
+    </UserControl.DataContext>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Text="REPORT CARD" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
+            <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Student" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
+        </Grid>
+        <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border CornerRadius="10,10,0,0" Background="#d32f2f">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="LRN" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Student Name" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Grade Level" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Class Level" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                        <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Actions" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    </Grid>
+                </Border>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl ItemsSource="{Binding StudentList}" x:Name="MyList" MinHeight="200">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <md:Card Margin="2">
+                                        <StackPanel MouseLeftButtonUp="DataHighlight"  Cursor="Hand" >
+                                            <Grid Height="60">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1.5*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="1.5*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Content="{Binding Student.LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="1" Content="{Binding StudentName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="2" Content="{Binding Registration.Grade}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                                <Label Grid.Column="3" Content="{Binding Registration.Level}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
+                                                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ViewCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Edit Student">
+                                                        <md:PackIcon Kind="Account" Height="24" Width="24" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </md:Card>
+                                </ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Style>
+                            <Style TargetType="ItemsControl">
+                                <Style.Triggers>
+                                    <Trigger Property="HasItems" Value="false">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBlock Text="Empty Student" FontFamily="{StaticResource PoppinsBold}" TextAlignment="Center" VerticalAlignment="Center"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </md:Card>
     </Grid>
 </UserControl>
