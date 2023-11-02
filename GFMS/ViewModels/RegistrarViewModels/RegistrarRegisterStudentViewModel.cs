@@ -182,7 +182,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private void ClearForm()
         {
             SelectedGradeLevel = null;
-            SchoolYear = string.Empty;
             LRN = string.Empty;
             LastName = string.Empty;
             FirstName = string.Empty;
@@ -628,7 +627,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string? _schoolYear = "2023-2024";
+        private string? _schoolYear = "2024-2025";
         public string? SchoolYear
         {
             get { return _schoolYear; }
