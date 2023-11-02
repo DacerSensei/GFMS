@@ -1,6 +1,7 @@
 ﻿using GFMS.Commands;
 using GFMS.Core;
 using GFMS.Enum;
+using GFMS.Models;
 using GFMS.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +29,11 @@ namespace GFMS.Views
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public MainWindow(AccountType accountType)
+        public static Users? User;
+        public MainWindow(AccountType accountType, Users user)
         {
             InitializeComponent();
+            User = user;
             switch (accountType)
             {
                 case AccountType.ADMIN:

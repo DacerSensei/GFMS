@@ -19,6 +19,8 @@ using System.Threading.Channels;
 using GFMS.Enum;
 using GFMS.Views.Modals;
 using MaterialDesignThemes.Wpf;
+using System.Threading;
+using System.Security.Principal;
 
 namespace GFMS.ViewModels
 {
@@ -77,7 +79,8 @@ namespace GFMS.ViewModels
                                 {
                                     return;
                                 }
-                                MainWindow window = new MainWindow(type);
+                                
+                                MainWindow window = new MainWindow(type, user);
                                 window.Show();
                                 Application.Current.MainWindow.Close();
                             }else
