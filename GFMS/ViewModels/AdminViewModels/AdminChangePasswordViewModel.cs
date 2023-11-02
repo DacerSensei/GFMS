@@ -39,7 +39,7 @@ namespace GFMS.ViewModels.AdminViewModels
                 }
                 await Credentials.UpdateStudentAsync(new Request { password = NewPassword }, new { id = MainWindow.User!.Id }, "users");
                 MainWindow.User.Password = NewPassword;
-                var result = await DialogHost.Show(new MessageDialog("Oops!", "Your password has been successfully changed"), "RootDialog");
+                var result = await DialogHost.Show(new MessageDialog("Notice!", "Your password has been successfully changed"), "RootDialog");
                 OldPassword = string.Empty;
                 NewPassword = string.Empty;
                 RetypePassword = string.Empty;
@@ -52,7 +52,7 @@ namespace GFMS.ViewModels.AdminViewModels
         {
             if (string.IsNullOrWhiteSpace(OldPassword))
             {
-                ErrorsViewModel.AddError(nameof(OldPassword), "Password cannot be empty");
+                ErrorsViewModel.AddError(nameof(OldPassword), "Old password cannot be empty");
             }
             else if (OldPassword != MainWindow.User!.Password)
             {
@@ -68,7 +68,7 @@ namespace GFMS.ViewModels.AdminViewModels
         {
             if (string.IsNullOrWhiteSpace(NewPassword))
             {
-                ErrorsViewModel.AddError(nameof(NewPassword), "Password cannot be empty");
+                ErrorsViewModel.AddError(nameof(NewPassword), "New password cannot be empty");
             }
             else
             {
@@ -80,7 +80,7 @@ namespace GFMS.ViewModels.AdminViewModels
         {
             if (string.IsNullOrWhiteSpace(RetypePassword))
             {
-                ErrorsViewModel.AddError(nameof(RetypePassword), "Password cannot be empty");
+                ErrorsViewModel.AddError(nameof(RetypePassword), "Re-type password cannot be empty");
             }
             else if (NewPassword != RetypePassword)
             {

@@ -29,16 +29,22 @@ namespace GFMS.ViewModels
             {
                 CurrentView = ChangePasswordView;
             });
+            CreateAccountCommand = new Command(action =>
+            {
+                CurrentView = CreateAccountView;
+            });
         }
 
         public ICommand DashboardCommand { get; }
         public ICommand UsersAccountCommand { get; }
         public ICommand ChangePasswordCommand { get; }
+        public ICommand CreateAccountCommand { get; }
 
         private readonly MainPageViewModel MainPageView = new();
         private readonly AdminDashboardViewModel DashboardView = new();
         private readonly AdminUsersAccountViewModel UsersAccountView = new();
         private readonly AdminChangePasswordViewModel ChangePasswordView = new();
+        private readonly AdminCreateAccountViewModel CreateAccountView = new();
 
         public ICommand LogoutCommand { get; }
 

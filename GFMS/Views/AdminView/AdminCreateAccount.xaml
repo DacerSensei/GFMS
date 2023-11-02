@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="GFMS.Views.AdminView.AdminCreateAccount"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GFMS.Views.AdminView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels.AdminViewModels"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.DataContext>
+        <ViewModel:AdminCreateAccountViewModel />
+    </UserControl.DataContext>
+    <md:Card UniformCornerRadius="10" md:ElevationAssist.Elevation="Dp5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.ColumnSpan="2">
+                <Label Content="Hello," FontFamily="{StaticResource PoppinsBold}" FontSize="40" HorizontalContentAlignment="Center"/>
+                <Label Content="Create your account" FontFamily="{StaticResource PoppinsRegular}" HorizontalContentAlignment="Center"/>
+                <ComboBox Visibility="{Binding IsTeacher}" ItemsSource="{Binding GradeList}" Width="300" Margin="0,20,0,5" SelectedItem="{Binding SelectedGrade}" md:HintAssist.Hint="Grade Level" Padding="10" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontFamily="{StaticResource PoppinsRegular}" md:HintAssist.FloatingOffset="0,-17.1"/>
+
+            </StackPanel>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="25">
+                <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Email" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Username" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <PasswordBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Password" Name="Password" 
+                             md:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="25">
+                <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="First Name" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Last Name" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                <ComboBox ItemsSource="{Binding TypeList}" Margin="0,20,0,5" SelectedItem="{Binding SelectedType}" md:HintAssist.Hint="Account Type" Padding="10" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontFamily="{StaticResource PoppinsRegular}" md:HintAssist.FloatingOffset="0,-17.1"/>
+
+            </StackPanel>
+            <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding ChangePasswordCommand}" Height="40" md:ButtonAssist.CornerRadius="10" Content="Create Account" Margin="100,0,100,25" Style="{StaticResource MaterialDesignFlatDarkBgButton}" FontFamily="{StaticResource PoppinsBold}"/>
+        </Grid>
+    </md:Card>
+</UserControl>

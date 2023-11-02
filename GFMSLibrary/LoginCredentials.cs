@@ -47,6 +47,32 @@ namespace GFMSLibrary
             return user.Count > 0 && user[0] != null ? user[0] : null!;
         }
 
+        public async Task<T> GetByEmailAsync<T>(string email, string tableName) where T : class, new()
+        {
+            DataProcessor processor = new DataProcessor();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT * FROM ");
+            query.Append(tableName);
+            query.Append(" WHERE email = @email");
+            MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
+            command.Parameters.AddWithValue("@email", email);
+            List<T> user = await processor.GetDataQueryAsync<T>(command);
+            return user.Count > 0 && user[0] != null ? user[0] : null!;
+        }
+
+        public async Task<T> GetByUsernameAsync<T>(string username, string tableName) where T : class, new()
+        {
+            DataProcessor processor = new DataProcessor();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT * FROM ");
+            query.Append(tableName);
+            query.Append(" WHERE username = @username");
+            MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
+            command.Parameters.AddWithValue("@username", username);
+            List<T> user = await processor.GetDataQueryAsync<T>(command);
+            return user.Count > 0 && user[0] != null ? user[0] : null!;
+        }
+
         public bool Register<T>(T data, string tableName) where T : class, new()
         {
             DataProcessor processor = new DataProcessor();

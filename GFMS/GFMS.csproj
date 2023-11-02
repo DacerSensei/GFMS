@@ -13,6 +13,8 @@
     <None Remove="Assets\ChangePasswordActive.png" />
     <None Remove="Assets\Close.png" />
     <None Remove="Assets\CloseHover.png" />
+    <None Remove="Assets\CreateAccount.png" />
+    <None Remove="Assets\CreateAccountActive.png" />
     <None Remove="Assets\Dashboard.png" />
     <None Remove="Assets\DashboardActive.png" />
     <None Remove="Assets\Enrolled.png" />
@@ -64,6 +66,8 @@
     <Resource Include="Assets\ChangePasswordActive.png" />
     <Resource Include="Assets\Close.png" />
     <Resource Include="Assets\CloseHover.png" />
+    <Resource Include="Assets\CreateAccount.png" />
+    <Resource Include="Assets\CreateAccountActive.png" />
     <Resource Include="Assets\Dashboard.png" />
     <Resource Include="Assets\DashboardActive.png" />
     <Resource Include="Assets\Enrolled.png" />
