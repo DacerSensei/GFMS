@@ -17,6 +17,7 @@ using Microsoft.VisualBasic;
 using System.Windows.Input;
 using GFMS.Commands;
 using System.Diagnostics;
+using System.Drawing.Text;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -42,7 +43,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "ELEMENTARY")
                                         .GroupBy(s => s.Registration!.Year)
                                         .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-                BarGraph.Add(CreateBarSeries("Pre School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.ELEMENTARY));
+                BarGraph.Add(CreateBarSeries("Elementary", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.ELEMENTARY));
             });
             JuniorHighCommand = new Command(obj =>
             {
@@ -51,7 +52,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "JUNIOR HIGH SCHOOL")
                                         .GroupBy(s => s.Registration!.Year)
                                         .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-                BarGraph.Add(CreateBarSeries("Pre School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.JUNIOR));
+                BarGraph.Add(CreateBarSeries("Junior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.JUNIOR));
             });
             SeniorHighCommand = new Command(obj =>
             {
@@ -60,7 +61,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "SENIOR HIGH SCHOOL")
                                         .GroupBy(s => s.Registration!.Year)
                                         .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-                BarGraph.Add(CreateBarSeries("Pre School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.SENIOR));
+                BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.SENIOR));
             });
         }
 
@@ -71,8 +72,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         {
             new Axis
             {
-                Labeler = Labelers.Currency
-                // Labeler = (value) => value.ToString("C")
+                Labeler = Labelers.SixRepresentativeDigits
             }
         };
 
@@ -80,6 +80,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         {
             StudentList.Clear();
             YearList.Clear();
+            LineGraph.Clear();
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
             var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
             var previousSchoolList = await Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
@@ -119,13 +120,22 @@ namespace GFMS.ViewModels.RegistrarViewModels
             PieGraph.Add(CreatePieSeries("Senior High School", new[] { SeniorHigh }, DataCategory.SENIOR));
             // BarGraph Initial
             BarX.Add(new Axis { Labels = Years!, Name = "School Year", TextSize = 9 });
+            CrossX.Add(new Axis
+            {
+                Labels = Years!
+            });
 
-            var dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
+
+            List<DataYear> dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
                                       .GroupBy(s => s.Registration!.Year)
                                       .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
 
-            BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
+            List<DataYear> generalTotal = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year))
+                                                     .GroupBy(s => s.Registration!.Year)
+                                                     .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
 
+            BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
+            LineGraph.Add(CreateLineSeries(new ObservableCollection<int>(generalTotal.Select(y => y.Count))));
         }
 
         public ICommand PreSchoolCommand { get; }
@@ -135,6 +145,17 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
         public ObservableCollection<ISeries> BarGraph { get; set; } = new ObservableCollection<ISeries>();
         public ObservableCollection<ISeries> PieGraph { get; set; } = new ObservableCollection<ISeries>();
+        public ObservableCollection<ISeries> LineGraph { get; set; } = new ObservableCollection<ISeries>();
+
+        private ISeries<int> CreateLineSeries(ObservableCollection<int> values)
+        {
+            var line = new LineSeries<int>
+            {
+                Name = "Total Student",
+                Values = values,
+            };
+            return line;
+        }
 
         private ISeries<int> CreateBarSeries(string name, ObservableCollection<int> values, DataCategory category)
         {
@@ -180,38 +201,14 @@ namespace GFMS.ViewModels.RegistrarViewModels
             return pie;
         }
 
-        public ISeries[] Series { get; set; } =
+        public ObservableCollection<Axis> CrossX { get; set; } = new ObservableCollection<Axis>();
+        public ObservableCollection<Axis> CrossY { get; set; } = new ObservableCollection<Axis>()
         {
-        new LineSeries<double>
-        {
-            Values = new ObservableCollection<double> { 200, 558, 458, 249, 457, 339, 587 },
-        },
-        new LineSeries<double>
-        {
-            Values = new ObservableCollection<double> { 210, 400, 300, 350, 219, 323, 618 },
-        },
-    };
-
-        public Axis[] XAxes { get; set; } =
-        {
-        new Axis
-        {
-            CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
-            CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed, 1),
-            CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
-            Labels = new string[] { "hello", "world" }
-        }
-    };
-        public Axis[] YAxes { get; set; } =
-        {
-        new Axis
-        {
-            CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
-            CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed, 1),
-            CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
-            CrosshairSnapEnabled = true // snapping is also supported
-        }
-    };
+            new Axis
+            {
+                CrosshairSnapEnabled = true // snapping is also supported
+            }
+        };
 
         private enum DataCategory
         {
@@ -284,7 +281,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private class DataYear 
+        private class DataYear
         {
             public string? Year { get; set; }
             public int Count { get; set; }
