@@ -28,6 +28,7 @@ namespace GFMS.Views.Modals
     public partial class ReportCardDialog : Window, INotifyPropertyChanged
     {
         public ObservableCollection<Subject> SubjectList { get; set; } = new ObservableCollection<Subject>();
+        public ObservableCollection<Behavior> BehaviorList { get; set; } = new ObservableCollection<Behavior>();
         private readonly LoginCredentials Credentials = new LoginCredentials();
         public ReportCardDialog()
         {
@@ -40,9 +41,15 @@ namespace GFMS.Views.Modals
 
         private async void LoadAllDataAsync()
         {
-            var JsonSubject = await Credentials.GetByIdAsync<SubjectJSON>("1", "subjects");
-            List<Subject>? result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(JsonSubject.Subjects!);
-            foreach (var item in result)
+            var JsonBehavior = await Credentials.GetByIdAsync<SubjectJSON>("1", "subjects");
+            List<Behavior>? result1 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Behavior>>(JsonBehavior.Subjects!);
+            foreach (var item in result1)
+            {
+                BehaviorList.Add(item);
+            }
+            var JsonSubject = await Credentials.GetByIdAsync<SubjectJSON>("2", "subjects");
+            List<Subject>? result2 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(JsonSubject.Subjects!);
+            foreach (var item in result2)
             {
                 SubjectList.Add(item);
             }

@@ -10,7 +10,7 @@ namespace GFMS.Models
     public class Behavior : ViewModelBase
     {
 
-         private string? fourthGrading = string.Empty;
+        private string? fourthGrading = string.Empty;
         private string? thirdGrading = string.Empty;
         private string? secondGrading = string.Empty;
         private string? firstGrading = string.Empty;

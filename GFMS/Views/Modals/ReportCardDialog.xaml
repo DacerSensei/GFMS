@@ -225,7 +225,7 @@
                                 </md:Card>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Attendance">
+                        <TabItem Header="Behavior">
                             <Grid Margin="10,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -279,38 +279,86 @@
                                                         <RowDefinition  Height="Auto"/>
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="4*"/>
                                                         <ColumnDefinition Width=".5*"/>
                                                         <ColumnDefinition Width=".5*"/>
                                                         <ColumnDefinition Width=".5*"/>
                                                         <ColumnDefinition Width=".5*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border BorderBrush="Black" BorderThickness="1">
-                                                        <Label Content="{Binding BehaviorDescription}" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="{StaticResource PoppinsBold}"/>
+                                                        <TextBlock Text="{Binding BehaviorDescription}" Margin="10" FontSize="14" Foreground="Black" FontFamily="{StaticResource PoppinsRegular}" TextWrapping="Wrap"/>
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Center" Text="{Binding FirstGrading}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FirstGrading}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Center" Text="{Binding SecondGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding SecondGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Center" Text="{Binding ThirdGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding ThirdGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Center" Text="{Binding FourthGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FourthGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
                                                     </Border>
                                                 </Grid>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
-                                <md:Card Grid.Row="3" Grid.ColumnSpan="2" Background="#c12d2b" Margin="0,10">
-                                    <Label Content="GRADING SYSTEM- AVERAGING" Foreground="White" HorizontalContentAlignment="Center" />
-                                </md:Card>
+                                <Grid Grid.Row="3" Margin="0,10,0,30" Grid.ColumnSpan="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width=".5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.RowSpan="5" BorderBrush="Black" BorderThickness="1">
+                                        <md:Card  Grid.ColumnSpan="2" Background="#c12d2b" Margin="5">
+                                            <Label Content="LEGEND" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                        </md:Card>
+                                    </Border>
+
+                                    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="Always Observed" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="Frequently Observed" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="Sometimes Observed" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="3" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="Rarely Observed" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="4" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="Not Observed" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+
+                                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="AO" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="2" Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="FO" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="2" Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="SO" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="2" Grid.Row="3" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="RO" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                    <Border Grid.Column="2" Grid.Row="4" BorderBrush="Black" BorderThickness="1">
+                                        <Label Content="NO" Foreground="Black" HorizontalContentAlignment="Left"/>
+                                    </Border>
+                                </Grid>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Behavior">
+                        <TabItem Header="Attendance">
                             <Grid Margin="10,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -321,8 +369,111 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="2" Margin="10" Text="Values and Behavior" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
-
+                                <StackPanel Margin="0,20,0,0" Grid.ColumnSpan="2">
+                                    <md:Card Background="#c12d2b">
+                                        <Label Content="ATTENDANCE RECORD" Foreground="White" HorizontalContentAlignment="Center" />
+                                    </md:Card>
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="MONTHS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontSize="14"/>
+                                        </Border>
+                                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Aug." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Sept." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Oct." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Nov." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="5" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Dec." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="6" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Jan." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="7" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Feb." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="8" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Mar." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="9" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Apr." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="10" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="May" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="11" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Jun." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                        <Border Grid.Column="12" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Total" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
+                                    <ItemsControl Grid.Row="2"  ItemsSource="{Binding AttendanceList}" MinHeight="200">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="3*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border BorderBrush="Black" BorderThickness="1">
+                                                        <TextBlock Text="{Binding AttendanceDescription}" Margin="10" FontSize="14" Foreground="Black" FontFamily="{StaticResource PoppinsRegular}" TextWrapping="Wrap"/>
+                                                    </Border>
+                                                    <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FirstGrading}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+                                                    <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding SecondGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                    </Border>
+                                                    <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding ThirdGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                    </Border>
+                                                    <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FourthGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                    </Border>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Narrative Report">
