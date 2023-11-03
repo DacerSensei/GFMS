@@ -30,9 +30,14 @@ namespace GFMS.Views
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public static Users? User;
-        public MainWindow(AccountType accountType, Users user)
+        public static UserTeacher? Teacher;
+        public MainWindow(AccountType accountType, Users user, UserTeacher? teacher = null)
         {
             InitializeComponent();
+            if(teacher != null)
+            {
+                Teacher = teacher;
+            }
             User = user;
             switch (accountType)
             {

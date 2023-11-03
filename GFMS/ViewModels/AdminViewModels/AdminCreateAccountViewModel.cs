@@ -175,7 +175,7 @@ namespace GFMS.ViewModels.AdminViewModels
             "Grade 11 - ABM",
             "Grade 11 - HUMSS",
             "Grade 11 - STEM",
-            "Grade 11 - GA",
+            "Grade 11 - GAS",
             "Grade 12 - ABM",
             "Grade 12 - HUMSS",
             "Grade 12 - STEM",

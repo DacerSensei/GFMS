@@ -3,13 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GFMS.Views" xmlns:ViewModel="clr-namespace:GFMS.ViewModels"
+             xmlns:local="clr-namespace:GFMS.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="1080">
+             d:DesignHeight="580" d:DesignWidth="1080"
+             xmlns:MyModel="clr-namespace:GFMS.ViewModels"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels.TeacherViewModels"
+             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:View="clr-namespace:GFMS.Views.TeacherView">
     <UserControl.DataContext>
-        <ViewModel:TeacherViewModel />
+        <MyModel:TeacherViewModel />
     </UserControl.DataContext>
-    <Grid>
-            
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.RowSpan="2" Width="250" Background="#f6f7fb">
+            <StackPanel.Effect>
+                <DropShadowEffect Opacity="0.5" BlurRadius="100"/>
+            </StackPanel.Effect>
+            <StackPanel>
+                <StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource ButtonReportCard}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Column="1" CornerRadius="25,0,6,0" BorderBrush="White" Margin="25,0,0,0" BorderThickness="0">
+            <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="20">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type MyModel:MainPageViewModel}">
+                        <local:MainPage />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:TeacherReportCardViewModel}">
+                        <View:TeacherReportCard />
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
     </Grid>
 </UserControl>

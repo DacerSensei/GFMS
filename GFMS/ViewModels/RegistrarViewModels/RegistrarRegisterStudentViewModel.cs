@@ -616,7 +616,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                         ClassLevelList.Add("Grade 11 - ABM");
                         ClassLevelList.Add("Grade 11 - HUMSS");
                         ClassLevelList.Add("Grade 11 - STEM");
-                        ClassLevelList.Add("Grade 11 - GA");
+                        ClassLevelList.Add("Grade 11 - GAS");
                         ClassLevelList.Add("Grade 12 - ABM");
                         ClassLevelList.Add("Grade 12 - HUMMS");
                         ClassLevelList.Add("Grade 12 - STEM");

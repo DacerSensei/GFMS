@@ -43,6 +43,9 @@
     <Compile Update="Views\Teacher.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\TeacherView\TeacherReportCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Styles\ScrollbarStyle.xaml">
@@ -109,6 +112,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Teacher.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TeacherView\TeacherReportCard.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
