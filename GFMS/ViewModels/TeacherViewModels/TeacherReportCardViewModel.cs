@@ -2,6 +2,7 @@
 using GFMS.Core;
 using GFMS.Models;
 using GFMS.Views;
+using GFMS.Views.Modals;
 using GFMSLibrary;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace GFMS.ViewModels.TeacherViewModels
             EditCommand = new Command(obj =>
             {
                 StudentReport? student = obj as StudentReport;
+                ReportCardDialog window = new ReportCardDialog();
+                window.ShowDialog();
             });
         }
 

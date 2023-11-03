@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\App.xaml
-31562532133
+32-1060889594
 
-631496504338
+66-1435017195
 218-370961119
-Assets\LoginBackground.xaml;Styles\AddButtonStyle.xaml;Styles\ButtonStyle.xaml;Styles\CloseButtonStyle.xaml;Styles\RadioButtonNoBullet.xaml;Styles\RefreshButtonStyle.xaml;Styles\ScrollbarStyle.xaml;Views\Admin.xaml;Views\AdminView\AdminChangePassword.xaml;Views\AdminView\AdminCreateAccount.xaml;Views\AdminView\AdminDashboard.xaml;Views\AdminView\AdminUsersAccount.xaml;Views\Finance.xaml;Views\Login.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\Modals\AlertDialog.xaml;Views\Modals\EditOfficiallyEnrolled.xaml;Views\Modals\MessageDialog.xaml;Views\Modals\RequirementDialog.xaml;Views\Modals\RequirementListDialog.xaml;Views\Principal.xaml;Views\Registrar.xaml;Views\RegistrarView\RegistrarDashboard.xaml;Views\RegistrarView\RegistrarOfficiallyEnrolled.xaml;Views\RegistrarView\RegistrarRegisterStudent.xaml;Views\RegistrarView\RegistrarReportCard.xaml;Views\RegistrarView\RegistrarRequirements.xaml;Views\RegistrarView\RegistrarStudentRecords.xaml;Views\Teacher.xaml;Views\TeacherView\TeacherReportCard.xaml;
+Assets\LoginBackground.xaml;Styles\AddButtonStyle.xaml;Styles\ButtonStyle.xaml;Styles\CloseButtonStyle.xaml;Styles\RadioButtonNoBullet.xaml;Styles\RefreshButtonStyle.xaml;Styles\ScrollbarStyle.xaml;Views\Admin.xaml;Views\AdminView\AdminChangePassword.xaml;Views\AdminView\AdminCreateAccount.xaml;Views\AdminView\AdminDashboard.xaml;Views\AdminView\AdminUsersAccount.xaml;Views\Finance.xaml;Views\Login.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\Modals\AlertDialog.xaml;Views\Modals\EditOfficiallyEnrolled.xaml;Views\Modals\MessageDialog.xaml;Views\Modals\ReportCardDialog.xaml;Views\Modals\RequirementDialog.xaml;Views\Modals\RequirementListDialog.xaml;Views\Principal.xaml;Views\Registrar.xaml;Views\RegistrarView\RegistrarDashboard.xaml;Views\RegistrarView\RegistrarOfficiallyEnrolled.xaml;Views\RegistrarView\RegistrarRegisterStudent.xaml;Views\RegistrarView\RegistrarReportCard.xaml;Views\RegistrarView\RegistrarRequirements.xaml;Views\RegistrarView\RegistrarStudentRecords.xaml;Views\Teacher.xaml;Views\TeacherView\TeacherReportCard.xaml;
 
 False
 

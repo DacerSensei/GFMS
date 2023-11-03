@@ -108,3 +108,5 @@ C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Adm
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\AdminView\AdminCreateAccount.baml
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\TeacherView\TeacherReportCard.g.cs
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\TeacherView\TeacherReportCard.baml
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\ReportCardDialog.g.cs
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\ReportCardDialog.baml
