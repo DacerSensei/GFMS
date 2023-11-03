@@ -29,6 +29,7 @@ namespace GFMS.Views.Modals
     {
         public ObservableCollection<Subject> SubjectList { get; set; } = new ObservableCollection<Subject>();
         public ObservableCollection<Behavior> BehaviorList { get; set; } = new ObservableCollection<Behavior>();
+        public ObservableCollection<Attendance> AttendanceList { get; set; } = new ObservableCollection<Attendance>();
         private readonly LoginCredentials Credentials = new LoginCredentials();
         public ReportCardDialog()
         {
@@ -41,17 +42,23 @@ namespace GFMS.Views.Modals
 
         private async void LoadAllDataAsync()
         {
-            var JsonBehavior = await Credentials.GetByIdAsync<SubjectJSON>("1", "subjects");
+            var JsonBehavior = await Credentials.GetByIdAsync<SubjectJSON>("6", "subjects");
             List<Behavior>? result1 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Behavior>>(JsonBehavior.Subjects!);
             foreach (var item in result1)
             {
                 BehaviorList.Add(item);
             }
-            var JsonSubject = await Credentials.GetByIdAsync<SubjectJSON>("2", "subjects");
+            var JsonSubject = await Credentials.GetByIdAsync<SubjectJSON>("3", "subjects");
             List<Subject>? result2 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(JsonSubject.Subjects!);
             foreach (var item in result2)
             {
                 SubjectList.Add(item);
+            }
+            var JsonAttendance = await Credentials.GetByIdAsync<SubjectJSON>("5", "subjects");
+            List<Attendance>? result3 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Attendance>>(JsonAttendance.Subjects!);
+            foreach (var item in result3)
+            {
+                AttendanceList.Add(item);
             }
         }
 

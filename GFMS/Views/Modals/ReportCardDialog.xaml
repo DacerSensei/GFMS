@@ -163,7 +163,7 @@
                                                         <Label Content="{Binding SubjectName}" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="{StaticResource PoppinsBold}"/>
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Center" VerticalContentAlignment="Center" Text="{Binding FirstGrading, Converter={StaticResource NullableIntToStringConverter}}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                        <TextBox VerticalAlignment="Center" Text="{Binding FirstGrading, Converter={StaticResource NullableIntToStringConverter}}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
                                                         <TextBox VerticalAlignment="Center" Text="{Binding SecondGrading, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
@@ -458,16 +458,50 @@
                                                         <TextBlock Text="{Binding AttendanceDescription}" Margin="10" FontSize="14" Foreground="Black" FontFamily="{StaticResource PoppinsRegular}" TextWrapping="Wrap"/>
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FirstGrading}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Aug, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
                                                     </Border>
+
                                                     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding SecondGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Sept, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
                                                     </Border>
+
                                                     <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding ThirdGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Oct, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
                                                     </Border>
+
                                                     <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding FourthGrading}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden" />
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Nov, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Dec, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="6" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Jan, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="7" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Feb, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="8" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Mar, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="9" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Apr, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="10" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding May, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+
+                                                    <Border Grid.Row="1" Grid.Column="11" BorderBrush="Black" BorderThickness="1">
+                                                        <TextBox VerticalAlignment="Bottom" Text="{Binding Jun, Converter={StaticResource NullableIntToStringConverter}}" Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="2" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
+                                                    </Border>
+                                                    <Border Grid.Row="1" Grid.Column="12" BorderBrush="Black" BorderThickness="1">
+                                                        <Label VerticalAlignment="Bottom" Content="{Binding Total, Mode=OneWay}" Foreground="Black" HorizontalContentAlignment="Center"/>
                                                     </Border>
                                                 </Grid>
                                             </DataTemplate>
@@ -485,10 +519,118 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="2" Margin="10" Text="Attendance Record" FontFamily="{StaticResource PoppinsBold}" FontSize="20" TextAlignment="Center"/>
-
+                                <StackPanel Margin="0,20,0,0">
+                                    <md:Card Background="#c12d2b">
+                                        <Label Content="NARRATIVE REPORT" Foreground="White" HorizontalContentAlignment="Center" />
+                                    </md:Card>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Margin="0,10,0,0" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="First Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
+                                        </Border>
+                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
+                                        </Border>
+                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Margin="0,20,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Second Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
+                                        </Border>
+                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
+                                        </Border>
+                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Margin="0,20,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Third Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
+                                        </Border>
+                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
+                                        </Border>
+                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Margin="0,20,0,30">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
+                                            <Label Content="Fourth Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
+                                        </Border>
+                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
+                                        </Border>
+                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
                             </Grid>
                         </TabItem>
                     </TabControl>
