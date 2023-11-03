@@ -24,6 +24,11 @@ namespace GFMS.ViewModels.TeacherViewModels
             {
                 StudentReport? student = obj as StudentReport;
             });
+
+            EditCommand = new Command(obj =>
+            {
+                StudentReport? student = obj as StudentReport;
+            });
         }
 
         private async void LoadAll()
@@ -59,6 +64,7 @@ namespace GFMS.ViewModels.TeacherViewModels
         public ObservableCollection<StudentReport> StudentList { get; set; } = new ObservableCollection<StudentReport>();
 
         public ICommand ViewCommand { get; }
+        public ICommand EditCommand { get; }
 
         private class Where
         {

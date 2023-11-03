@@ -773,7 +773,7 @@ namespace GFMS.Views.Modals
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private ImageSource StringToImageSource(string imageString)
+        private ImageSource? StringToImageSource(string imageString)
         {
             try
             {

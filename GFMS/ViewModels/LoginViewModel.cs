@@ -52,6 +52,7 @@ namespace GFMS.ViewModels
                         Users user = await credentials.Login<Users>(Username!, Password!, "users");
                         if (user != null)
                         {
+                            UserTeacher? teacher = null;
                             if (user.Status != 0)
                             {
                                 AccountType type;
@@ -74,13 +75,13 @@ namespace GFMS.ViewModels
                                 else if (user.Usertype!.ToUpper() == AccountType.TEACHER.ToString())
                                 {
                                     type = AccountType.TEACHER;
+                                    teacher = await credentials.GetByAnonymousAsync<UserTeacher>("user_id", user.Id.ToString(), "teachers");
                                 }
                                 else
                                 {
                                     return;
                                 }
-                                
-                                MainWindow window = new MainWindow(type, user);
+                                MainWindow window = new MainWindow(type, user, teacher);
                                 window.Show();
                                 Application.Current.MainWindow.Close();
                             }else

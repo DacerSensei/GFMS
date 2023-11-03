@@ -73,6 +73,19 @@ namespace GFMSLibrary
             return user.Count > 0 && user[0] != null ? user[0] : null!;
         }
 
+        public async Task<T> GetByAnonymousAsync<T>(string anonymous, string value, string tableName) where T : class, new()
+        {
+            DataProcessor processor = new DataProcessor();
+            StringBuilder query = new StringBuilder();
+            query.Append("SELECT * FROM ");
+            query.Append(tableName);
+            query.Append($" WHERE {anonymous} = @{anonymous}");
+            MySqlCommand command = Helpers.CreateMysqlCommand(query.ToString());
+            command.Parameters.AddWithValue($"@{anonymous}", value);
+            List<T> user = await processor.GetDataQueryAsync<T>(command);
+            return user.Count > 0 && user[0] != null ? user[0] : null!;
+        }
+
         public bool Register<T>(T data, string tableName) where T : class, new()
         {
             DataProcessor processor = new DataProcessor();

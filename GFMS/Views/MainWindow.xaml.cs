@@ -31,7 +31,7 @@ namespace GFMS.Views
     {
         public static Users? User;
         public static UserTeacher? Teacher;
-        public MainWindow(AccountType accountType, Users user, UserTeacher? teacher = null)
+        public MainWindow(AccountType accountType, Users user, UserTeacher? teacher)
         {
             InitializeComponent();
             if(teacher != null)
