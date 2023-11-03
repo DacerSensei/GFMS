@@ -32,6 +32,8 @@ namespace GFMS.Models
                 firstGrading = value;
                 OnPropertyChanged(nameof(FirstGrading));
                 OnPropertyChanged(nameof(FinalRating));
+                OnPropertyChanged(nameof(Remarks));
+                OnPropertyChanged(nameof(RemarksColor));
             }
         }
         public int? SecondGrading
@@ -47,8 +49,10 @@ namespace GFMS.Models
                     secondGrading = null;
                 }
                 secondGrading = value;
-                OnPropertyChanged(nameof(ThirdGrading));
+                OnPropertyChanged(nameof(SecondGrading));
                 OnPropertyChanged(nameof(FinalRating));
+                OnPropertyChanged(nameof(Remarks));
+                OnPropertyChanged(nameof(RemarksColor));
             }
         }
         public int? ThirdGrading
@@ -66,6 +70,8 @@ namespace GFMS.Models
                 thirdGrading = value;
                 OnPropertyChanged(nameof(ThirdGrading));
                 OnPropertyChanged(nameof(FinalRating));
+                OnPropertyChanged(nameof(Remarks));
+                OnPropertyChanged(nameof(RemarksColor));
             }
         }
         public int? FourthGrading
@@ -78,11 +84,13 @@ namespace GFMS.Models
             {
                 if (value == null || value.ToString() == string.Empty)
                 {
-                    FourthGrading = null;
+                    fourthGrading = null;
                 }
                 fourthGrading = value;
                 OnPropertyChanged(nameof(FourthGrading));
                 OnPropertyChanged(nameof(FinalRating));
+                OnPropertyChanged(nameof(Remarks));
+                OnPropertyChanged(nameof(RemarksColor));
 
             }
         }
@@ -96,6 +104,38 @@ namespace GFMS.Models
                     return string.Empty;
                 }
                 return $"{(FirstGrading + SecondGrading + ThirdGrading + FourthGrading) / 4}";
+            }
+        }
+
+        public string? Remarks
+        {
+            get
+            {
+                if (FirstGrading == null || SecondGrading == null || ThirdGrading == null || FourthGrading == null)
+                {
+                    return string.Empty;
+                }
+                if ((FirstGrading + SecondGrading + ThirdGrading + FourthGrading) / 4 > 74)
+                {
+                    return "PASSED";
+                }
+                return "FAILED";
+            }
+        }
+
+        public string? RemarksColor
+        {
+            get
+            {
+                if (FirstGrading == null || SecondGrading == null || ThirdGrading == null || FourthGrading == null)
+                {
+                    return "#c12d2b";
+                }
+                if ((FirstGrading + SecondGrading + ThirdGrading + FourthGrading) / 4 > 74)
+                {
+                    return "LimeGreen";
+                }
+                return "#c12d2b";
             }
         }
     }
