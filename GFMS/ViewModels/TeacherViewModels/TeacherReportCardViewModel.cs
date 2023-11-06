@@ -21,9 +21,18 @@ namespace GFMS.ViewModels.TeacherViewModels
         public TeacherReportCardViewModel()
         {
             LoadAll();
-            ViewCommand = new Command(obj =>
+            ViewCommand = new Command(async obj =>
             {
                 StudentReport? student = obj as StudentReport;
+                if (student != null)
+                {
+                    Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
+                    ReportCardDialog window = new ReportCardDialog(student, MainWindow.User!, principal);
+                    if (window.ShowDialog() == true)
+                    {
+                        LoadAll();
+                    }
+                }
             });
 
             EditCommand = new Command(async obj =>

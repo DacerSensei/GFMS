@@ -39,6 +39,11 @@ namespace GFMS.Views.Modals
         public ReportCardDialog(StudentReport student, Users user, Users principal, bool isEditable = false)
         {
             InitializeComponent();
+            if (isEditable)
+            {
+                SaveVisibility = Visibility.Visible;
+                IsReadOnly = false;
+            }
             LoadAllData(student, user, principal);
             SaveCommand = new Command(async obj =>
             {
@@ -131,6 +136,8 @@ namespace GFMS.Views.Modals
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
+
+
 
         public string? AverageFirstGrading
         {
@@ -307,56 +314,70 @@ namespace GFMS.Views.Modals
         public string? FullName
         {
             get { return _fullName; }
-            set { _fullName = value; OnPropertyChanged(FullName); }
+            set { _fullName = value; OnPropertyChanged(nameof(FullName)); }
         }
 
         private string? _age;
         public string? Age
         {
             get { return _age; }
-            set { _age = value; OnPropertyChanged(Age); }
+            set { _age = value; OnPropertyChanged(nameof(Age)); }
         }
 
         private string? _sex;
         public string? Sex
         {
             get { return _sex; }
-            set { _sex = value; OnPropertyChanged(Sex); }
+            set { _sex = value; OnPropertyChanged(nameof(Sex)); }
         }
 
         private string? _lrn;
         public string? LRN
         {
             get { return _lrn; }
-            set { _lrn = value; OnPropertyChanged(LRN); }
+            set { _lrn = value; OnPropertyChanged(nameof(LRN)); }
         }
 
         private string? _grade;
         public string? Grade
         {
             get { return _grade; }
-            set { _grade = value; OnPropertyChanged(Grade); }
+            set { _grade = value; OnPropertyChanged(nameof(Grade)); }
         }
 
         private string? _adviser;
         public string? Adviser
         {
             get { return _adviser; }
-            set { _adviser = value; OnPropertyChanged(Adviser); }
+            set { _adviser = value; OnPropertyChanged(nameof(Adviser)); }
         }
 
         private string? _principal;
         public string? Principal
         {
             get { return _principal; }
-            set { _principal = value; OnPropertyChanged(Principal); }
+            set { _principal = value; OnPropertyChanged(nameof(Principal)); }
+        }
+
+        private Visibility _saveVisibility = Visibility.Hidden;
+        public Visibility SaveVisibility
+        {
+            get { return _saveVisibility; }
+            set { _saveVisibility = value; OnPropertyChanged(nameof(SaveVisibility)); }
+        }
+
+        private bool _isReadOnly = true;
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set { _isReadOnly = value; OnPropertyChanged(nameof(IsReadOnly)); }
         }
 
 
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
+            Regex regex = new Regex("[^0-9]+"); 
             e.Handled = regex.IsMatch(e.Text);
         }
 
