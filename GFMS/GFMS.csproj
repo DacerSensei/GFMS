@@ -21,6 +21,8 @@
     <None Remove="Assets\EnrolledActive.png" />
     <None Remove="Assets\LoginBackground.svg" />
     <None Remove="Assets\Logo.png" />
+    <None Remove="Assets\Logout.png" />
+    <None Remove="Assets\LogoutActive.png" />
     <None Remove="Assets\MainPageBackground.png" />
     <None Remove="Assets\Maximize.png" />
     <None Remove="Assets\MaximizeHover.png" />
@@ -75,6 +77,8 @@
     <Resource Include="Assets\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Logout.png" />
+    <Resource Include="Assets\LogoutActive.png" />
     <Resource Include="Assets\MainPageBackground.png" />
     <Resource Include="Assets\Maximize.png" />
     <Resource Include="Assets\MaximizeHover.png" />

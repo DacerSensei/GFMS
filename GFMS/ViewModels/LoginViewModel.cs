@@ -84,7 +84,9 @@ namespace GFMS.ViewModels
                                 MainWindow window = new MainWindow(type, user, teacher);
                                 window.Show();
                                 Application.Current.MainWindow.Close();
-                            }else
+                                Application.Current.MainWindow = window;
+                            }
+                            else
                             {
                                 var result = await DialogHost.Show(new MessageDialog("Oops!", "Your account has been deactivated please contact admin"), "RootDialog");
                                 return;

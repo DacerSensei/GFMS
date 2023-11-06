@@ -18,7 +18,11 @@
         <GradientStop Color="LimeGreen" Offset="0.98"/>
         <GradientStop Color="#1877f2" Offset="0.97"/>
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF5593FF"/>
+    <LinearGradientBrush x:Key="RadioButton.MouseOver.Logout" StartPoint="0,0.5" EndPoint="1,0.5" >
+        <GradientStop Color="LimeGreen" Offset="0.98"/>
+        <GradientStop Color="#ff2147" Offset="0.97"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FFff2147"/>
     <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF212121"/>
     <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
     <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
@@ -429,6 +433,53 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonLogout" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/Logout.png" x:Name="RadioButtonIcon" Height="26" Width="26" Margin="25,0"/>
+                            <TextBlock Text="Logout" Style="{StaticResource PoppinsRegular}" x:Name="RadioButtonLabel" VerticalAlignment="Center" Foreground="#ff2147" HorizontalAlignment="Center"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Logout}"/>
+                            <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/LogoutActive.png"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+
+                                        <ColorAnimation From="#f6f7fb" To="#ff2147" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#1877f2" To="#ff2147" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsChecked" Value="true">
+                            
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}"/>
                     </ControlTemplate.Triggers>

@@ -39,7 +39,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     Registration = student,
                 };
                 studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
-                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registeration_Id) == student.Id).ToList().FirstOrDefault();
+                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
                 StudentList.Add(studentReport);
             }
         }

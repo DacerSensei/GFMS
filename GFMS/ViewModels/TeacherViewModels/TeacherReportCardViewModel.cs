@@ -26,11 +26,18 @@ namespace GFMS.ViewModels.TeacherViewModels
                 StudentReport? student = obj as StudentReport;
             });
 
-            EditCommand = new Command(obj =>
+            EditCommand = new Command(async obj =>
             {
                 StudentReport? student = obj as StudentReport;
-                ReportCardDialog window = new ReportCardDialog();
-                window.ShowDialog();
+                if (student != null)
+                {
+                    Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
+                    ReportCardDialog window = new ReportCardDialog(student, MainWindow.User!, principal, true);
+                    if(window.ShowDialog() == true)
+                    {
+                        LoadAll();
+                    }
+                }
             });
         }
 
@@ -44,8 +51,8 @@ namespace GFMS.ViewModels.TeacherViewModels
             Where where = new Where()
             {
                 Grade = MainWindow.Teacher.Grade,
-                Year = "2023-2024"
-                
+                Year = "2024-2025"
+
             };
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
             var registrationList = await Credentials.GetAllDataAsync<Registration, Where>("registration", where);
@@ -59,7 +66,7 @@ namespace GFMS.ViewModels.TeacherViewModels
                     Registration = student,
                 };
                 studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
-                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registeration_Id) == student.Id).ToList().FirstOrDefault();
+                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
                 StudentList.Add(studentReport);
             }
         }

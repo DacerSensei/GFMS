@@ -62,15 +62,14 @@
                                     <TextBlock Text="LOWER GRADE SCHOOL REPORT CARD" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                                     <TextBlock Text="SCHOOL YEAR 2022-2023" VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                                 </StackPanel>
-                                <TextBox Grid.Row="2" Margin="40,0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
+                                <TextBox Text="{Binding FullName}" IsReadOnly="True" Grid.Row="2" Margin="40,0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
                                 <StackPanel Grid.Row="3" Margin="40,0,10,0">
-                                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Age" />
-                                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade and Section" />
-
+                                    <TextBox IsReadOnly="True" Text="{Binding Age}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Age" />
+                                    <TextBox IsReadOnly="True" Text="{Binding Grade}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade and Section" />
                                 </StackPanel>
                                 <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,0,40,0">
-                                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Sex" />
-                                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="LRN" />
+                                    <TextBox IsReadOnly="True" Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Sex" />
+                                    <TextBox IsReadOnly="True" Text="{Binding LRN}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="LRN" />
                                 </StackPanel>
                                 <!-- Row 4 -->
                                 <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,50">
@@ -80,8 +79,8 @@
                                     <Bold>areas as well as his/her progress in character development.</Bold><LineBreak/>
                                     <Bold>The school welcomes you if you desire to know more about the progress of your child.</Bold><LineBreak/>
                                     </TextBlock>
-                                    <TextBox Margin="200,0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Adviser" />
-                                    <TextBox Margin="200,0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="School Principal" />
+                                    <TextBox IsReadOnly="True" Text="{Binding Adviser}" Margin="200,0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Adviser" />
+                                    <TextBox IsReadOnly="True" Text="{Binding Principal}" Margin="200,0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="School Principal" />
                                 </StackPanel>
 
                             </Grid>
@@ -525,112 +524,38 @@
                                         <Label Content="NARRATIVE REPORT" Foreground="White" HorizontalContentAlignment="Center" />
                                     </md:Card>
                                 </StackPanel>
-                                <StackPanel Grid.Row="1" Margin="0,10,0,0" >
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="1*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="First Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
-                                        </Border>
-                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
-                                        </Border>
-                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
-                                            <Grid>
+                                <ItemsControl Grid.Row="2"  ItemsSource="{Binding NarrativeList}" MinHeight="200">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,10,0,10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1*"/>
+                                                    <RowDefinition Height="2*"/>
+                                                    <RowDefinition Height="1*"/>
+                                                </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
+                                                    <Label Content="{Binding Title}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
+                                                </Border>
+                                                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                                                    <TextBox Text="{Binding Message}" FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
+                                                </Border>
+                                                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Text="{Binding Signature}" FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                        <TextBox Text="{Binding Date}" FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                    </Grid>
+                                                </Border>
                                             </Grid>
-                                        </Border>
-                                    </Grid>
-                                    <Grid Margin="0,20,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="1*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Second Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
-                                        </Border>
-                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
-                                        </Border>
-                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                            </Grid>
-                                        </Border>
-                                    </Grid>
-                                    <Grid Margin="0,20,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="1*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Third Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
-                                        </Border>
-                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
-                                        </Border>
-                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                            </Grid>
-                                        </Border>
-                                    </Grid>
-                                    <Grid Margin="0,20,0,30">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="2*"/>
-                                            <RowDefinition Height="1*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="#feecee" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Fourth Quarter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" />
-                                        </Border>
-                                        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-                                            <TextBox FontSize="14" Foreground="Black" Padding="10" Style="{StaticResource MaterialDesignTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120"/>
-                                        </Border>
-                                        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBox FontSize="14" Margin="0" md:HintAssist.Hint="Parent/Guardian Signature" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                                <TextBox FontSize="14" Grid.Column="1" md:HintAssist.Hint="Date" Foreground="Black" Padding="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
-                                            </Grid>
-                                        </Border>
-                                    </Grid>
-                                </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </Grid>
                         </TabItem>
                     </TabControl>

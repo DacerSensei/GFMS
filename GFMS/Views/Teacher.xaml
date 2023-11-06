@@ -32,6 +32,9 @@
                     <StackPanel Cursor="Hand">
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource ButtonReportCard}"/>
                     </StackPanel>
+                    <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding LogoutCommand}" Style="{DynamicResource ButtonLogout}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

@@ -2,11 +2,15 @@
 using GFMS.Core;
 using GFMS.ViewModels.AdminViewModels;
 using GFMS.ViewModels.RegistrarViewModels;
+using GFMS.Views;
+using GFMS.Views.Modals;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GFMS.ViewModels
@@ -32,6 +36,20 @@ namespace GFMS.ViewModels
             CreateAccountCommand = new Command(action =>
             {
                 CurrentView = CreateAccountView;
+            });
+
+            LogoutCommand = new Command(async action =>
+            {
+                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to logout?"), "RootDialog");
+                if((bool)result! != true)
+                {
+                    return;
+                }
+                Login login = new Login();
+                login.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = login;
+
             });
         }
 

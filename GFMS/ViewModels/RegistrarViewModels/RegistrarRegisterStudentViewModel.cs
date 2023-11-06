@@ -154,7 +154,24 @@ namespace GFMS.ViewModels.RegistrarViewModels
                             };
                             taskList.Add(Task.Run(async () =>
                             {
-                                await credentials.RegisterStudentAsync(registration, "registration");
+                                if(await credentials.RegisterStudentAsync(registration, "registration"))
+                                {
+                                    string RegId = credentials.GetLastInsertedId().ToString();
+                                    var Subjects = await credentials.GetByAnonymousAsync<SubjectJSON>("type", ClassLevel!, "subjects");
+                                    var Behavior = await credentials.GetByAnonymousAsync<SubjectJSON>("type", "BEHAVIOR", "subjects");
+                                    var Attendance = await credentials.GetByAnonymousAsync<SubjectJSON>("type", "ATTENDANCE", "subjects");
+                                    var Narrative = await credentials.GetByAnonymousAsync<SubjectJSON>("type", "NARRATIVE", "subjects");
+                                    ReportCard reportCard = new ReportCard()
+                                    {
+                                        Registration_Id = RegId,
+                                        Student_Level = ClassLevel,
+                                        Subjects = Subjects.JSON,
+                                        Behavior = Behavior.JSON,
+                                        Attendance = Attendance.JSON,
+                                        Narrative = Narrative.JSON
+                                    };
+                                    await credentials.RegisterStudentAsync(reportCard, "studentgrades");
+                                }
                             }));
                         }
                     }
