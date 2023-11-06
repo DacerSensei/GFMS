@@ -15,14 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace GFMS.Views.Modals
 {
@@ -36,7 +29,7 @@ namespace GFMS.Views.Modals
         public ObservableCollection<Attendance> AttendanceList { get; set; } = new ObservableCollection<Attendance>();
         public ObservableCollection<Narrative> NarrativeList { get; set; } = new ObservableCollection<Narrative>();
         private readonly LoginCredentials Credentials = new LoginCredentials();
-        public ReportCardDialog(StudentReport student, Users user, Users principal, bool isEditable = false)
+        public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false)
         {
             InitializeComponent();
             if (isEditable)
@@ -44,7 +37,7 @@ namespace GFMS.Views.Modals
                 SaveVisibility = Visibility.Visible;
                 IsReadOnly = false;
             }
-            LoadAllData(student, user, principal);
+            LoadAllData(student, teacher, principal);
             SaveCommand = new Command(async obj =>
             {
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
@@ -71,13 +64,16 @@ namespace GFMS.Views.Modals
             DataContext = this;
         }
 
-        private void LoadAllData(StudentReport student, Users user, Users principal)
+        private void LoadAllData(StudentReport student, Users teacher, Users principal)
         {
             FullName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
             Sex = student.Student.Gender;
             LRN = student.Student.LRN;
             Grade = student.Registration!.Grade;
-            Adviser = $"{user.FirstName} {user.LastName}";
+            if (teacher != null)
+            {
+                Adviser = $"{teacher.FirstName} {teacher.LastName}";
+            }
             if (principal != null)
             {
                 Principal = $"{principal.FirstName} {principal.LastName}";
@@ -377,7 +373,7 @@ namespace GFMS.Views.Modals
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+"); 
+            Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 

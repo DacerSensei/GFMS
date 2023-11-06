@@ -1,6 +1,8 @@
 ﻿using GFMS.Commands;
 using GFMS.Core;
 using GFMS.Models;
+using GFMS.Views.Modals;
+using GFMS.Views;
 using GFMSLibrary;
 using System;
 using System.Collections.Generic;
@@ -18,9 +20,20 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public RegistrarReportCardViewModel()
         {
             LoadAll();
-            ViewCommand = new Command(obj =>
+            ViewCommand = new Command(async obj =>
             {
                 StudentReport? student = obj as StudentReport;
+                if (student != null)
+                {
+                    Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
+                    UserTeacher findTeacher = await Credentials.GetByAnonymousAsync<UserTeacher>("grade", student.Registration!.Grade!, "teachers");
+                    Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
+                    ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
+                    if (window.ShowDialog() == true)
+                    {
+                        LoadAll();
+                    }
+                }
             });
         }
 
