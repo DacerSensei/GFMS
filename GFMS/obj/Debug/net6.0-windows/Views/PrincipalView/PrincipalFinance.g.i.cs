@@ -63,7 +63,7 @@ namespace GFMS.Views.PrincipalView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/principalview/principalfinance.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/principalview/principalfinance.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\PrincipalView\PrincipalFinance.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

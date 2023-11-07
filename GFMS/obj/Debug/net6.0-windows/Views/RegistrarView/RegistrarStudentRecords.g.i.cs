@@ -53,7 +53,7 @@ namespace GFMS.Views.RegistrarView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/registrarview/registrarstudentrecords.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/registrarview/registrarstudentrecords.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\RegistrarView\RegistrarStudentRecords.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

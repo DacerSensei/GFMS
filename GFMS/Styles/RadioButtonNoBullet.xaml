@@ -470,7 +470,7 @@
                                     <Storyboard>
                                         <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
 
-                                        <ColorAnimation From="#f6f7fb" To="#ff2147" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#f6f7fb" To="#1877f2" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
                                         <ColorAnimation From="#1877f2" To="#ff2147" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -479,7 +479,187 @@
                         <Trigger Property="IsEnabled" Value="false"/>
                         <Trigger Property="IsPressed" Value="true"/>
                         <Trigger Property="IsChecked" Value="true">
-                            
+
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonRegistrarDashboard" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/RegistrarDashboard.png" x:Name="RadioButtonIcon" Height="26" Width="26" Margin="25,0"/>
+                            <TextBlock Text="Registrar Dashboard" Style="{StaticResource PoppinsRegular}" x:Name="RadioButtonLabel" VerticalAlignment="Center" Foreground="{StaticResource RadioButton.Inactive}" HorizontalAlignment="Center"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true"></Trigger>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                            <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/ChangePasswordActive.png"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+
+                                        <ColorAnimation From="#f6f7fb" To="#1877f2" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#1877f2" To="#f6f7fb" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonFinanceDashboard" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/FinanceDashboard.png" x:Name="RadioButtonIcon" Height="26" Width="26" Margin="25,0"/>
+                            <TextBlock Text="Finance Dashboard" Style="{StaticResource PoppinsRegular}" x:Name="RadioButtonLabel" VerticalAlignment="Center" Foreground="{StaticResource RadioButton.Inactive}" HorizontalAlignment="Center"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true"></Trigger>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                            <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/ChangePasswordActive.png"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+
+                                        <ColorAnimation From="#f6f7fb" To="#1877f2" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#1877f2" To="#f6f7fb" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonTeacherDashboard" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/TeacherDashboard.png" x:Name="RadioButtonIcon" Height="26" Width="26" Margin="25,0"/>
+                            <TextBlock Text="Officially Enrolled" Style="{StaticResource PoppinsRegular}" x:Name="RadioButtonLabel" VerticalAlignment="Center" Foreground="{StaticResource RadioButton.Inactive}" HorizontalAlignment="Center"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true"></Trigger>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                            <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/ChangePasswordActive.png"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+
+                                        <ColorAnimation From="#f6f7fb" To="#1877f2" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#1877f2" To="#f6f7fb" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}"/>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonNotification" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Assets/Notification.png" x:Name="RadioButtonIcon" Height="26" Width="26" Margin="25,0"/>
+                            <TextBlock Text="Notification" Style="{StaticResource PoppinsRegular}" x:Name="RadioButtonLabel" VerticalAlignment="Center" Foreground="{StaticResource RadioButton.Inactive}" HorizontalAlignment="Center"/>
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true"></Trigger>
+                        <Trigger Property="IsEnabled" Value="false"/>
+                        <Trigger Property="IsPressed" Value="true"/>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                            <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/ChangePasswordActive.png"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="#f6f7fb" To="LimeGreen" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+
+                                        <ColorAnimation From="#f6f7fb" To="#1877f2" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                        <ColorAnimation From="#1877f2" To="#f6f7fb" Storyboard.TargetName="RadioButtonLabel" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" FillBehavior="Stop" Duration="0:0:0.25"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}"/>
                     </ControlTemplate.Triggers>

@@ -39,6 +39,10 @@ namespace GFMS.ViewModels
             {
                 CurrentView = TeacherView;
             });
+            NotificationCommand = new Command(action =>
+            {
+                CurrentView = NotificationView;
+            });
 
             LogoutCommand = new Command(async action =>
             {
@@ -58,11 +62,13 @@ namespace GFMS.ViewModels
         public ICommand RegistrarCommand { get; }
         public ICommand FinanceCommand { get; }
         public ICommand TeacherCommand { get; }
+        public ICommand NotificationCommand { get; }
 
         private readonly MainPageViewModel MainPageView = new();
         private readonly PrincipalRegistrarViewModel RegistrarView = new();
         private readonly PrincipalFinanceViewModel FinanceView = new();
         private readonly PrincipalTeacherViewModel TeacherView = new();
+        private readonly PrincipalNotificationViewModel NotificationView = new();
 
         public ICommand LogoutCommand { get; }
 

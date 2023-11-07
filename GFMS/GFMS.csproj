@@ -21,6 +21,8 @@
     <None Remove="Assets\Enrolled.png" />
     <None Remove="Assets\EnrolledActive.png" />
     <None Remove="Assets\Finance.json" />
+    <None Remove="Assets\FinanceDashboard.png" />
+    <None Remove="Assets\FinanceDashboardActive.png" />
     <None Remove="Assets\LoginBackground.svg" />
     <None Remove="Assets\Logo.png" />
     <None Remove="Assets\Logout.png" />
@@ -30,12 +32,16 @@
     <None Remove="Assets\MaximizeHover.png" />
     <None Remove="Assets\Minimize.png" />
     <None Remove="Assets\MinimizeHover.png" />
+    <None Remove="Assets\Notification.png" />
+    <None Remove="Assets\NotificationActive.png" />
     <None Remove="Assets\Principal.json" />
     <None Remove="Assets\RecieptPayment.png" />
     <None Remove="Assets\RecieptPaymentAcitve.png" />
     <None Remove="Assets\RegisterStudent.png" />
     <None Remove="Assets\RegisterStudentActive.png" />
     <None Remove="Assets\Registrar.json" />
+    <None Remove="Assets\RegistrarDashboard.png" />
+    <None Remove="Assets\RegistrarDashboardActive.png" />
     <None Remove="Assets\ReportCard.png" />
     <None Remove="Assets\ReportCardActive.png" />
     <None Remove="Assets\Requirements.png" />
@@ -43,6 +49,8 @@
     <None Remove="Assets\StudentRecords.png" />
     <None Remove="Assets\StudentRecordsActive.png" />
     <None Remove="Assets\Teacher.json" />
+    <None Remove="Assets\TeacherDashboard.png" />
+    <None Remove="Assets\TeacherDashboardActive.png" />
     <None Remove="Assets\UsersAccount.png" />
     <None Remove="Assets\UsersAccountActive.png" />
     <None Remove="Fonts\Poppins-Bold.ttf" />
@@ -69,9 +77,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\FinanceDashboard.png" />
+    <Resource Include="Assets\FinanceDashboardActive.png" />
+    <Resource Include="Assets\Notification.png" />
+    <Resource Include="Assets\NotificationActive.png" />
     <Resource Include="Assets\Registrar.json" />
     <Resource Include="Assets\Principal.json" />
     <Resource Include="Assets\Animation - 1699327975492.json" />
+    <Resource Include="Assets\RegistrarDashboard.png" />
+    <Resource Include="Assets\RegistrarDashboardActive.png" />
     <Resource Include="Assets\Teacher.json" />
     <Resource Include="Assets\Finance.json" />
     <Resource Include="Assets\Background.png" />
@@ -105,6 +119,8 @@
     <Resource Include="Assets\RequirementsActive.png" />
     <Resource Include="Assets\StudentRecords.png" />
     <Resource Include="Assets\StudentRecordsActive.png" />
+    <Resource Include="Assets\TeacherDashboard.png" />
+    <Resource Include="Assets\TeacherDashboardActive.png" />
     <Resource Include="Assets\UsersAccount.png" />
     <Resource Include="Assets\UsersAccountActive.png" />
     <Resource Include="Fonts\Poppins-Bold.ttf" />

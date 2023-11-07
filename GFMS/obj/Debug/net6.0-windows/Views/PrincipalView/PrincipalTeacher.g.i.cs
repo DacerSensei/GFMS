@@ -65,7 +65,7 @@ namespace GFMS.Views.PrincipalView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/principalview/principalteacher.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/principalview/principalteacher.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\PrincipalView\PrincipalTeacher.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

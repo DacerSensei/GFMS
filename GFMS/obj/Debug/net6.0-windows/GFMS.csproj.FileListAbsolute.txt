@@ -126,3 +126,5 @@ C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\GFMS.genr
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\ref\GFMS.dll
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\ForgotPassword.g.cs
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\ForgotPassword.baml
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalNotification.g.cs
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalNotification.baml
