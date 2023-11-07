@@ -65,7 +65,7 @@ namespace GFMS.Views.FinanceView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/financeview/financeofficiallyenrolled.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/financeview/financeofficiallyenrolled.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\FinanceView\FinanceOfficiallyEnrolled.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

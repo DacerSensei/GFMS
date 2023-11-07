@@ -13,6 +13,7 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="GFMS" Height="580" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors" 
         AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModel:LoginViewModel />
@@ -44,7 +45,13 @@
                              materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
-                    <TextBlock Text="Forgot Password" TextDecorations="Underline" FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Foreground="#d32f2f"/>
+                    <TextBlock Text="Forgot Password" Cursor="Hand" HorizontalAlignment="Left" TextDecorations="Underline" FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Foreground="#d32f2f">
+                        <behavior:Interaction.Triggers>
+                            <behavior:EventTrigger EventName="MouseLeftButtonUp">
+                                <behavior:InvokeCommandAction Command="{Binding ForgotPasswordCommand}" />
+                            </behavior:EventTrigger>
+                        </behavior:Interaction.Triggers>
+                    </TextBlock>
 
                     <Button Command="{Binding LoginCommand}" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Login" Margin="100,50,100,2.5" Style="{StaticResource MaterialDesignFlatDarkBgButton}" FontFamily="{StaticResource PoppinsBold}"/>
                     <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">

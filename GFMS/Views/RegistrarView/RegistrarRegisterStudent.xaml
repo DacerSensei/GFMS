@@ -48,6 +48,7 @@
                             <StackPanel Grid.Row="2" Margin="15,0,0,30">
                                 <TextBox Text="{Binding SchoolYear}" md:HintAssist.Hint="SCHOOL YEAR" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" IsReadOnly="True"/>
                                 <TextBox Text="{Binding LRN}" md:HintAssist.Hint="LRN" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
+                                <TextBox Text="{Binding EscIdNo}" md:HintAssist.Hint="ESC ID (Optional)" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox"/>
                                 <TextBox Text="{Binding LastName}" md:HintAssist.Hint="LAST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                                 <TextBox Text="{Binding FirstName}" md:HintAssist.Hint="FIRST NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                                 <TextBox Text="{Binding MiddleName}" md:HintAssist.Hint="MIDDLE NAME" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>

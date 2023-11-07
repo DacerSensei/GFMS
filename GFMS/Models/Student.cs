@@ -31,5 +31,6 @@ namespace GFMS.Models
         public string? Mother_name { get; set; }
         public string? Mother_work { get; set; }
         public string? Mother_mobile { get; set; }
+	    public string? ESC { get; set; }
     }
 }

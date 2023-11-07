@@ -112,6 +112,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Modals\ForgotPassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Modals\AlertDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

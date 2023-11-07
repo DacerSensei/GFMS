@@ -65,82 +65,66 @@ namespace GFMS.Views.Modals
             DataContext = this;
         }
 
-        private async void LoadAllDataAsync(StudentReport student, Users teacher, Users principal)
+        private void LoadAllDataAsync(StudentReport student, Users teacher, Users principal)
         {
-            await Task.Run(() =>
+            FullName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
+            Sex = student.Student.Gender;
+            LRN = student.Student.LRN;
+            Grade = student.Registration!.Grade;
+            if (teacher != null)
             {
-                FullName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
-                Sex = student.Student.Gender;
-                LRN = student.Student.LRN;
-                Grade = student.Registration!.Grade;
-                if (teacher != null)
-                {
-                    Adviser = $"{teacher.FirstName} {teacher.LastName}";
-                }
-                if (principal != null)
-                {
-                    Principal = $"{principal.FirstName} {principal.LastName}";
-                }
-                DateTime today = DateTime.Today;
-                var BirthDate = Convert.ToDateTime(student.Student!.Birthdate);
-                int ageValue = today.Year - BirthDate.Year;
-                if (BirthDate.Date > today.AddYears(-ageValue))
-                {
-                    ageValue--;
-                }
-                Age = ageValue.ToString();
+                Adviser = $"{teacher.FirstName} {teacher.LastName}";
+            }
+            if (principal != null)
+            {
+                Principal = $"{principal.FirstName} {principal.LastName}";
+            }
+            DateTime today = DateTime.Today;
+            var BirthDate = Convert.ToDateTime(student.Student!.Birthdate);
+            int ageValue = today.Year - BirthDate.Year;
+            if (BirthDate.Date > today.AddYears(-ageValue))
+            {
+                ageValue--;
+            }
+            Age = ageValue.ToString();
 
-                if (student.ReportCard != null)
+            if (student.ReportCard != null)
+            {
+                if (student.ReportCard.Behavior != null)
                 {
-                    if (student.ReportCard.Behavior != null)
+                    List<Behavior>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Behavior>>(student.ReportCard.Behavior);
+                    foreach (var item in list!)
                     {
-                        List<Behavior>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Behavior>>(student.ReportCard.Behavior);
-                        foreach (var item in list!)
-                        {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                BehaviorList.Add(item);
-                            }));
-                            
-                        }
-                    }
-                    if (student.ReportCard.Subjects != null)
-                    {
-                        List<Subject>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(student.ReportCard.Subjects);
-                        foreach (var item in list!)
-                        {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                SubjectList.Add(item);
-                            }));
-                            
-                        }
-                    }
-                    if (student.ReportCard.Attendance != null)
-                    {
-                        List<Attendance>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Attendance>>(student.ReportCard.Attendance);
-                        foreach (var item in list!)
-                        {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                AttendanceList.Add(item);
-                            }));
-                        }
-                    }
-                    if (student.ReportCard.Narrative != null)
-                    {
-                        List<Narrative>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Narrative>>(student.ReportCard.Narrative);
-                        foreach (var item in list!)
-                        {
-                            Dispatcher.BeginInvoke(new Action(() =>
-                            {
-                                NarrativeList.Add(item);
-                            }));
-                        }
-                    }
+                        BehaviorList.Add(item);
 
+                    }
                 }
-            });
+                if (student.ReportCard.Subjects != null)
+                {
+                    List<Subject>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(student.ReportCard.Subjects);
+                    foreach (var item in list!)
+                    {
+                        SubjectList.Add(item);
+
+                    }
+                }
+                if (student.ReportCard.Attendance != null)
+                {
+                    List<Attendance>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Attendance>>(student.ReportCard.Attendance);
+                    foreach (var item in list!)
+                    {
+                        AttendanceList.Add(item);
+                    }
+                }
+                if (student.ReportCard.Narrative != null)
+                {
+                    List<Narrative>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Narrative>>(student.ReportCard.Narrative);
+                    foreach (var item in list!)
+                    {
+                        NarrativeList.Add(item);
+                    }
+                }
+            }
         }
 
         public ICommand SaveCommand { get; }

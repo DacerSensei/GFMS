@@ -65,7 +65,7 @@ namespace GFMS.Views.AdminView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/adminview/adminusersaccount.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/adminview/adminusersaccount.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\AdminView\AdminUsersAccount.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

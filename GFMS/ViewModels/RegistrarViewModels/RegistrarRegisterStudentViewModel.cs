@@ -96,7 +96,8 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     Father_mobile = FatherMobile,
                     Mother_name = NameOfMother,
                     Mother_work = MotherWork,
-                    Mother_mobile = MotherMobile
+                    Mother_mobile = MotherMobile,
+                    ESC = EscIdNo
                 };
                 LoginCredentials credentials = new LoginCredentials();
                 if (await credentials.RegisterStudentAsync(request, "student"))
@@ -238,6 +239,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             GuidanceMobile = string.Empty;
             PrincipalMobile = string.Empty;
             AdviserMobile = string.Empty;
+            EscIdNo = string.Empty;
             BirthDate = DateTime.Now;
             ProfilePicture = new BitmapImage(new Uri("pack://application:,,,/GFMS;component/Assets/Logo.png"));
             ErrorsViewModel.ClearErrors(nameof(SelectedGradeLevel));
@@ -1178,6 +1180,21 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 }
                 _adviserMobile = value;
                 OnPropertyChanged(nameof(AdviserMobile));
+            }
+        }
+
+        private string? _escIdNo;
+        public string? EscIdNo
+        {
+            get { return _escIdNo; }
+            set
+            {
+                if (value == _escIdNo)
+                {
+                    return;
+                }
+                _escIdNo = value;
+                OnPropertyChanged(nameof(EscIdNo));
             }
         }
 

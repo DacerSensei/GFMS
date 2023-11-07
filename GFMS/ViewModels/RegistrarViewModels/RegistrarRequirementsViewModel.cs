@@ -58,7 +58,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 }
                 else
                 {
-                    studentRequirements.Status = $"Missing {9 - requirements.Count}";
+                    studentRequirements.Status = $"Missing {9 - requirements.Count} / 9";
                     studentRequirements.StatusColor = "#fe3839";
                 }
 

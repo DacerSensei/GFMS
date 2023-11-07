@@ -70,7 +70,7 @@ namespace GFMS.Views.Modals {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GFMS;component/views/modals/alertdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GFMS;V1.0.0.0;component/views/modals/alertdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Modals\AlertDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

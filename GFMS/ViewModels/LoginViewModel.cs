@@ -33,6 +33,26 @@ namespace GFMS.ViewModels
             ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
         }
 
+        private Command? _forgotPasswordCommand;
+        public ICommand ForgotPasswordCommand
+        {
+            get
+            {
+                if (_forgotPasswordCommand == null)
+                {
+                    _forgotPasswordCommand = new Command(async obj =>
+                    {
+                        var result = await DialogHost.Show(new ForgotPassword(), "RootDialog");
+                        if((bool)result! == true)
+                        {
+                            MessageBox.Show("We just send an email to your account");
+                        }
+                    });
+                }
+                return _forgotPasswordCommand;
+            }
+        }
+
         private Command? _loginCommand;
         public ICommand LoginCommand
         {
