@@ -46,6 +46,15 @@
     <Compile Update="Views\Principal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\PrincipalView\PrincipalFinance.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PrincipalView\PrincipalRegistrar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PrincipalView\PrincipalTeacher.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Registrar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -124,6 +133,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Principal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PrincipalView\PrincipalFinance.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PrincipalView\PrincipalRegistrar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PrincipalView\PrincipalTeacher.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Registrar.xaml">
