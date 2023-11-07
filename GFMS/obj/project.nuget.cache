@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gAioJcHklK8DCvXnalOPV5RFeMuWUfW/tL/7LizcHx2BKKr9RhHNqCqiHohihuV1NZr2f7fsClhv1HFZh0Behg==",
+  "dgSpecHash": "z5vX/0s4Hd30RBbEIfcsdUQGcjbG9HBDuNPc0RDzcheP5n4H4GBlo56S4+gwHPP1p4IqarOgOYF+zScr2b3V4A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dave Orijuela\\source\\repos\\GFMS\\GFMS\\GFMS.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\livechartscore\\2.0.0-rc1.2\\livechartscore.2.0.0-rc1.2.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\livechartscore.skiasharpview\\2.0.0-rc1.2\\livechartscore.skiasharpview.2.0.0-rc1.2.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\livechartscore.skiasharpview.wpf\\2.0.0-rc1.2\\livechartscore.skiasharpview.wpf.2.0.0-rc1.2.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\lottiesharp\\2.3.0\\lottiesharp.2.3.0.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
@@ -24,6 +25,7 @@
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.6\\skiasharp.harfbuzz.2.88.6.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.6\\skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.6\\skiasharp.nativeassets.win32.2.88.6.nupkg.sha512",
+    "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.skottie\\2.88.3\\skiasharp.skottie.2.88.3.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.views.desktop.common\\2.88.6\\skiasharp.views.desktop.common.2.88.6.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\skiasharp.views.wpf\\2.88.6\\skiasharp.views.wpf.2.88.6.nupkg.sha512",
     "C:\\Users\\Dave Orijuela\\.nuget\\packages\\system.drawing.common\\4.7.3\\system.drawing.common.4.7.3.nupkg.sha512"

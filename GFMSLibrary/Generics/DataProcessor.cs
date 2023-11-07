@@ -90,6 +90,8 @@ namespace GFMSLibrary.Generics
                             if (propertyIndex != -1)
                             {
                                 object dbValue = reader.GetValue(i);
+                                Console.WriteLine(dataProperties[propertyIndex].PropertyType);
+                                Console.WriteLine(dbValue);
 
                                 if (dataProperties[propertyIndex].PropertyType == typeof(int?))
                                 {

@@ -28,17 +28,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public RegistrarRegisterStudentViewModel()
         {
             ErrorsViewModel = new ErrorsViewModel();
-            ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
-            GradeLevel = new ObservableCollection<string>()
-            {
-                "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL"
-            };
-            ClassLevelList = new ObservableCollection<string>();
-            SexList = new ObservableCollection<string>()
-            {
-                "MALE", "FEMALE"
-            };
-            RequirementList = new ObservableCollection<Requirement>();
+            LoadDataAsync();
             DeleteCommand = new Command(obj =>
             {
                 Requirement? requirement = obj as Requirement;
@@ -154,7 +144,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                             };
                             taskList.Add(Task.Run(async () =>
                             {
-                                if(await credentials.RegisterStudentAsync(registration, "registration"))
+                                if (await credentials.RegisterStudentAsync(registration, "registration"))
                                 {
                                     string RegId = credentials.GetLastInsertedId().ToString();
                                     var Subjects = await credentials.GetByAnonymousAsync<SubjectJSON>("type", ClassLevel!, "subjects");
@@ -193,6 +183,24 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     Debug.WriteLine("Student Failed");
                 }
 
+            });
+        }
+
+        private async void LoadDataAsync()
+        {
+            await Task.Run(() =>
+            {
+                ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
+                GradeLevel = new ObservableCollection<string>()
+                {
+                    "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL"
+                };
+                ClassLevelList = new ObservableCollection<string>();
+                SexList = new ObservableCollection<string>()
+                {
+                    "MALE", "FEMALE"
+                };
+                RequirementList = new ObservableCollection<Requirement>();
             });
         }
 

@@ -19,6 +19,12 @@ namespace GFMS.ViewModels
     {
         public PrincipalViewModel()
         {
+            if (MainWindow.User != null)
+            {
+                UserType = MainWindow.User.Usertype;
+                FullName = $"Hi, {MainWindow.User.FirstName}";
+            }
+            
             CurrentView = MainPageView;
 
             RegistrarCommand = new Command(action =>
@@ -59,6 +65,23 @@ namespace GFMS.ViewModels
         private readonly PrincipalTeacherViewModel TeacherView = new();
 
         public ICommand LogoutCommand { get; }
+
+        private string? _fullName;
+
+        public string? FullName
+        {
+            get { return _fullName; }
+            set { _fullName = value; OnPropertyChanged(nameof(FullName)); }
+        }
+
+        private string? _userType;
+
+        public string? UserType
+        {
+            get { return _userType; }
+            set { _userType = value; OnPropertyChanged(nameof(UserType)); }
+        }
+
 
         private object _currentView;
 

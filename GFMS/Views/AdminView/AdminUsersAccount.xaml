@@ -59,8 +59,8 @@
                                                 <Border Grid.ColumnSpan="5">
                                                     <Border.Background>
                                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                            <GradientStop Color="#ff6773" Offset="0"/>
-                                                            <GradientStop Color="#ff8c71" Offset="1"/>
+                                                            <GradientStop Color="#6f68d2" Offset="0"/>
+                                                            <GradientStop Color="#9e5ea8" Offset="1"/>
                                                         </LinearGradientBrush>
                                                     </Border.Background>
                                                     <Label Grid.ColumnSpan="5" Content="{Binding User.Usertype}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="White" FontFamily="{StaticResource PoppinsRegular}"/>

@@ -42,7 +42,7 @@ namespace GFMS.Models
         {
             get
             {
-                if (Convert.ToDecimal(TotalPaid) > 15000m)
+                if (Convert.ToDecimal(TotalPaid) >= 15000m)
                 {
                     return "Paid";
                 }
@@ -53,7 +53,7 @@ namespace GFMS.Models
         {
             get
             {
-                if (Convert.ToDecimal(TotalPaid) > 15000m)
+                if (Convert.ToDecimal(TotalPaid) >= 15000m)
                 {
                     return "#3dc03c";
                 }

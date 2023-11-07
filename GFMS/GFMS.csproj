@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Animation - 1699327975492.json" />
     <None Remove="Assets\Background.png" />
     <None Remove="Assets\ChangePassword.png" />
     <None Remove="Assets\ChangePasswordActive.png" />
@@ -19,6 +20,7 @@
     <None Remove="Assets\DashboardActive.png" />
     <None Remove="Assets\Enrolled.png" />
     <None Remove="Assets\EnrolledActive.png" />
+    <None Remove="Assets\Finance.json" />
     <None Remove="Assets\LoginBackground.svg" />
     <None Remove="Assets\Logo.png" />
     <None Remove="Assets\Logout.png" />
@@ -28,16 +30,19 @@
     <None Remove="Assets\MaximizeHover.png" />
     <None Remove="Assets\Minimize.png" />
     <None Remove="Assets\MinimizeHover.png" />
+    <None Remove="Assets\Principal.json" />
     <None Remove="Assets\RecieptPayment.png" />
     <None Remove="Assets\RecieptPaymentAcitve.png" />
     <None Remove="Assets\RegisterStudent.png" />
     <None Remove="Assets\RegisterStudentActive.png" />
+    <None Remove="Assets\Registrar.json" />
     <None Remove="Assets\ReportCard.png" />
     <None Remove="Assets\ReportCardActive.png" />
     <None Remove="Assets\Requirements.png" />
     <None Remove="Assets\RequirementsActive.png" />
     <None Remove="Assets\StudentRecords.png" />
     <None Remove="Assets\StudentRecordsActive.png" />
+    <None Remove="Assets\Teacher.json" />
     <None Remove="Assets\UsersAccount.png" />
     <None Remove="Assets\UsersAccountActive.png" />
     <None Remove="Fonts\Poppins-Bold.ttf" />
@@ -56,6 +61,7 @@
 
   <ItemGroup>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc1.2" />
+    <PackageReference Include="LottieSharp" Version="2.3.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
@@ -63,6 +69,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Registrar.json" />
+    <Resource Include="Assets\Principal.json" />
+    <Resource Include="Assets\Animation - 1699327975492.json" />
+    <Resource Include="Assets\Teacher.json" />
+    <Resource Include="Assets\Finance.json" />
     <Resource Include="Assets\Background.png" />
     <Resource Include="Assets\ChangePassword.png" />
     <Resource Include="Assets\ChangePasswordActive.png" />

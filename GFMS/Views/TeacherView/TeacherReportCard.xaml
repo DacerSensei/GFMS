@@ -46,15 +46,15 @@
                                                     </Grid.ColumnDefinitions>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Image Source="{Binding ProfilePicture}" Height="50" Width="50" Grid.RowSpan="2"/>
-                                                        <Label FontSize="20" Grid.RowSpan="2" Content="{Binding StudentName}" VerticalContentAlignment="Center" Foreground="White" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                        <Label FontSize="20" Grid.RowSpan="2" Content="{Binding StudentName}" VerticalContentAlignment="Center" Foreground="black" FontFamily="{StaticResource PoppinsRegular}"/>
                                                     </StackPanel>
-                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="1" Content="{Binding Student.LRN}" VerticalContentAlignment="Center" Foreground="White" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="1" Content="{Binding Student.LRN}" VerticalContentAlignment="Center" Foreground="black" FontFamily="{StaticResource PoppinsRegular}"/>
                                                 </Grid>
                                             </Expander.Header>
                                             <Expander.Background>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <GradientStop Color="#ff6773" Offset="0"/>
-                                                    <GradientStop Color="#ff8c71" Offset="1"/>
+                                                    <GradientStop Color="#1abf32" Offset="0"/>
+                                                    <GradientStop Color="#7ce195" Offset="1"/>
                                                 </LinearGradientBrush>
                                             </Expander.Background>
                                             <Grid Background="White">

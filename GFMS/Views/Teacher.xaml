@@ -8,8 +8,8 @@
              d:DesignHeight="580" d:DesignWidth="1080"
              xmlns:MyModel="clr-namespace:GFMS.ViewModels"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.TeacherViewModels"
-             xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:View="clr-namespace:GFMS.Views.TeacherView">
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:View="clr-namespace:GFMS.Views.TeacherView" xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp">
     <UserControl.DataContext>
         <MyModel:TeacherViewModel />
     </UserControl.DataContext>
@@ -28,6 +28,23 @@
                 <DropShadowEffect Opacity="0.5" BlurRadius="100"/>
             </StackPanel.Effect>
             <StackPanel>
+                <md:Card Margin="30,5" UniformCornerRadius="25">
+                    <!--<md:Card.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#1abf32" Offset="0"/>
+                            <GradientStop Color="#7ce195" Offset="1"/>
+                        </LinearGradientBrush>
+                    </md:Card.Background>-->
+                    <lottie:LottieAnimationView Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center" AutoPlay="True" ResourcePath="pack://application:,,,/Assets/Teacher.json" Repeat="Restart" RepeatCount="-1" />
+                </md:Card>
+                <md:Card Margin="20,10" UniformCornerRadius="2">
+                    <StackPanel>
+                        <TextBlock  TextAlignment="Center" Foreground="Black" TextWrapping="Wrap">
+                            <Run FontSize="18" FontFamily="{StaticResource PoppinsBold}" Foreground="#1abf32" Text="{Binding UserType}"/><LineBreak/>
+                            <Run FontSize="14" FontFamily="{StaticResource PoppinsRegular}" Text="{Binding FullName}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </md:Card>
                 <StackPanel>
                     <StackPanel Cursor="Hand">
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" IsChecked="True" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ReportCardCommand}" Style="{DynamicResource ButtonReportCard}"/>

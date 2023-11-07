@@ -79,6 +79,19 @@
           }
         }
       },
+      "LottieSharp/2.3.0": {
+        "dependencies": {
+          "Microsoft.Xaml.Behaviors.Wpf": "1.1.39",
+          "SkiaSharp.Skottie": "2.88.3",
+          "SkiaSharp.Views.WPF": "2.88.6"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/LottieSharp.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        }
+      },
       "MaterialDesignColors/2.1.4": {
         "runtime": {
           "lib/net6.0/MaterialDesignColors.dll": {
@@ -246,6 +259,21 @@
           }
         }
       },
+      "SkiaSharp.Skottie/2.88.3": {
+        "dependencies": {
+          "SkiaSharp": "2.88.6"
+        },
+        "runtime": {
+          "lib/net6.0/SkiaSharp.SceneGraph.dll": {
+            "assemblyVersion": "2.88.0.0",
+            "fileVersion": "2.88.3.0"
+          },
+          "lib/net6.0/SkiaSharp.Skottie.dll": {
+            "assemblyVersion": "2.88.0.0",
+            "fileVersion": "2.88.3.0"
+          }
+        }
+      },
       "SkiaSharp.Views.Desktop.Common/2.88.6": {
         "dependencies": {
           "SkiaSharp": "2.88.6",
@@ -340,6 +368,13 @@
       "sha512": "sha512-QJ3hQcAJxXKDS+CEveu0NgtDqiUYT92cIQ+iR2/DpU2iZk6uB90SYLNFr7QUh2Q01r2kMF7UVEVJFdrX4Ntjww==",
       "path": "livechartscore.skiasharpview.wpf/2.0.0-rc1.2",
       "hashPath": "livechartscore.skiasharpview.wpf.2.0.0-rc1.2.nupkg.sha512"
+    },
+    "LottieSharp/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tdsMGJ6VjxlJllJ3mMkMjVzf9PpVIuXJV/w8PD5SjnXkZtoqjrDdwSp5oaf1S+S5Bn9qoBhybgM5mfTIVZ58OQ==",
+      "path": "lottiesharp/2.3.0",
+      "hashPath": "lottiesharp.2.3.0.nupkg.sha512"
     },
     "MaterialDesignColors/2.1.4": {
       "type": "package",
@@ -438,6 +473,13 @@
       "sha512": "sha512-7TzFO0u/g2MpQsTty4fyCDdMcfcWI+aLswwfnYXr3gtNS6VLKdMXPMeKpJa3pJSLnUBN6wD0JjuCe8OoLBQ6cQ==",
       "path": "skiasharp.nativeassets.win32/2.88.6",
       "hashPath": "skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
+    },
+    "SkiaSharp.Skottie/2.88.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8jNVREhy/H8DOA/oXP8RXtOsP+GnZp71lkIdlbvrsdr5KTnuM533YiiSr/yKNmVpl3R7wzJggbHxZunH/venFA==",
+      "path": "skiasharp.skottie/2.88.3",
+      "hashPath": "skiasharp.skottie.2.88.3.nupkg.sha512"
     },
     "SkiaSharp.Views.Desktop.Common/2.88.6": {
       "type": "package",

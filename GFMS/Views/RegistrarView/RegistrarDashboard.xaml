@@ -27,7 +27,7 @@
             <lvc:PieChart Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
         </md:Card>
         <md:Card Grid.Column="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarGraph}" XAxes="{Binding BarX}" YAxes="{Binding BarY}" LegendPosition="Top"></lvc:CartesianChart>
+            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarGraph}" XAxes="{Binding BarX}" LegendPosition="Top"></lvc:CartesianChart>
         </md:Card>
         <!-- Row 2 -->
         <md:Card Grid.Row="1" Grid.ColumnSpan="4" Margin="2" md:ElevationAssist.Elevation="Dp5">

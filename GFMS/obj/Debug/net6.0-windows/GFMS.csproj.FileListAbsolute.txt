@@ -120,3 +120,7 @@ C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Pri
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalFinance.baml
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalRegistrar.baml
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalTeacher.baml
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\bin\Debug\net6.0-windows\LottieSharp.dll
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\bin\Debug\net6.0-windows\SkiaSharp.SceneGraph.dll
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\bin\Debug\net6.0-windows\SkiaSharp.Skottie.dll
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\GFMS_Content.g.cs

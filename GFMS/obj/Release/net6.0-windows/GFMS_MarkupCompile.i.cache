@@ -1,0 +1,20 @@
+﻿GFMS
+1.0.0.0
+
+winexe
+C#
+.cs
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Release\net6.0-windows\
+GFMS
+none
+false
+TRACE;RELEASE;NET;NET6_0;NETCOREAPP
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\App.xaml
+37-826347587
+1-762735413
+84-653378734
+221-219441418
+Assets\LoginBackground.xaml;Styles\AddButtonStyle.xaml;Styles\ButtonStyle.xaml;Styles\CloseButtonStyle.xaml;Styles\RadioButtonNoBullet.xaml;Styles\RefreshButtonStyle.xaml;Styles\ScrollbarStyle.xaml;Views\Admin.xaml;Views\AdminView\AdminChangePassword.xaml;Views\AdminView\AdminCreateAccount.xaml;Views\AdminView\AdminDashboard.xaml;Views\AdminView\AdminUsersAccount.xaml;Views\Finance.xaml;Views\FinanceView\FinanceDashboard.xaml;Views\FinanceView\FinanceOfficiallyEnrolled.xaml;Views\Login.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\Modals\AlertDialog.xaml;Views\Modals\EditOfficiallyEnrolled.xaml;Views\Modals\MessageDialog.xaml;Views\Modals\ReportCardDialog.xaml;Views\Modals\RequirementDialog.xaml;Views\Modals\RequirementListDialog.xaml;Views\Principal.xaml;Views\PrincipalView\PrincipalFinance.xaml;Views\PrincipalView\PrincipalRegistrar.xaml;Views\PrincipalView\PrincipalTeacher.xaml;Views\Registrar.xaml;Views\RegistrarView\RegistrarDashboard.xaml;Views\RegistrarView\RegistrarOfficiallyEnrolled.xaml;Views\RegistrarView\RegistrarRegisterStudent.xaml;Views\RegistrarView\RegistrarReportCard.xaml;Views\RegistrarView\RegistrarRequirements.xaml;Views\RegistrarView\RegistrarStudentRecords.xaml;Views\Teacher.xaml;Views\TeacherView\TeacherReportCard.xaml;
+
+True
+
