@@ -7,11 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.TeacherViewModels"
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:mate="http://mater">
-    <UserControl.DataContext>
-        <ViewModel:TeacherReportCardViewModel />
-    </UserControl.DataContext>
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

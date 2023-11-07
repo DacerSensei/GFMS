@@ -25,6 +25,12 @@
     <Compile Update="Views\Finance.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\FinanceView\FinanceDashboard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\FinanceView\FinanceOfficiallyEnrolled.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +91,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Finance.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FinanceView\FinanceDashboard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FinanceView\FinanceOfficiallyEnrolled.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Login.xaml">

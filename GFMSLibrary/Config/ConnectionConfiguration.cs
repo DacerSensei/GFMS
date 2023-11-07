@@ -38,8 +38,6 @@ namespace GFMSLibrary.Config
             {
                 Connection = new MySqlConnection(ConnectionString);
                 Connection.OpenAsync().Wait(TimeSpan.FromSeconds(30));
-
-                Debug.WriteLine("Connection Successful");
             }
             catch (Exception ex)
             {

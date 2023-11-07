@@ -10,9 +10,6 @@
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.AdminViewModels"
              xmlns:help="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:View="clr-namespace:GFMS.Views.AdminView">
-    <UserControl.DataContext>
-        <MyModel:AdminViewModel />
-    </UserControl.DataContext>
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
