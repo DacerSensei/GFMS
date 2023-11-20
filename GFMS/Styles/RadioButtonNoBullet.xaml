@@ -649,7 +649,7 @@
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource RadioButton.MouseOver.Background}"/>
                             <Setter Property="Foreground" TargetName="RadioButtonLabel" Value="{StaticResource RadioButton.Active}"/>
-                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/ChangePasswordActive.png"/>
+                            <Setter Property="Source" TargetName="RadioButtonIcon" Value="../Assets/NotificationActive.png"/>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
