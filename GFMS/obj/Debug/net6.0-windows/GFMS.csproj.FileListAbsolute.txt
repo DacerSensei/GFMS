@@ -130,3 +130,7 @@ C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Pri
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\PrincipalView\PrincipalNotification.baml
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\RegistrarView\RegistrarNotification.g.cs
 C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\RegistrarView\RegistrarNotification.baml
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\RecieptPayment.g.cs
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\RecieptPayment.baml
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\PaymentHistoryDialog.g.cs
+C:\Users\Dave Orijuela\source\repos\GFMS\GFMS\obj\Debug\net6.0-windows\Views\Modals\PaymentHistoryDialog.baml

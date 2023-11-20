@@ -140,6 +140,12 @@
     <Compile Update="Views\Modals\EditOfficiallyEnrolled.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Modals\PaymentHistoryDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Modals\RecieptPayment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Modals\RequirementListDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

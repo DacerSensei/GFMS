@@ -132,6 +132,12 @@
     <Page Update="Views\Modals\EditOfficiallyEnrolled.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Modals\PaymentHistoryDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Modals\RecieptPayment.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Modals\ReportCardDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

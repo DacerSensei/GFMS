@@ -2,6 +2,7 @@
 using GFMS.Core;
 using GFMS.Models;
 using GFMS.Views;
+using GFMS.Views.Modals;
 using GFMSLibrary;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,27 @@ namespace GFMS.ViewModels.FinanceViewModels
             LoadAllAsync();
             PayCommand = new Command(async obj =>
             {
-                StudentReport? student = obj as StudentReport;
-                //if (student != null)
-                //{
-                //    Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
-                //    ReportCardDialog window = new ReportCardDialog(student, MainWindow.User!, principal);
-                //    if (window.ShowDialog() == true)
-                //    {
-                //        LoadAll();
-                //    }
-                //}
+                StudentAccounting? student = obj as StudentAccounting;
+                if (student != null)
+                {
+                    RecieptPayment window = new RecieptPayment();
+                    if (window.ShowDialog() == true)
+                    {
+                        LoadAllAsync();
+                    }
+                }
+            });
+            HistoryCommand = new Command(async obj =>
+            {
+                StudentAccounting? student = obj as StudentAccounting;
+                if (student != null)
+                {
+                    PaymentHistoryDialog window = new PaymentHistoryDialog();
+                    if (window.ShowDialog() == true)
+                    {
+                        LoadAllAsync();
+                    }
+                }
             });
         }
 
@@ -56,5 +68,6 @@ namespace GFMS.ViewModels.FinanceViewModels
         public ObservableCollection<StudentAccounting> StudentList { get; set; } = new ObservableCollection<StudentAccounting>();
 
         public ICommand PayCommand { get; }
+        public ICommand HistoryCommand { get; }
     }
 }

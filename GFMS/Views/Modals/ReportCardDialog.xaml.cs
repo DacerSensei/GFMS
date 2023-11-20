@@ -30,13 +30,17 @@ namespace GFMS.Views.Modals
         public ObservableCollection<Attendance> AttendanceList { get; set; } = new ObservableCollection<Attendance>();
         public ObservableCollection<Narrative> NarrativeList { get; set; } = new ObservableCollection<Narrative>();
         private readonly LoginCredentials Credentials = new LoginCredentials();
-        public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false)
+        public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false, bool isVisible = true)
         {
             InitializeComponent();
             LoadedCommand = new Command(obj =>
             {
 
             });
+            if (!isVisible)
+            {
+                SaveVisibility = Visibility.Hidden;
+            }
             if (isEditable)
             {
                 IsTeacher = "SAVE";
@@ -375,6 +379,13 @@ namespace GFMS.Views.Modals
             set { isTeacher = value; OnPropertyChanged(nameof(IsTeacher)); }
         }
 
+        private Visibility saveVisibility = Visibility.Visible;
+
+        public Visibility SaveVisibility
+        {
+            get { return saveVisibility; }
+            set { saveVisibility = value; OnPropertyChanged(nameof(SaveVisibility)); }
+        }
 
         private bool _isReadOnly = true;
         public bool IsReadOnly

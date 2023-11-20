@@ -97,6 +97,9 @@
                                                     <Button Background="#3dc03c" BorderBrush="#3dc03c" Command="{Binding Source={x:Reference MyList}, Path=DataContext.PayCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Pay">
                                                         <md:PackIcon Kind="HandCoin" Height="24" Width="24" />
                                                     </Button>
+                                                    <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.HistoryCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="HIstory">
+                                                        <md:PackIcon Kind="File" Height="24" Width="24" />
+                                                    </Button>
                                                 </StackPanel>
                                             </Grid>
                                         </Expander>
