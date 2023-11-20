@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="GFMS.Views.RegistrarView.RegistrarNotification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GFMS.Views.RegistrarView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors" >
+    <UserControl.DataContext>
+        <ViewModel:RegistrarNotificationViewModel />
+    </UserControl.DataContext>
+    <behavior:Interaction.Triggers>
+        <behavior:EventTrigger EventName="Loaded">
+            <behavior:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </behavior:EventTrigger>
+    </behavior:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Text="PRINT NOTIFICATION" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
+        </Grid>
+        <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl ItemsSource="{Binding NotificationList}" x:Name="MyList" MinHeight="200">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <md:Card Margin="5">
+                                        <Expander HorizontalAlignment="Stretch">
+                                            <Expander.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label FontSize="20" Grid.RowSpan="2" Content="{Binding FullName}" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                    </StackPanel>
+                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="1" Content="{Binding User.Usertype}" VerticalContentAlignment="Center" Foreground="#ff2147" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="2" Content="Request to print" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <Expander.Background>
+                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                    <GradientStop Color="#1abf32" Offset="0"/>
+                                                    <GradientStop Color="#1abf32" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Expander.Background>
+                                            <Grid Background="White">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="14" Content="Message" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="14" Grid.Row="1" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Content="{Binding Notification.Message}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Grid.Row="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
+                                                <StackPanel Grid.RowSpan="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ApproveCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Print">
+                                                        <md:PackIcon Kind="Printer" Height="24" Width="24" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Expander>
+                                    </md:Card>
+                                </ContentControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Style>
+                            <Style TargetType="ItemsControl">
+                                <Style.Triggers>
+                                    <Trigger Property="HasItems" Value="false">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBlock Text="Empty Student" FontFamily="{StaticResource PoppinsBold}" TextAlignment="Center" VerticalAlignment="Center"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.Style>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </md:Card>
+    </Grid>
+</UserControl>

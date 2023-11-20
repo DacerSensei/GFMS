@@ -61,6 +61,9 @@
     <Compile Update="Views\Registrar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RegistrarView\RegistrarNotification.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Teacher.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +157,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Registrar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RegistrarView\RegistrarNotification.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Teacher.xaml">

@@ -49,6 +49,10 @@ namespace GFMS.ViewModels
             {
                 CurrentView = StudentRecordsView;
             });
+            NotificationCommand = new Command(action =>
+            {
+                CurrentView = NotificationView;
+            });
             MainPageCommand = new Command(action =>
             {
                 CurrentView = MainPageView;
@@ -75,6 +79,7 @@ namespace GFMS.ViewModels
         public ICommand ReportCardCommand { get; }
         public ICommand RequirementsCommand { get; }
         public ICommand StudentRecordsCommand { get; }
+        public ICommand NotificationCommand { get; }
         public ICommand MainPageCommand { get; }
 
         private RegistrarDashboardViewModel DashboardView = new();
@@ -83,6 +88,7 @@ namespace GFMS.ViewModels
         private RegistrarReportCardViewModel ReportCardView = new();
         private RegistrarRequirementsViewModel RequirementsView = new();
         private RegistrarStudentRecordsViewModel StudentRecordsView = new();
+        private RegistrarNotificationViewModel NotificationView = new();
         private MainPageViewModel MainPageView = new();
 
         public ICommand LogoutCommand { get; }

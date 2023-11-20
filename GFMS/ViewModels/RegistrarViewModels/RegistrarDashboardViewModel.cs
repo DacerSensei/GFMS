@@ -18,6 +18,7 @@ using System.Windows.Input;
 using GFMS.Commands;
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Windows.Documents;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -26,11 +27,12 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public RegistrarDashboardViewModel()
         {
-            LoadDataAsync();
+            LoadedCommand = new Command(async obj =>
+            {
+                await LoadDataAsync();
+            });
             PreSchoolCommand = new Command(obj =>
             {
-
-
                 BarGraph.Clear();
                 var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
                 var dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
@@ -78,75 +80,77 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         };
 
-        private async void LoadDataAsync()
+        private async Task LoadDataAsync()
         {
-            await Task.Run(async () =>
+            StudentList.Clear();
+            YearList.Clear();
+            LineGraph.Clear();
+            BarGraph.Clear();
+            PieGraph.Clear();
+            BarX.Clear();
+            CrossX.Clear();
+            var studentList = await Credentials.GetAllDataAsync<Student>("student");
+            var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
+            var previousSchoolList = await Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
+
+            foreach (var student in studentList)
             {
-                StudentList.Clear();
-                YearList.Clear();
-                LineGraph.Clear();
-                var studentList = await Credentials.GetAllDataAsync<Student>("student");
-                var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
-                var previousSchoolList = await Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
-
-                foreach (var student in studentList)
+                // Find the requirements associated with the current student using the Student_ID
+                var registeredStudent = new RegisteredStudent
                 {
-                    // Find the requirements associated with the current student using the Student_ID
-                    var registeredStudent = new RegisteredStudent
-                    {
-                        Student = student,
-                    };
-                    registeredStudent.Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault();
-                    registeredStudent.PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault();
-                    if (Convert.ToInt16(registeredStudent.Registration!.Status) == 1)
-                    {
-                        registeredStudent.Status = "Enrolled";
-                        registeredStudent.StatusColor = "#3dc03c";
-                    }
-                    else
-                    {
-                        registeredStudent.Status = "Temporary Enrolled";
-                        registeredStudent.StatusColor = "#ffb302";
-                    }
-                    StudentList.Add(registeredStudent);
+                    Student = student,
+                };
+                registeredStudent.Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault();
+                registeredStudent.PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault();
+                if (Convert.ToInt16(registeredStudent.Registration!.Status) == 1)
+                {
+                    registeredStudent.Status = "Enrolled";
+                    registeredStudent.StatusColor = "#3dc03c";
                 }
-
-                YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
-                var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
-
-                PreSchool = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "PRE SCHOOL").ToList().Count();
-                Elementary = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "ELEMENTARY").ToList().Count();
-                JuniorHigh = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "JUNIOR HIGH SCHOOL").ToList().Count();
-                SeniorHigh = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "SENIOR HIGH SCHOOL").ToList().Count();
-                PieGraph.Add(CreatePieSeries("Pre School", new[] { PreSchool }, DataCategory.PRESCHOOL));
-                PieGraph.Add(CreatePieSeries("Elementary", new[] { Elementary }, DataCategory.ELEMENTARY));
-                PieGraph.Add(CreatePieSeries("Junior High School", new[] { JuniorHigh }, DataCategory.JUNIOR));
-                PieGraph.Add(CreatePieSeries("Senior High School", new[] { SeniorHigh }, DataCategory.SENIOR));
-                // BarGraph Initial
-                BarX.Add(new Axis { Labels = Years!, Name = "School Year", TextSize = 9 });
-                CrossX.Add(new Axis
+                else
                 {
-                    Labels = Years!
-                });
+                    registeredStudent.Status = "Temporary Enrolled";
+                    registeredStudent.StatusColor = "#ffb302";
+                }
+                StudentList.Add(registeredStudent);
+            }
 
+            YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
+            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
-                List<DataYear> dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
-                                          .GroupBy(s => s.Registration!.Year)
-                                          .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-
-                List<DataYear> generalTotal = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year))
-                                                         .GroupBy(s => s.Registration!.Year)
-                                                         .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-
-                BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
-                LineGraph.Add(CreateLineSeries(new ObservableCollection<int>(generalTotal.Select(y => y.Count))));
+            PreSchool = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "PRE SCHOOL").ToList().Count();
+            Elementary = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "ELEMENTARY").ToList().Count();
+            JuniorHigh = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "JUNIOR HIGH SCHOOL").ToList().Count();
+            SeniorHigh = StudentList.Where(s => s.Registration!.Level!.ToUpper() == "SENIOR HIGH SCHOOL").ToList().Count();
+            PieGraph.Add(CreatePieSeries("Pre School", new[] { PreSchool }, DataCategory.PRESCHOOL));
+            PieGraph.Add(CreatePieSeries("Elementary", new[] { Elementary }, DataCategory.ELEMENTARY));
+            PieGraph.Add(CreatePieSeries("Junior High School", new[] { JuniorHigh }, DataCategory.JUNIOR));
+            PieGraph.Add(CreatePieSeries("Senior High School", new[] { SeniorHigh }, DataCategory.SENIOR));
+            // BarGraph Initial
+            BarX.Add(new Axis { Labels = Years!, Name = "School Year", TextSize = 9 });
+            CrossX.Add(new Axis
+            {
+                Labels = Years!
             });
+
+
+            List<DataYear> dataYear = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
+                                      .GroupBy(s => s.Registration!.Year)
+                                      .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
+
+            List<DataYear> generalTotal = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year))
+                                                     .GroupBy(s => s.Registration!.Year)
+                                                     .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
+
+            BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
+            LineGraph.Add(CreateLineSeries(new ObservableCollection<int>(generalTotal.Select(y => y.Count))));
         }
 
         public ICommand PreSchoolCommand { get; }
         public ICommand ElementaryCommand { get; }
         public ICommand JuniorHighCommand { get; }
         public ICommand SeniorHighCommand { get; }
+        public ICommand LoadedCommand { get; }
 
         public ObservableCollection<ISeries> BarGraph { get; set; } = new ObservableCollection<ISeries>();
         public ObservableCollection<ISeries> PieGraph { get; set; } = new ObservableCollection<ISeries>();

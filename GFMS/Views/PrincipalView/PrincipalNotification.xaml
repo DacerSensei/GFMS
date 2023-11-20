@@ -26,7 +26,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2" Text="PRINT NOTIFICATION" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
-            <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Student" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
         </Grid>
         <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
             <Grid>

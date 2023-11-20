@@ -19,7 +19,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public RegistrarReportCardViewModel()
         {
-            LoadAll();
+            LoadedCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
             ViewCommand = new Command(async obj =>
             {
                 StudentReport? student = obj as StudentReport;
@@ -31,13 +34,13 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
                     if (window.ShowDialog() == true)
                     {
-                        LoadAll();
+                        await LoadAll();
                     }
                 }
             });
         }
 
-        private async void LoadAll()
+        private async Task LoadAll()
         {
             StudentList.Clear();
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
@@ -60,5 +63,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<StudentReport> StudentList { get; set; } = new ObservableCollection<StudentReport>();
 
         public ICommand ViewCommand { get; }
+        public ICommand LoadedCommand { get; }
     }
 }

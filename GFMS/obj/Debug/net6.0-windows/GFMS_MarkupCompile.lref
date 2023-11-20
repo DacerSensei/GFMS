@@ -20,10 +20,12 @@ FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RequirementDialog.xa
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RequirementListDialog.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Principal.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\PrincipalView\PrincipalFinance.xaml;;
+FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\PrincipalView\PrincipalNotification.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\PrincipalView\PrincipalRegistrar.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\PrincipalView\PrincipalTeacher.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Registrar.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarDashboard.xaml;;
+FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarNotification.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarOfficiallyEnrolled.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarRegisterStudent.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarReportCard.xaml;;
@@ -31,5 +33,4 @@ FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarRequ
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarStudentRecords.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Teacher.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\TeacherView\TeacherReportCard.xaml;;
-FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\PrincipalView\PrincipalNotification.xaml;;
 

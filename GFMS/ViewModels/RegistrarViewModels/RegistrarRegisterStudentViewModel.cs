@@ -28,6 +28,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public RegistrarRegisterStudentViewModel()
         {
             ErrorsViewModel = new ErrorsViewModel();
+            LoadedCommand = new Command(obj =>
+            {
+               
+            });
             LoadDataAsync();
             DeleteCommand = new Command(obj =>
             {
@@ -187,22 +191,19 @@ namespace GFMS.ViewModels.RegistrarViewModels
             });
         }
 
-        private async void LoadDataAsync()
+        private void LoadDataAsync()
         {
-            await Task.Run(() =>
-            {
-                ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
-                GradeLevel = new ObservableCollection<string>()
+            ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
+            GradeLevel = new ObservableCollection<string>()
                 {
                     "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL"
                 };
-                ClassLevelList = new ObservableCollection<string>();
-                SexList = new ObservableCollection<string>()
+            ClassLevelList = new ObservableCollection<string>();
+            SexList = new ObservableCollection<string>()
                 {
                     "MALE", "FEMALE"
                 };
-                RequirementList = new ObservableCollection<Requirement>();
-            });
+            RequirementList = new ObservableCollection<Requirement>();
         }
 
         private void ClearForm()
@@ -264,6 +265,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ICommand AddCommand { get; }
         public ICommand RegisterCommand { get; }
         public ICommand ChangePictureCommand { get; }
+        public ICommand LoadedCommand { get; }
 
         public static ObservableCollection<Requirement>? RequirementList { get; set; }
         public ObservableCollection<string> GradeLevel { get; set; }

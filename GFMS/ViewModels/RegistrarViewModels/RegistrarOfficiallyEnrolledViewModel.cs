@@ -16,19 +16,23 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public RegistrarOfficiallyEnrolledViewModel()
         {
-            LoadAll();
-            EditCommand = new Command(obj =>
+            LoadedCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
+            
+            EditCommand = new Command(async obj =>
             {
                 RegisteredStudent? student = obj as RegisteredStudent;
                 EditOfficiallyEnrolled window = new EditOfficiallyEnrolled(student!);
                 if (window.ShowDialog() == true)
                 {
-                    LoadAll();
+                    await LoadAll();
                 }
             });
         }
 
-        private async void LoadAll()
+        private async Task LoadAll()
         {
             StudentList.Clear();
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
@@ -61,5 +65,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<RegisteredStudent> StudentList { get; set; } = new ObservableCollection<RegisteredStudent>();
 
         public ICommand EditCommand { get; }
+        public ICommand LoadedCommand { get; }
     }
 }

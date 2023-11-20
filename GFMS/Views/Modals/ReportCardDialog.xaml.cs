@@ -33,6 +33,10 @@ namespace GFMS.Views.Modals
         public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false)
         {
             InitializeComponent();
+            LoadedCommand = new Command(obj =>
+            {
+               
+            });
             if (isEditable)
             {
                 SaveVisibility = Visibility.Visible;
@@ -92,7 +96,7 @@ namespace GFMS.Views.Modals
             {
                 if (student.ReportCard.Behavior != null)
                 {
-                    List<Behavior>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Behavior>>(student.ReportCard.Behavior);
+                    List<Behavior>? list = JsonConvert.DeserializeObject<List<Behavior>>(student.ReportCard.Behavior);
                     foreach (var item in list!)
                     {
                         BehaviorList.Add(item);
@@ -129,6 +133,7 @@ namespace GFMS.Views.Modals
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
+        public ICommand LoadedCommand { get; }
 
         public string? AverageFirstGrading
         {

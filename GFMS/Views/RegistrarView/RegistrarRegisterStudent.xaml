@@ -8,7 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.RegistrarViewModels"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:System="clr-namespace:System;assembly=mscorlib">
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors">
+    <UserControl.DataContext>
+        <ViewModel:RegistrarRegisterStudentViewModel />
+    </UserControl.DataContext>
+    <behavior:Interaction.Triggers>
+        <behavior:EventTrigger EventName="Loaded">
+            <behavior:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </behavior:EventTrigger>
+    </behavior:Interaction.Triggers>
     <ScrollViewer Grid.Row="2" md:ScrollViewerAssist.BubbleVerticalScroll="False" md:ScrollViewerAssist.IsAutoHideEnabled="True">
         <StackPanel x:Name="Form">
             <Grid Margin="10">
