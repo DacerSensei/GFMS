@@ -35,31 +35,43 @@ namespace GFMS.Views.Modals
             InitializeComponent();
             LoadedCommand = new Command(obj =>
             {
-               
+
             });
             if (isEditable)
             {
-                SaveVisibility = Visibility.Visible;
+                IsTeacher = "SAVE";
                 IsReadOnly = false;
+            }
+            else
+            {
+                IsTeacher = "REQUEST PRINT";
             }
             LoadAllDataAsync(student, teacher, principal);
             SaveCommand = new Command(async obj =>
             {
-                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
-                if ((bool)result! == false)
+                if (isEditable)
                 {
-                    return;
+                    var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
+                    if ((bool)result! == false)
+                    {
+                        return;
+                    }
+                    ReportCard reportCard = new ReportCard()
+                    {
+                        Attendance = JsonConvert.SerializeObject(AttendanceList),
+                        Behavior = JsonConvert.SerializeObject(BehaviorList),
+                        Narrative = JsonConvert.SerializeObject(NarrativeList),
+                        Subjects = JsonConvert.SerializeObject(SubjectList)
+                    };
+                    await Credentials.UpdateStudentAsync(reportCard, new { id = student.ReportCard!.Id }, "studentgrades");
+                    DialogResult = true;
+                    Close();
+                }else
+                {
+                    await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(),  Message = $"Request print for { student.StudentName }", Status = "Pending" } ,"notification");
+                    await DialogHost.Show(new MessageDialog("Notice", "You just send a request to principal"), "SecondaryDialog");
+                    Close();
                 }
-                ReportCard reportCard = new ReportCard()
-                {
-                    Attendance = JsonConvert.SerializeObject(AttendanceList),
-                    Behavior = JsonConvert.SerializeObject(BehaviorList),
-                    Narrative = JsonConvert.SerializeObject(NarrativeList),
-                    Subjects = JsonConvert.SerializeObject(SubjectList)
-                };
-                await Credentials.UpdateStudentAsync(reportCard, new { id = student.ReportCard!.Id }, "studentgrades");
-                DialogResult = true;
-                Close();
             });
             CancelCommand = new Command(obj =>
             {
@@ -355,12 +367,14 @@ namespace GFMS.Views.Modals
             set { _principal = value; OnPropertyChanged(nameof(Principal)); }
         }
 
-        private Visibility _saveVisibility = Visibility.Hidden;
-        public Visibility SaveVisibility
+        private string isTeacher;
+
+        public string IsTeacher
         {
-            get { return _saveVisibility; }
-            set { _saveVisibility = value; OnPropertyChanged(nameof(SaveVisibility)); }
+            get { return isTeacher; }
+            set { isTeacher = value; OnPropertyChanged(nameof(IsTeacher)); }
         }
+
 
         private bool _isReadOnly = true;
         public bool IsReadOnly

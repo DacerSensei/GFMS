@@ -26,7 +26,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Margin="0,20,30,20" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Visibility="{Binding SaveVisibility}" Command="{Binding SaveCommand}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}">SAVE</Button>
+                    <Button Command="{Binding SaveCommand}" Content="{Binding IsTeacher}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}"></Button>
                     <Button Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0">CANCEL</Button>
                 </StackPanel>
                 <md:Card Grid.Row="1" Margin="10,0,10,10">

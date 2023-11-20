@@ -74,7 +74,7 @@
                                                 <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="14" Grid.Row="1" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
                                                 <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Content="{Binding Notification.Message}" VerticalContentAlignment="Center" Foreground="Black"/>
                                                 <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Grid.Row="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
-                                                <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <StackPanel Grid.RowSpan="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="#3dc03c" BorderBrush="#3dc03c" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ApproveCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Approve">
                                                         <md:PackIcon Kind="Check" Height="24" Width="24" />
                                                     </Button>
