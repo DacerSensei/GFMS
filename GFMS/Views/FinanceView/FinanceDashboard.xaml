@@ -15,118 +15,123 @@
             <behavior:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-        <!-- Row 1 -->
-        <Border CornerRadius="6" Margin="5">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
-            </Border.Effect>
-            <behavior:Interaction.Triggers>
-                <behavior:EventTrigger EventName="MouseLeftButtonUp">
-                    <behavior:InvokeCommandAction Command="{Binding PreSchoolCommand}" />
-                </behavior:EventTrigger>
-            </behavior:Interaction.Triggers>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#ffb2b2" Offset="0"/>
-                    <GradientStop Color="#ff8080" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel Margin="15">
-                <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
-                <TextBlock Text="Pre School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
-                <TextBlock Text="{Binding PreSchool}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
-        <Border CornerRadius="6" Grid.Column="1" Margin="5">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
-            </Border.Effect>
-            <behavior:Interaction.Triggers>
-                <behavior:EventTrigger EventName="MouseLeftButtonUp">
-                    <behavior:InvokeCommandAction Command="{Binding ElementaryCommand}" />
-                </behavior:EventTrigger>
-            </behavior:Interaction.Triggers>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#cc32cc" Offset="0"/>
-                    <GradientStop Color="#cc32cc" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel Margin="15">
-                <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
-                <TextBlock Text="Elementary" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
-                <TextBlock Text="{Binding Elementary}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
-        <Border CornerRadius="6" Grid.Column="2" Margin="5">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
-            </Border.Effect>
-            <behavior:Interaction.Triggers>
-                <behavior:EventTrigger EventName="MouseLeftButtonUp">
-                    <behavior:InvokeCommandAction Command="{Binding JuniorHighCommand}" />
-                </behavior:EventTrigger>
-            </behavior:Interaction.Triggers>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#8faadc" Offset="0"/>
-                    <GradientStop Color="#8faadc" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel Margin="15">
-                <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
-                <TextBlock Text="Junior High School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
-                <TextBlock Text="{Binding JuniorHigh}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
-        <Border CornerRadius="6" Grid.Column="3" Margin="5">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
-            </Border.Effect>
-            <behavior:Interaction.Triggers>
-                <behavior:EventTrigger EventName="MouseLeftButtonUp">
-                    <behavior:InvokeCommandAction Command="{Binding SeniorHighCommand}" />
-                </behavior:EventTrigger>
-            </behavior:Interaction.Triggers>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#a9d18e" Offset="0"/>
-                    <GradientStop Color="#a9d18e" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel Margin="15">
-                <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
-                <TextBlock Text="Senior High School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
-                <TextBlock Text="{Binding SeniorHigh}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
-        <!-- Row 2 -->
-        <md:Card Grid.Row="1" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-            <lvc:CartesianChart Series="{Binding LineGraph}" XAxes="{Binding CrossX}" LegendPosition="Top" LegendTextSize="14">
-            </lvc:CartesianChart>
-        </md:Card>
-        <md:Card Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding BarGraph}" XAxes="{Binding BarX}" LegendPosition="Top"></lvc:CartesianChart>
-        </md:Card>
-        <!-- Row 3 -->
-        <md:Card Grid.Row="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-            <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding SampleSeries}"></lvc:CartesianChart>
-        </md:Card>
-        <md:Card Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-            <lvc:PieChart Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
-        </md:Card>
-    </Grid>
+                <!-- Row 1 -->
+                <Border CornerRadius="6" Margin="5">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
+                    </Border.Effect>
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="MouseLeftButtonUp">
+                            <behavior:InvokeCommandAction Command="{Binding PreSchoolCommand}" />
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#ffb2b2" Offset="0"/>
+                            <GradientStop Color="#ff8080" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel Margin="15">
+                        <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
+                        <TextBlock Text="Pre School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="{Binding PreSchool}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <Border CornerRadius="6" Grid.Column="1" Margin="5">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
+                    </Border.Effect>
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="MouseLeftButtonUp">
+                            <behavior:InvokeCommandAction Command="{Binding ElementaryCommand}" />
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#cc32cc" Offset="0"/>
+                            <GradientStop Color="#cc32cc" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel Margin="15">
+                        <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
+                        <TextBlock Text="Elementary" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="{Binding Elementary}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <Border CornerRadius="6" Grid.Column="2" Margin="5">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
+                    </Border.Effect>
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="MouseLeftButtonUp">
+                            <behavior:InvokeCommandAction Command="{Binding JuniorHighCommand}" />
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#8faadc" Offset="0"/>
+                            <GradientStop Color="#8faadc" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel Margin="15">
+                        <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
+                        <TextBlock Text="Junior High School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="{Binding JuniorHigh}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <Border CornerRadius="6" Grid.Column="3" Margin="5">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="4" />
+                    </Border.Effect>
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="MouseLeftButtonUp">
+                            <behavior:InvokeCommandAction Command="{Binding SeniorHighCommand}" />
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#a9d18e" Offset="0"/>
+                            <GradientStop Color="#a9d18e" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel Margin="15">
+                        <Image Source="../../Assets/EnrolledActive.png" Height="30" Width="30" HorizontalAlignment="Left" />
+                        <TextBlock Text="Senior High School" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="{Binding SeniorHigh}" FontFamily="{StaticResource PoppinsRegular}" Foreground="White" FontSize="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <!-- Row 2 -->
+                <md:Card Grid.Row="1" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
+                    <lvc:CartesianChart Series="{Binding LineGraph}" XAxes="{Binding CrossX}" LegendPosition="Top" LegendTextSize="14">
+                    </lvc:CartesianChart>
+                </md:Card>
+                <md:Card Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
+                    <Calendar></Calendar>
+                </md:Card>
+                <!-- Row 3 -->
+                <md:Card Grid.Row="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
+                    <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding SampleSeries}"></lvc:CartesianChart>
+                </md:Card>
+
+            </Grid>
+            <md:Card Margin="2" md:ElevationAssist.Elevation="Dp5" Width="470" HorizontalAlignment="Left">
+                <lvc:PieChart Height="400" Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
+            </md:Card>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
