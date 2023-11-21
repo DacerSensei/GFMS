@@ -19,11 +19,11 @@ namespace GFMS.ViewModels.FinanceViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public FinanceOfficiallyEnrolledViewModel()
         {
-            LoadedCommand = new Command(obj =>
+            LoadedCommand = new Command(async obj =>
             {
-
+                await LoadAllAsync();
             });
-            LoadAllAsync();
+            
             PayCommand = new Command(async obj =>
             {
                 StudentAccounting? student = obj as StudentAccounting;
@@ -32,7 +32,7 @@ namespace GFMS.ViewModels.FinanceViewModels
                     RecieptPayment window = new RecieptPayment(student);
                     if (window.ShowDialog() == true)
                     {
-                        LoadAllAsync();
+                        await LoadAllAsync();
                     }
                 }
             });
@@ -41,16 +41,16 @@ namespace GFMS.ViewModels.FinanceViewModels
                 StudentAccounting? student = obj as StudentAccounting;
                 if (student != null)
                 {
-                    PaymentHistoryDialog window = new PaymentHistoryDialog();
+                    PaymentHistoryDialog window = new PaymentHistoryDialog(student);
                     if (window.ShowDialog() == true)
                     {
-                        LoadAllAsync();
+                        await LoadAllAsync();
                     }
                 }
             });
         }
 
-        private async void LoadAllAsync()
+        private async Task LoadAllAsync()
         {
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
             var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");

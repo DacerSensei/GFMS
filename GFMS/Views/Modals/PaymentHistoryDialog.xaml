@@ -61,12 +61,12 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Margin="100,0,10,0">
-                                <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
-                                <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="LRN" />
+                                <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
+                                <TextBox IsReadOnly="True" Text="{Binding LRN}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="LRN" />
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="10,0,100,0">
-                                <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade Level" />
-                                <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Status" />
+                                <TextBox IsReadOnly="True" Text="{Binding GradeLevel}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade Level" />
+                                <TextBox IsReadOnly="True" Text="{Binding Status}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Status" />
                             </StackPanel>
                         </Grid>
                         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,20">
