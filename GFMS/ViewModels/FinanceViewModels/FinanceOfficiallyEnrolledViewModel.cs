@@ -25,7 +25,7 @@ namespace GFMS.ViewModels.FinanceViewModels
                 StudentAccounting? student = obj as StudentAccounting;
                 if (student != null)
                 {
-                    RecieptPayment window = new RecieptPayment();
+                    RecieptPayment window = new RecieptPayment(student);
                     if (window.ShowDialog() == true)
                     {
                         LoadAllAsync();

@@ -58,7 +58,7 @@
                             <TextBlock Text="OFFICIAL RECEIPT" VerticalAlignment="Bottom" FontSize="26" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Margin="40,0,10,0">
-                            <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
+                            <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
                             <TextBlock Text="Tuition Fee:" FontSize="20" Margin="0,30,0,10" HorizontalAlignment="Left" />
                             <TextBox Text="{Binding Name}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" />
                             <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" Margin="0,20,0,0" />
@@ -71,7 +71,7 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
+                            <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
                             <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
                             <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
                             <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />

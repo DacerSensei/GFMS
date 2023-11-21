@@ -23,6 +23,8 @@
     <None Remove="Assets\Finance.json" />
     <None Remove="Assets\FinanceDashboard.png" />
     <None Remove="Assets\FinanceDashboardActive.png" />
+    <None Remove="Assets\FinanceReport.png" />
+    <None Remove="Assets\FinanceReportActive.png" />
     <None Remove="Assets\LoginBackground.svg" />
     <None Remove="Assets\Logo.png" />
     <None Remove="Assets\Logout.png" />
@@ -79,6 +81,8 @@
   <ItemGroup>
     <Resource Include="Assets\FinanceDashboard.png" />
     <Resource Include="Assets\FinanceDashboardActive.png" />
+    <Resource Include="Assets\FinanceReport.png" />
+    <Resource Include="Assets\FinanceReportActive.png" />
     <Resource Include="Assets\Notification.png" />
     <Resource Include="Assets\NotificationActive.png" />
     <Resource Include="Assets\Registrar.json" />

@@ -26,13 +26,14 @@ namespace GFMS.Views.Modals
     public partial class RecieptPayment : Window, INotifyPropertyChanged
     {
         private readonly LoginCredentials Credentials = new LoginCredentials();
-        public RecieptPayment()
+        public RecieptPayment(StudentAccounting student)
         {
             InitializeComponent();
             LoadedCommand = new Command(obj =>
             {
 
             });
+            LoadAllDataAsync(student);
             SaveCommand = new Command(async obj =>
             {
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
@@ -50,73 +51,30 @@ namespace GFMS.Views.Modals
             });
             DataContext = this;
         }
-        //private void LoadAllDataAsync(StudentReport student, Users teacher, Users principal)
-        //{
-        //    FullName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
-        //    Sex = student.Student.Gender;
-        //    LRN = student.Student.LRN;
-        //    Grade = student.Registration!.Grade;
-        //    if (teacher != null)
-        //    {
-        //        Adviser = $"{teacher.FirstName} {teacher.LastName}";
-        //    }
-        //    if (principal != null)
-        //    {
-        //        Principal = $"{principal.FirstName} {principal.LastName}";
-        //    }
-        //    DateTime today = DateTime.Today;
-        //    var BirthDate = Convert.ToDateTime(student.Student!.Birthdate);
-        //    int ageValue = today.Year - BirthDate.Year;
-        //    if (BirthDate.Date > today.AddYears(-ageValue))
-        //    {
-        //        ageValue--;
-        //    }
-        //    Age = ageValue.ToString();
-
-        //    if (student.ReportCard != null)
-        //    {
-        //        if (student.ReportCard.Behavior != null)
-        //        {
-        //            List<Behavior>? list = JsonConvert.DeserializeObject<List<Behavior>>(student.ReportCard.Behavior);
-        //            foreach (var item in list!)
-        //            {
-        //                BehaviorList.Add(item);
-
-        //            }
-        //        }
-        //        if (student.ReportCard.Subjects != null)
-        //        {
-        //            List<Subject>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Subject>>(student.ReportCard.Subjects);
-        //            foreach (var item in list!)
-        //            {
-        //                SubjectList.Add(item);
-
-        //            }
-        //        }
-        //        if (student.ReportCard.Attendance != null)
-        //        {
-        //            List<Attendance>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Attendance>>(student.ReportCard.Attendance);
-        //            foreach (var item in list!)
-        //            {
-        //                AttendanceList.Add(item);
-        //            }
-        //        }
-        //        if (student.ReportCard.Narrative != null)
-        //        {
-        //            List<Narrative>? list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Narrative>>(student.ReportCard.Narrative);
-        //            foreach (var item in list!)
-        //            {
-        //                NarrativeList.Add(item);
-        //            }
-        //        }
-        //    }
-        //}
+        private void LoadAllDataAsync(StudentAccounting student)
+        {
+            CompleteName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
+        }
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand LoadedCommand { get; }
 
+        private string completeName;
 
+        public string CompleteName
+        {
+            get { return completeName; }
+            set { completeName = value; OnPropertyChanged(nameof(CompleteName)); }
+        }
+
+        private string date = DateTime.Now.Date.ToShortDateString();
+
+        public string Date
+        {
+            get { return date; }
+            set { date = value; OnPropertyChanged(nameof(Date)); }
+        }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {

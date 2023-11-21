@@ -27,8 +27,11 @@ namespace GFMS.ViewModels
             OfficiallyEnrolledCommand = new Command(action =>
             {
                 CurrentView = OfficiallyEnrolledView;
+            }); 
+            ReportCommand = new Command(action =>
+            {
+                CurrentView = ReportView;
             });
-
             LogoutCommand = new Command(async action =>
             {
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to logout?"), "RootDialog");
@@ -46,10 +49,12 @@ namespace GFMS.ViewModels
 
         public ICommand DashboardCommand { get; }
         public ICommand OfficiallyEnrolledCommand { get; }
+        public ICommand ReportCommand { get; }
 
         private readonly MainPageViewModel MainPageView = new();
         private readonly FinanceDashboardViewModel DashboardView = new();
         private readonly FinanceOfficiallyEnrolledViewModel OfficiallyEnrolledView = new();
+        private readonly FinanceReportViewModel ReportView = new();
 
         public ICommand LogoutCommand { get; }
 

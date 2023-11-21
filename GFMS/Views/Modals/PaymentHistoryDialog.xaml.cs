@@ -33,16 +33,6 @@ namespace GFMS.Views.Modals
             {
 
             });
-            SaveCommand = new Command(async obj =>
-            {
-                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
-                if ((bool)result! == false)
-                {
-                    return;
-                }
-                DialogResult = true;
-                Close();
-            });
             CancelCommand = new Command(obj =>
             {
                 DialogResult = false;
@@ -115,10 +105,8 @@ namespace GFMS.Views.Modals
         //    }
         //}
 
-        public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand LoadedCommand { get; }
-
 
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
