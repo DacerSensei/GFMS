@@ -19,6 +19,10 @@ namespace GFMS.ViewModels.FinanceViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public FinanceOfficiallyEnrolledViewModel()
         {
+            LoadedCommand = new Command(obj =>
+            {
+
+            });
             LoadAllAsync();
             PayCommand = new Command(async obj =>
             {
@@ -69,5 +73,6 @@ namespace GFMS.ViewModels.FinanceViewModels
 
         public ICommand PayCommand { get; }
         public ICommand HistoryCommand { get; }
+        public ICommand LoadedCommand { get; }
     }
 }

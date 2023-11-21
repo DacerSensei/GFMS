@@ -8,6 +8,7 @@ FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\AdminView\AdminUsersAccount
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Finance.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\FinanceView\FinanceDashboard.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\FinanceView\FinanceOfficiallyEnrolled.xaml;;
+FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\FinanceView\FinanceReport.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Login.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\MainPage.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\MainWindow.xaml;;
@@ -15,6 +16,8 @@ FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\AlertDialog.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\EditOfficiallyEnrolled.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\ForgotPassword.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\MessageDialog.xaml;;
+FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\PaymentHistoryDialog.xaml;;
+FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RecieptPayment.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\ReportCardDialog.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RequirementDialog.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RequirementListDialog.xaml;;
@@ -33,7 +36,4 @@ FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarRequ
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\RegistrarView\RegistrarStudentRecords.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Teacher.xaml;;
 FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\TeacherView\TeacherReportCard.xaml;;
-FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\RecieptPayment.xaml;;
-FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\Modals\PaymentHistoryDialog.xaml;;
-FC:\Users\Dave Orijuela\source\repos\GFMS\GFMS\Views\FinanceView\FinanceReport.xaml;;
 

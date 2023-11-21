@@ -27,7 +27,7 @@ namespace GFMS.ViewModels.PrincipalViewModels
                     Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
                     UserTeacher findTeacher = await Credentials.GetByAnonymousAsync<UserTeacher>("grade", student.Registration!.Grade!, "teachers");
                     Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
-                    ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
+                    ReportCardDialog window = new ReportCardDialog(student, teacher, principal, false, false);
                     if (window.ShowDialog() == true)
                     {
                         LoadAll();
