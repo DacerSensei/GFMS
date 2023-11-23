@@ -37,11 +37,47 @@ namespace GFMS.Views.Modals
             LoadAllDataAsync(student);
             PayCommand = new Command(async obj =>
             {
-                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
+                if (string.IsNullOrEmpty(TotalAmount))
+                {
+                    var errorResult = await DialogHost.Show(new MessageDialog("Notice", "You cannot pay with empty data"), "SecondaryDialog");
+                    return;
+                }
+                if (string.IsNullOrEmpty(Payment))
+                {
+                    var errorResult = await DialogHost.Show(new MessageDialog("Notice", "Your payment is empty"), "SecondaryDialog");
+                    return;
+                }
+                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to pay?"), "SecondaryDialog");
                 if ((bool)result! == false)
                 {
                     return;
                 }
+
+                TuitionDetails tuitionDetails = new TuitionDetails()
+                {
+                    Balance = Balance,
+                    Books = Books,
+                    DiscountedTuition = Discounted,
+                    DiscountType = SelectedDiscount ?? "",
+                    Inclusion = Inclusion,
+                    ModeOfPayment = SelectedModeOfPayment,
+                    OtherFees = OtherFees,
+                    Payment = Payment,
+                    RegistrationFee = RegistrationFee,
+                    TotalAmount = TotalAmount,
+                    Uniform = Uniform,
+                    TuitionFee = TuitionFee,
+                    TotalTuitionFee = TotalTuitionFee,
+                    Description = Description,
+                    Date = DateTime.Now.ToShortDateString()
+                };
+                Accounting accounting = new Accounting()
+                {
+                    Registration_Id = student.Registration!.Id.ToString(),
+                    Payment = JsonConvert.SerializeObject(tuitionDetails),
+                    Created_At = DateTime.Now.ToShortDateString()
+                };
+                await Credentials.RegisterStudentAsync(accounting, "accounting");
                 DialogResult = true;
                 Close();
             });
@@ -56,7 +92,7 @@ namespace GFMS.Views.Modals
         {
             DiscountList = new ObservableCollection<string>()
                 {
-                    "SCHOLAR", "SOMETHING"
+                    "FULL PAID TUITION", "SIBLING DISCOUNT", "VALEDICTORIAN", "SALUTATORIAN"
                 };
             ModeOfPaymentList = new ObservableCollection<string>()
                 {
@@ -90,7 +126,7 @@ namespace GFMS.Views.Modals
             set { date = value; OnPropertyChanged(nameof(Date)); }
         }
 
-        private string tuitionFee;
+        private string tuitionFee = string.Empty;
 
         public string TuitionFee
         {
@@ -118,13 +154,25 @@ namespace GFMS.Views.Modals
                 if (!string.IsNullOrEmpty(SelectedDiscount))
                 {
                     decimal tuition = Convert.ToDecimal(TuitionFee);
-                    if (SelectedDiscount.ToLower() == "scholar")
+                    if (SelectedDiscount.ToLower() == "FULL PAID TUITION".ToLower())
                     {
-                        decimal discountPercentage = 0.35m;
+                        decimal discountPercentage = 0.05m;
                         decimal discountAmount = tuition - (tuition * discountPercentage);
                         return discountAmount.ToString("N2");
                     }
-                    else if (SelectedDiscount.ToLower() == "something")
+                    else if (SelectedDiscount.ToLower() == "SIBLING DISCOUNT".ToLower())
+                    {
+                        decimal discountPercentage = 0.1m;
+                        decimal discountAmount = tuition - (tuition * discountPercentage);
+                        return discountAmount.ToString("N2");
+                    }
+                    else if (SelectedDiscount.ToLower() == "VALEDICTORIAN".ToLower())
+                    {
+                        decimal discountPercentage = 1m;
+                        decimal discountAmount = tuition - (tuition * discountPercentage);
+                        return discountAmount.ToString("N2");
+                    }
+                    else if (SelectedDiscount.ToLower() == "SALUTATORIAN".ToLower())
                     {
                         decimal discountPercentage = 0.5m;
                         decimal discountAmount = tuition - (tuition * discountPercentage);
@@ -160,13 +208,25 @@ namespace GFMS.Views.Modals
                     if (!string.IsNullOrEmpty(TuitionFee))
                     {
                         decimal tuition = Convert.ToDecimal(TuitionFee);
-                        if (SelectedDiscount.ToLower() == "scholar")
+                        if (SelectedDiscount.ToLower() == "FULL PAID TUITION".ToLower())
                         {
-                            decimal discountPercentage = 0.35m;
+                            decimal discountPercentage = 0.05m;
                             decimal discountAmount = tuition * discountPercentage;
                             return discountAmount.ToString("N2");
                         }
-                        else if (SelectedDiscount.ToLower() == "something")
+                        else if (SelectedDiscount.ToLower() == "SIBLING DISCOUNT".ToLower())
+                        {
+                            decimal discountPercentage = 0.1m;
+                            decimal discountAmount = tuition * discountPercentage;
+                            return discountAmount.ToString("N2");
+                        }
+                        else if (SelectedDiscount.ToLower() == "VALEDICTORIAN".ToLower())
+                        {
+                            decimal discountPercentage = 1m;
+                            decimal discountAmount = tuition * discountPercentage;
+                            return discountAmount.ToString("N2");
+                        }
+                        else if (SelectedDiscount.ToLower() == "SALUTATORIAN".ToLower())
                         {
                             decimal discountPercentage = 0.5m;
                             decimal discountAmount = tuition * discountPercentage;
@@ -178,7 +238,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string otherFees;
+        private string otherFees = string.Empty;
 
         public string OtherFees
         {
@@ -193,7 +253,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string inclusion;
+        private string inclusion = string.Empty;
 
         public string Inclusion
         {
@@ -209,7 +269,7 @@ namespace GFMS.Views.Modals
             set { selectedModeOfPayment = value; OnPropertyChanged(nameof(SelectedModeOfPayment)); }
         }
 
-        private string registrationFee;
+        private string registrationFee = string.Empty;
 
         public string RegistrationFee
         {
@@ -224,7 +284,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string books;
+        private string books = string.Empty;
 
         public string Books
         {
@@ -239,7 +299,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string uniform;
+        private string uniform = string.Empty;
 
         public string Uniform
         {
@@ -258,6 +318,13 @@ namespace GFMS.Views.Modals
         {
             get
             {
+                if (!string.IsNullOrEmpty(SelectedDiscount))
+                {
+                    if (SelectedDiscount.ToLower() == "VALEDICTORIAN".ToLower())
+                    {
+                        return new decimal(0).ToString("N2");
+                    }
+                }
                 decimal totalTuitionFee = 0m;
                 decimal registrationFee = 0m;
                 decimal booksFee = 0m;
@@ -308,7 +375,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string payment;
+        private string payment = string.Empty;
 
         public string Payment
         {
@@ -331,6 +398,30 @@ namespace GFMS.Views.Modals
                     return false;
                 }
                 return true;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                StringBuilder description = new StringBuilder("You pay in ");
+
+                AppendDescription(description, "Tuition", !string.IsNullOrEmpty(TotalTuitionFee));
+                AppendDescription(description, "Registration Fee", !string.IsNullOrEmpty(RegistrationFee));
+                AppendDescription(description, "Books", !string.IsNullOrEmpty(Books));
+                AppendDescription(description, "Uniform", !string.IsNullOrEmpty(Uniform));
+                AppendDescription(description, "Other Fees", !string.IsNullOrEmpty(OtherFees));
+
+                return description.ToString();
+            }
+        }
+
+        private void AppendDescription(StringBuilder description, string descriptionName, bool condition)
+        {
+            if (condition)
+            {
+                description.Append($"{descriptionName}, ");
             }
         }
 

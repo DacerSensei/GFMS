@@ -40,9 +40,6 @@
                 </TextBlock>
             </Grid>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,20" Orientation="Horizontal" HorizontalAlignment="Center">
-                <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="School Level" Padding="10" Margin="10,20,10,0" FontFamily="{StaticResource PoppinsRegular}" MinWidth="200">
-
-                </ComboBox>
                 <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="School Year" Padding="10" Margin="10,20,10,0" FontFamily="{StaticResource PoppinsRegular}" MinWidth="200">
 
                 </ComboBox>
@@ -53,8 +50,8 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Transaction Date" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                    <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Mode of Payment" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                    <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Grade Level" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                    <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Total Income" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                 </Grid>
             </Border>
             <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Hidden">

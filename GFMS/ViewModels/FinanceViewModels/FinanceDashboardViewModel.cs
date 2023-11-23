@@ -126,11 +126,6 @@ namespace GFMS.ViewModels.FinanceViewModels
         {
             Values = new ObservableCollection<double> { 6, 3, 2, 8 },
             IsVisible = true
-        },
-        new ColumnSeries<double>
-        {
-            Values = new ObservableCollection<double> { 4, 2, 8, 7 },
-            IsVisible = true
         }
     };
 

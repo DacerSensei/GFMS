@@ -55,6 +55,7 @@ namespace GFMS.ViewModels.FinanceViewModels
 
         private async Task LoadAllAsync()
         {
+            StudentList.Clear();
             Task<List<Student>>? studentListTask = Credentials.GetAllDataAsync<Student>("student");
             Task<List<Registration>>? registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");

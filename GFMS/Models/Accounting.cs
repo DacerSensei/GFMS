@@ -11,6 +11,6 @@ namespace GFMS.Models
         public int Id { get; set; }
         public string?  Registration_Id { get; set; }
         public string? Payment { get; set; }
-        public DateTime Created_At { get; set; }
+        public string? Created_At { get; set; }
     }
 }

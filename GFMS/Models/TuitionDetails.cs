@@ -16,5 +16,6 @@
         public string? Inclusion { get; set; }
         public string? ModeOfPayment { get; set; }
         public string? Description { get; set; }
+        public string? Date { get; set; }
     }
 }

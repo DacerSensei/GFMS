@@ -42,7 +42,7 @@ namespace GFMS.Views.Modals
             DataContext = this;
         }
 
-        public ObservableCollection<StudentReport> HistoryList { get; set; } = new ObservableCollection<StudentReport>();
+        public ObservableCollection<TuitionDetails> HistoryList { get; set; }
 
         private void LoadAllDataAsync(StudentAccounting student)
         {
@@ -50,6 +50,7 @@ namespace GFMS.Views.Modals
             LRN = student.Student.LRN!;
             GradeLevel = student.Registration!.Grade!;
             Status = student.Status!;
+            HistoryList = new ObservableCollection<TuitionDetails>(student.TuitionDetailsList!);
         }
 
         public ICommand CancelCommand { get; }
@@ -85,6 +86,34 @@ namespace GFMS.Views.Modals
         {
             get { return status; }
             set { status = value; OnPropertyChanged(nameof(Status)); }
+        }
+
+        public string BalanceToBePaid
+        {
+            get
+            {
+                if (HistoryList != null && HistoryList.Count > 0 && !HistoryList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
+                {
+                    decimal totalPaid = 0m;
+                    for (int i = 0; i < HistoryList.Count; i++)
+                    {
+                        if (string.IsNullOrWhiteSpace(HistoryList[i].Payment) || string.IsNullOrWhiteSpace(HistoryList[i].TuitionFee))
+                        {
+                            continue;
+                        }
+                        totalPaid += Convert.ToDecimal(HistoryList[i].Payment);
+                    }
+                    var totalTuitionFee = HistoryList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
+                    var tuition = Convert.ToDecimal(totalTuitionFee!.TotalTuitionFee ?? "0");
+                    var total = totalPaid - tuition;
+
+                    return total > tuition ? "0.00" : total.ToString("N2");
+                }
+                else
+                {
+                    return "Tuition fee not set";
+                }
+            }
         }
 
 

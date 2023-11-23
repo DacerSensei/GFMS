@@ -57,7 +57,7 @@ namespace GFMS.Models
         {
             get
             {
-                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0 && TuitionDetailsList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
+                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0 && !TuitionDetailsList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
                 {
 
                     var totalTuitionFee = TuitionDetailsList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
