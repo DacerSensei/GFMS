@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Documents;
 
 namespace GFMS.Models
 {
@@ -14,6 +15,8 @@ namespace GFMS.Models
         public Student? Student { get; set; }
         public Registration? Registration { get; set; }
         public List<Accounting>? PaymentList { get; set; }
+        public List<TuitionDetails>? TuitionDetailsList { get; set; }
+
         public string? StudentName
         {
             get
@@ -22,19 +25,31 @@ namespace GFMS.Models
             }
         }
 
-        public string TotalPaid
+        private decimal DecimalPaid
         {
             get
             {
                 decimal totalPaid = 0m;
-                if (PaymentList != null && PaymentList.Count > 0)
+                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0)
                 {
-                    for (int i = 0; i < PaymentList.Count; i++)
+                    for (int i = 0; i < TuitionDetailsList.Count; i++)
                     {
-                        totalPaid += Convert.ToDecimal(PaymentList[i].Payment);
+                        if (string.IsNullOrWhiteSpace(TuitionDetailsList[i].Payment))
+                        {
+                            continue;
+                        }
+                        totalPaid += Convert.ToDecimal(TuitionDetailsList[i].Payment);
                     }
                 }
-                return totalPaid.ToString("N2");
+                return totalPaid;
+            }
+        }
+
+        public string TotalPaid
+        {
+            get
+            {
+                return DecimalPaid.ToString("N2");
             }
         }
 
@@ -42,9 +57,22 @@ namespace GFMS.Models
         {
             get
             {
-                if (Convert.ToDecimal(TotalPaid) >= 15000m)
+                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0 && TuitionDetailsList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
                 {
-                    return "Paid";
+
+                    var totalTuitionFee = TuitionDetailsList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
+
+                    if (totalTuitionFee != null)
+                    {
+                        if (totalTuitionFee.TotalTuitionFee != null &&
+                            DecimalPaid >= Convert.ToDecimal(totalTuitionFee.TotalTuitionFee))
+                        {
+                            return "Paid";
+                        }
+                    }
+                }else
+                {
+                    return "Tuition fee not set";
                 }
                 return "Unpaid";
             }
@@ -53,7 +81,7 @@ namespace GFMS.Models
         {
             get
             {
-                if (Convert.ToDecimal(TotalPaid) >= 15000m)
+                if (Status!.ToLower() == "paid")
                 {
                     return "#3dc03c";
                 }

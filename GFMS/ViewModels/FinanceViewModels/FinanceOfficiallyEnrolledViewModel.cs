@@ -4,12 +4,15 @@ using GFMS.Models;
 using GFMS.Views;
 using GFMS.Views.Modals;
 using GFMSLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace GFMS.ViewModels.FinanceViewModels
@@ -23,7 +26,7 @@ namespace GFMS.ViewModels.FinanceViewModels
             {
                 await LoadAllAsync();
             });
-            
+
             PayCommand = new Command(async obj =>
             {
                 StudentAccounting? student = obj as StudentAccounting;
@@ -52,9 +55,15 @@ namespace GFMS.ViewModels.FinanceViewModels
 
         private async Task LoadAllAsync()
         {
-            var studentList = await Credentials.GetAllDataAsync<Student>("student");
-            var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
-            var accountingList = await Credentials.GetAllDataAsync<Accounting>("accounting");
+            Task<List<Student>>? studentListTask = Credentials.GetAllDataAsync<Student>("student");
+            Task<List<Registration>>? registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
+            Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
+
+            await Task.WhenAll(studentListTask, registrationListTask, accountingListTask);
+
+            List<Student> studentList = studentListTask.Result;
+            List<Registration> registrationList = registrationListTask.Result;
+            List<Accounting> accountingList = accountingListTask.Result;
 
             foreach (var student in registrationList)
             {
@@ -62,9 +71,25 @@ namespace GFMS.ViewModels.FinanceViewModels
                 var studentAccounting = new StudentAccounting
                 {
                     Registration = student,
+                    Student = studentList.Where(s => s.id.ToString() == student.Student_Id).ToList().FirstOrDefault(),
+                    PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList(),
+                    TuitionDetailsList = new List<TuitionDetails>()
                 };
-                studentAccounting.Student = studentList.Where(s => s.id.ToString() == student.Student_Id).ToList().FirstOrDefault();
-                studentAccounting.PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList();
+                foreach (var payment in studentAccounting.PaymentList)
+                {
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<TuitionDetails>(payment.Payment ?? "");
+                        if(result != null)
+                        {
+                            studentAccounting.TuitionDetailsList.Add(result);
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+                    }
+                }
                 StudentList.Add(studentAccounting);
             }
         }

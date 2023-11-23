@@ -1,6 +1,7 @@
 ﻿using GFMS.Commands;
 using GFMS.Core;
 using GFMS.Models;
+using GFMS.Views;
 using GFMSLibrary;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var userList = await Credentials.GetAllDataAsync<Users>("users");
             var notifications = await Credentials.GetAllDataAsync<Notification>("notification");
 
-            foreach (var notification in notifications)
+            foreach (var notification in notifications.Where(n => Convert.ToInt16(n.User_Id) == MainWindow.User!.Id).ToList())
             {
                 var userNotification = new UsersNotification
                 {

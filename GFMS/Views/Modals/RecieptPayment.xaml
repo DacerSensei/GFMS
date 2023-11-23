@@ -59,27 +59,27 @@
                         </StackPanel>
                         <StackPanel Grid.Row="2" Margin="40,0,10,0">
                             <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
-                            <TextBlock Text="Tuition Fee:" FontSize="20" Margin="0,30,0,10" HorizontalAlignment="Left" />
-                            <TextBox Text="{Binding Name}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" />
-                            <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" Margin="0,20,0,0" />
-                            <TextBox Text="{Binding Name}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"/>
+                            <TextBox Text="{Binding TuitionFee}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Tuition Fee Amount"/>
+                            <TextBox IsReadOnly="True" Text="{Binding TotalTuitionFee}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" />
+                            <TextBox Text="{Binding OtherFees}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"  Margin="0,0,0,20"/>
+                            <TextBox Text="{Binding Inclusion}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,40,0">
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Amount" Margin="0,60,0,0"/>
-                            <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,20,0,0" FontFamily="{StaticResource PoppinsRegular}">
+                            <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,63,0,0" FontFamily="{StaticResource PoppinsRegular}">
                                 
                             </ComboBox>
+                            <TextBox IsReadOnly="True" Text="{Binding Discounted}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Discounted Amount"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
                             <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
                             <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
+                            <TextBox Text="{Binding RegistrationFee}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
+                            <TextBox Text="{Binding Books}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
+                            <TextBox Text="{Binding Uniform}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
 
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" Margin="0,80,0,0"/>
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
-                            <TextBox Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBox Text="{Binding TotalAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" Margin="0,40,0,0"/>
+                            <TextBox Text="{Binding Balance}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                            <TextBox Text="{Binding Payment}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
                         </StackPanel>
                     </Grid>
                 </md:Card>
