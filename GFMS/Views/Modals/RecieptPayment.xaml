@@ -61,7 +61,7 @@
                             <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
                             <TextBox Text="{Binding TuitionFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Tuition Fee Amount"/>
                             <TextBox IsReadOnly="True" Text="{Binding TotalTuitionFee, Mode=OneWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" />
-                            <TextBox Text="{Binding OtherFees}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"  Margin="0,0,0,20"/>
+                            <TextBox Text="{Binding OtherFees, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"  Margin="0,0,0,20"/>
                             <TextBox Text="{Binding Inclusion}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,40,0">
@@ -72,13 +72,13 @@
                         <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
                             <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
                             <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
-                            <TextBox Text="{Binding RegistrationFee}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
-                            <TextBox Text="{Binding Books}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
-                            <TextBox Text="{Binding Uniform}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
+                            <TextBox Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
+                            <TextBox Text="{Binding Books, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
+                            <TextBox Text="{Binding Uniform, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
 
-                            <TextBox Text="{Binding TotalAmount, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" Margin="0,40,0,0"/>
-                            <TextBox Text="{Binding Balance}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
-                            <TextBox Text="{Binding Payment}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBox IsReadOnly="True" Text="{Binding TotalAmount, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" Margin="0,40,0,0"/>
+                            <TextBox IsReadOnly="True" Text="{Binding Balance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                            <TextBox IsEnabled="{Binding CanPay, Mode=OneWay}" Text="{Binding Payment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
                         </StackPanel>
                     </Grid>
                 </md:Card>

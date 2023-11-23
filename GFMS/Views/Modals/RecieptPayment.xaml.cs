@@ -101,6 +101,8 @@ namespace GFMS.Views.Modals
                 OnPropertyChanged(nameof(TotalTuitionFee));
                 OnPropertyChanged(nameof(Discounted));
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(TuitionFee));
             }
         }
@@ -144,6 +146,7 @@ namespace GFMS.Views.Modals
                 OnPropertyChanged(nameof(TotalTuitionFee));
                 OnPropertyChanged(nameof(Discounted));
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(SelectedDiscount));
             }
         }
@@ -182,8 +185,10 @@ namespace GFMS.Views.Modals
             get { return otherFees; }
             set
             {
-                otherFees = value; 
+                otherFees = value;
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(OtherFees));
             }
         }
@@ -213,6 +218,8 @@ namespace GFMS.Views.Modals
             {
                 registrationFee = value;
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(RegistrationFee));
             }
         }
@@ -226,6 +233,8 @@ namespace GFMS.Views.Modals
             {
                 books = value;
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(Books));
             }
         }
@@ -239,6 +248,8 @@ namespace GFMS.Views.Modals
             {
                 uniform = value;
                 OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(Uniform));
             }
         }
@@ -277,12 +288,24 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string balance;
-
         public string Balance
         {
-            get { return balance; }
-            set { balance = value; OnPropertyChanged(nameof(Balance)); }
+            get
+            {
+                decimal payment = 0m;
+                decimal totalAmount = 0m;
+                if (!string.IsNullOrEmpty(Payment))
+                {
+                    payment = Convert.ToDecimal(Payment ?? "0");
+                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                }
+                else
+                {
+                    return string.Empty;
+                }
+                decimal total = payment > totalAmount ? 0 : totalAmount - payment;
+                return total.ToString("N2");
+            }
         }
 
         private string payment;
@@ -290,7 +313,25 @@ namespace GFMS.Views.Modals
         public string Payment
         {
             get { return payment; }
-            set { payment = value; OnPropertyChanged(nameof(Payment)); }
+            set
+            {
+                payment = value;
+                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(Payment));
+            }
+        }
+
+        public bool CanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(TotalAmount))
+                {
+                    Payment = string.Empty;
+                    return false;
+                }
+                return true;
+            }
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
