@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -30,11 +31,18 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 {
                     Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
                     UserTeacher findTeacher = await Credentials.GetByAnonymousAsync<UserTeacher>("grade", student.Registration!.Grade!, "teachers");
-                    Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
-                    ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
-                    if (window.ShowDialog() == true)
+                    if(findTeacher != null)
                     {
-                        await LoadAll();
+                        Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
+                        ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
+                        if (window.ShowDialog() == true)
+                        {
+                            await LoadAll();
+                        }
+                    }
+                    else
+                    {
+                        await DialogHost.Show(new MessageDialog("Oops!", "This student dont have teacher yet, please create a teacher for this grade level"), "RootDialog");
                     }
                 }
             });
