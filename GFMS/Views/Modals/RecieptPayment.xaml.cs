@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -34,7 +35,7 @@ namespace GFMS.Views.Modals
 
             });
             LoadAllDataAsync(student);
-            SaveCommand = new Command(async obj =>
+            PayCommand = new Command(async obj =>
             {
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to save?"), "SecondaryDialog");
                 if ((bool)result! == false)
@@ -53,10 +54,23 @@ namespace GFMS.Views.Modals
         }
         private void LoadAllDataAsync(StudentAccounting student)
         {
+            DiscountList = new ObservableCollection<string>()
+                {
+                    "SCHOLAR", "SOMETHING"
+                };
+            ModeOfPaymentList = new ObservableCollection<string>()
+                {
+                    "CASH ON HAND", "GCASH"
+                };
+            SelectedModeOfPayment = ModeOfPaymentList.FirstOrDefault() ?? string.Empty;
             CompleteName = $"{student.Student!.LastName} {student.Student.FirstName} {student.Student.MiddleName![0].ToString().ToUpper()}.";
+
         }
 
-        public ICommand SaveCommand { get; }
+        public ObservableCollection<string> DiscountList { get; set; } = new();
+        public ObservableCollection<string> ModeOfPaymentList { get; set; } = new();
+
+        public ICommand PayCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand LoadedCommand { get; }
 
@@ -74,6 +88,209 @@ namespace GFMS.Views.Modals
         {
             get { return date; }
             set { date = value; OnPropertyChanged(nameof(Date)); }
+        }
+
+        private string tuitionFee;
+
+        public string TuitionFee
+        {
+            get { return tuitionFee; }
+            set
+            {
+                tuitionFee = value;
+                OnPropertyChanged(nameof(TotalTuitionFee));
+                OnPropertyChanged(nameof(Discounted));
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(TuitionFee));
+            }
+        }
+
+        public string TotalTuitionFee
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(TuitionFee))
+                {
+                    return string.Empty;
+                }
+                if (!string.IsNullOrEmpty(SelectedDiscount))
+                {
+                    decimal tuition = Convert.ToDecimal(TuitionFee);
+                    if (SelectedDiscount.ToLower() == "scholar")
+                    {
+                        decimal discountPercentage = 0.35m;
+                        decimal discountAmount = tuition - (tuition * discountPercentage);
+                        return discountAmount.ToString("N2");
+                    }
+                    else if (SelectedDiscount.ToLower() == "something")
+                    {
+                        decimal discountPercentage = 0.5m;
+                        decimal discountAmount = tuition - (tuition * discountPercentage);
+                        return discountAmount.ToString("N2");
+                    }
+                }
+                return TuitionFee;
+            }
+        }
+
+        private string selectedDiscount;
+
+        public string SelectedDiscount
+        {
+            get { return selectedDiscount; }
+            set
+            {
+                selectedDiscount = value;
+                OnPropertyChanged(nameof(TotalTuitionFee));
+                OnPropertyChanged(nameof(Discounted));
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(SelectedDiscount));
+            }
+        }
+
+        public string Discounted
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(SelectedDiscount))
+                {
+                    if (!string.IsNullOrEmpty(TuitionFee))
+                    {
+                        decimal tuition = Convert.ToDecimal(TuitionFee);
+                        if (SelectedDiscount.ToLower() == "scholar")
+                        {
+                            decimal discountPercentage = 0.35m;
+                            decimal discountAmount = tuition * discountPercentage;
+                            return discountAmount.ToString("N2");
+                        }
+                        else if (SelectedDiscount.ToLower() == "something")
+                        {
+                            decimal discountPercentage = 0.5m;
+                            decimal discountAmount = tuition * discountPercentage;
+                            return discountAmount.ToString("N2");
+                        }
+                    }
+                }
+                return string.Empty;
+            }
+        }
+
+        private string otherFees;
+
+        public string OtherFees
+        {
+            get { return otherFees; }
+            set
+            {
+                otherFees = value; 
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(OtherFees));
+            }
+        }
+
+        private string inclusion;
+
+        public string Inclusion
+        {
+            get { return inclusion; }
+            set { inclusion = value; OnPropertyChanged(nameof(Inclusion)); }
+        }
+
+        private string selectedModeOfPayment;
+
+        public string SelectedModeOfPayment
+        {
+            get { return selectedModeOfPayment; }
+            set { selectedModeOfPayment = value; OnPropertyChanged(nameof(SelectedModeOfPayment)); }
+        }
+
+        private string registrationFee;
+
+        public string RegistrationFee
+        {
+            get { return registrationFee; }
+            set
+            {
+                registrationFee = value;
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(RegistrationFee));
+            }
+        }
+
+        private string books;
+
+        public string Books
+        {
+            get { return books; }
+            set
+            {
+                books = value;
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(Books));
+            }
+        }
+
+        private string uniform;
+
+        public string Uniform
+        {
+            get { return uniform; }
+            set
+            {
+                uniform = value;
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(Uniform));
+            }
+        }
+
+        public string TotalAmount
+        {
+            get
+            {
+                decimal totalTuitionFee = 0m;
+                decimal registrationFee = 0m;
+                decimal booksFee = 0m;
+                decimal uniformFee = 0m;
+                decimal otherFees = 0m;
+                if (!string.IsNullOrEmpty(TotalTuitionFee))
+                {
+                    totalTuitionFee = Convert.ToDecimal(TotalTuitionFee ?? "0");
+                }
+                if (!string.IsNullOrEmpty(RegistrationFee))
+                {
+                    registrationFee = Convert.ToDecimal(RegistrationFee ?? "0");
+                }
+                if (!string.IsNullOrEmpty(Books))
+                {
+                    booksFee = Convert.ToDecimal(Books ?? "0");
+                }
+                if (!string.IsNullOrEmpty(Uniform))
+                {
+                    uniformFee = Convert.ToDecimal(Uniform ?? "0");
+                }
+                if (!string.IsNullOrEmpty(OtherFees))
+                {
+                    otherFees = Convert.ToDecimal(OtherFees ?? "0");
+                }
+                decimal total = totalTuitionFee + registrationFee + booksFee + uniformFee + otherFees;
+                return total > 0 ? total.ToString("N2") : string.Empty;
+            }
+        }
+
+        private string balance;
+
+        public string Balance
+        {
+            get { return balance; }
+            set { balance = value; OnPropertyChanged(nameof(Balance)); }
+        }
+
+        private string payment;
+
+        public string Payment
+        {
+            get { return payment; }
+            set { payment = value; OnPropertyChanged(nameof(Payment)); }
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
