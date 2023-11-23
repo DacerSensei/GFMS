@@ -20,8 +20,15 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private LoginCredentials Credentials = new LoginCredentials();
         public RegistrarRequirementsViewModel()
         {
-            LoadAll();
-            ViewCommand = new Command(obj =>
+            LoadedCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
+            RefreshCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
+            ViewCommand = new Command(async obj =>
             {
                 StudentRequirements? student = obj as StudentRequirements;
                 if (student != null)
@@ -29,13 +36,13 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     RequirementListDialog Dialog = new RequirementListDialog(student.Requirement!, student.Student!.id.ToString());
                     if(Dialog.ShowDialog() == true)
                     {
-                        LoadAll();
+                        await LoadAll();
                     }
                 }
             });
         }
 
-        private async void LoadAll()
+        private async Task LoadAll()
         {
             StudentList.Clear();
             var studentList = await Credentials.GetAllDataAsync<Student>("student");
@@ -70,5 +77,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<StudentRequirements> StudentList { get; set; } = new ObservableCollection<StudentRequirements>();
 
         public ICommand ViewCommand { get; }
+        public ICommand RefreshCommand { get; }
+        public ICommand LoadedCommand { get; }
     }
 }

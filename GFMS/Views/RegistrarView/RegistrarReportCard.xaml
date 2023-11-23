@@ -33,6 +33,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2" Text="REPORT CARD" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
             <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Student" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
+            <Button Grid.Row="1" Grid.Column="1" Background="#ffb302" BorderBrush="#ffb302" Command="{Binding RefreshCommand}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Refresh" HorizontalAlignment="Right">
+                <md:PackIcon Kind="Refresh" Height="24" Width="24" />
+            </Button>
         </Grid>
         <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
             <Grid>

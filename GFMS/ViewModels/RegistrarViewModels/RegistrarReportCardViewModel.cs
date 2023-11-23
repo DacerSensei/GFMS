@@ -24,6 +24,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
             {
                 await LoadAll();
             });
+            RefreshCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
             ViewCommand = new Command(async obj =>
             {
                 StudentReport? student = obj as StudentReport;
@@ -71,6 +75,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<StudentReport> StudentList { get; set; } = new ObservableCollection<StudentReport>();
 
         public ICommand ViewCommand { get; }
+        public ICommand RefreshCommand { get; }
         public ICommand LoadedCommand { get; }
     }
 }

@@ -21,6 +21,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
             {
                 await LoadAll();
             });
+            RefreshCommand = new Command(async obj =>
+            {
+                await LoadAll();
+            });
 
             PrintCommand = new Command(obj =>
             {
@@ -67,5 +71,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ObservableCollection<UsersNotification> NotificationList { get; set; } = new ObservableCollection<UsersNotification>();
 
         public ICommand PrintCommand { get; }
+        public ICommand RefreshCommand { get; }
     }
 }
