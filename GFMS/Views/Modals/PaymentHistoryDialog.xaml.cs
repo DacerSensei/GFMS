@@ -111,7 +111,7 @@ namespace GFMS.Views.Modals
                 }
                 else
                 {
-                    return "Tuition fee not set";
+                    return "0.00";
                 }
             }
         }

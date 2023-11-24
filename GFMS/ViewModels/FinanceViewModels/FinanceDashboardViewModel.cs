@@ -16,6 +16,7 @@ using System.Windows.Input;
 using GFMSLibrary;
 using GFMS.Commands;
 using LiveChartsCore.Kernel.Sketches;
+using Newtonsoft.Json;
 
 namespace GFMS.ViewModels.FinanceViewModels
 {
@@ -32,17 +33,21 @@ namespace GFMS.ViewModels.FinanceViewModels
 
         private async Task LoadDataAsync()
         {
-            UnpaidList.Clear();
-            PaidList.Clear();
             StudentList.Clear();
             StudentSecondList.Clear();
             PieGraph.Clear();
             CrossX.Clear();
             LineGraph.Clear();
-            var studentList = await Credentials.GetAllDataAsync<Student>("student");
-            var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
-            var accountingList = await Credentials.GetAllDataAsync<Accounting>("accounting");
-            var previousSchoolList = await Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
+            Task<List<Student>>? studentListTask = Credentials.GetAllDataAsync<Student>("student");
+            Task<List<Registration>>? registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
+            Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
+            Task<List<PreviousSchool>>? previousSchoolListTask = Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
+            await Task.WhenAll(studentListTask, registrationListTask, accountingListTask, previousSchoolListTask);
+
+            var studentList = studentListTask.Result;
+            var registrationList = registrationListTask.Result;
+            var accountingList = accountingListTask.Result;
+            var previousSchoolList = previousSchoolListTask.Result;
 
             foreach (var student in registrationList)
             {
@@ -50,9 +55,25 @@ namespace GFMS.ViewModels.FinanceViewModels
                 var studentAccounting = new StudentAccounting
                 {
                     Registration = student,
+                    Student = studentList.Where(s => s.id.ToString() == student.Student_Id).ToList().FirstOrDefault(),
+                    PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList(),
+                    TuitionDetailsList = new List<TuitionDetails>()
                 };
-                studentAccounting.Student = studentList.Where(s => s.id.ToString() == student.Student_Id).ToList().FirstOrDefault();
-                studentAccounting.PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList();
+                foreach (var payment in studentAccounting.PaymentList)
+                {
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<TuitionDetails>(payment.Payment ?? "");
+                        if (result != null)
+                        {
+                            studentAccounting.TuitionDetailsList.Add(result);
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+                    }
+                }
                 StudentList.Add(studentAccounting);
             }
 
@@ -62,9 +83,10 @@ namespace GFMS.ViewModels.FinanceViewModels
                 var registeredStudent = new RegisteredStudent
                 {
                     Student = student,
+                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault(),
+                    PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault()
                 };
-                registeredStudent.Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault();
-                registeredStudent.PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault();
+
                 if (Convert.ToInt16(registeredStudent.Registration!.Status) == 1)
                 {
                     registeredStudent.Status = "Enrolled";
@@ -82,8 +104,8 @@ namespace GFMS.ViewModels.FinanceViewModels
             YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
             var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
-            PieGraph.Add(CreatePieSeries("Unpaid", new[] { StudentList.Where(s => s.Status == "Unpaid").ToList().Count() }, DataCategory.UNPAID));
-            PieGraph.Add(CreatePieSeries("Paid", new[] { StudentList.Where(s => s.Status == "Paid").ToList().Count() }, DataCategory.PAID));
+            PieGraph.Add(CreatePieSeries("Unpaid", new[] { StudentList.Where(s => s.Status!.ToLower() != "Paid".ToLower()).ToList().Count() }, DataCategory.UNPAID));
+            PieGraph.Add(CreatePieSeries("Paid", new[] { StudentList.Where(s => s.Status!.ToLower() == "Paid".ToLower()).ToList().Count() }, DataCategory.PAID));
             PreSchool = StudentSecondList.Where(s => s.Registration!.Level!.ToUpper() == "PRE SCHOOL").ToList().Count();
             Elementary = StudentSecondList.Where(s => s.Registration!.Level!.ToUpper() == "ELEMENTARY").ToList().Count();
             JuniorHigh = StudentSecondList.Where(s => s.Registration!.Level!.ToUpper() == "JUNIOR HIGH SCHOOL").ToList().Count();
@@ -106,10 +128,10 @@ namespace GFMS.ViewModels.FinanceViewModels
                                       .GroupBy(s => s.Registration!.Year)
                                       .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
 
-            LineGraph.Add(CreateLineSeries("PRE SCHOOL" ,new ObservableCollection<int>(PreSchoolDateYear.Select(y => y.Count))));
-            LineGraph.Add(CreateLineSeries("ELEMENTARY" ,new ObservableCollection<int>(ElementaryDateYear.Select(y => y.Count))));
-            LineGraph.Add(CreateLineSeries("JHS" ,new ObservableCollection<int>(JuniorDateYear.Select(y => y.Count))));
-            LineGraph.Add(CreateLineSeries("SHS" ,new ObservableCollection<int>(SeniorDateYear.Select(y => y.Count))));
+            LineGraph.Add(CreateLineSeries("PRE SCHOOL", new ObservableCollection<int>(PreSchoolDateYear.Select(y => y.Count))));
+            LineGraph.Add(CreateLineSeries("ELEMENTARY", new ObservableCollection<int>(ElementaryDateYear.Select(y => y.Count))));
+            LineGraph.Add(CreateLineSeries("JHS", new ObservableCollection<int>(JuniorDateYear.Select(y => y.Count))));
+            LineGraph.Add(CreateLineSeries("SHS", new ObservableCollection<int>(SeniorDateYear.Select(y => y.Count))));
 
 
             //BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
@@ -129,8 +151,6 @@ namespace GFMS.ViewModels.FinanceViewModels
         }
     };
 
-        public ObservableCollection<StudentAccounting> UnpaidList { get; set; } = new ObservableCollection<StudentAccounting>();
-        public ObservableCollection<StudentAccounting> PaidList { get; set; } = new ObservableCollection<StudentAccounting>();
         public ObservableCollection<StudentAccounting> StudentList { get; set; } = new ObservableCollection<StudentAccounting>();
         public ObservableCollection<RegisteredStudent> StudentSecondList { get; set; } = new ObservableCollection<RegisteredStudent>();
 
