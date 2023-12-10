@@ -40,7 +40,7 @@
                 </TextBlock>
             </Grid>
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,20" Orientation="Horizontal" HorizontalAlignment="Center">
-                <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="School Year" Padding="10" Margin="10,20,10,0" FontFamily="{StaticResource PoppinsRegular}" MinWidth="200">
+                <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectedItem="{Binding SelectedYear}" ItemsSource="{Binding SchoolYearList}" md:HintAssist.Hint="School Year" Padding="10" Margin="10,20,10,0" FontFamily="{StaticResource PoppinsRegular}" MinWidth="200">
 
                 </ComboBox>
             </StackPanel>
@@ -66,8 +66,8 @@
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="1*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="0" Content="{Binding Student.LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                            <Label Grid.Column="1" Content="{Binding StudentName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                            <Label Grid.Column="0" Content="{Binding GradeLevel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
+                                            <Label Grid.Column="1" Content="{Binding TotalIncome}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                         </Grid>
                                     </StackPanel>
                                 </md:Card>

@@ -1,5 +1,6 @@
 ﻿using GFMS.Commands;
 using GFMS.Models;
+using GFMS.Services;
 using GFMSLibrary;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
@@ -78,6 +79,7 @@ namespace GFMS.Views.Modals
                     Created_At = DateTime.Now.ToShortDateString()
                 };
                 await Credentials.RegisterStudentAsync(accounting, "accounting");
+                GeneratePDF.GeneratePaymentReciept(tuitionDetails, student);
                 DialogResult = true;
                 Close();
             });

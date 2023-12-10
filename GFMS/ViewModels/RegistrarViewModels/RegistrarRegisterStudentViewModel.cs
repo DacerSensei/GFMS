@@ -656,7 +656,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string? _schoolYear = "2024-2025";
+        private string? _schoolYear = "2023-2024";
         public string? SchoolYear
         {
             get { return _schoolYear; }
