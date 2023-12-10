@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,15 +25,16 @@ namespace GFMS.ViewModels.RegistrarViewModels
 {
     public class RegistrarRegisterStudentViewModel : ViewModelBase, INotifyDataErrorInfo
     {
+        private LoginCredentials Credentials = new LoginCredentials();
         private readonly ErrorsViewModel ErrorsViewModel;
         public RegistrarRegisterStudentViewModel()
         {
             ErrorsViewModel = new ErrorsViewModel();
-            LoadedCommand = new Command(obj =>
+            LoadedCommand = new Command(async obj =>
             {
-               
+                await LoadDataAsync();
             });
-            LoadDataAsync();
+            
             DeleteCommand = new Command(obj =>
             {
                 Requirement? requirement = obj as Requirement;
@@ -191,7 +193,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             });
         }
 
-        private void LoadDataAsync()
+        private async Task LoadDataAsync()
         {
             ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
             GradeLevel = new ObservableCollection<string>()
@@ -204,6 +206,9 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     "MALE", "FEMALE"
                 };
             RequirementList = new ObservableCollection<Requirement>();
+            var YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
+            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
+            SchoolYear = Years.LastOrDefault() ?? "2023 - 2024";
         }
 
         private void ClearForm()
@@ -656,7 +661,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             }
         }
 
-        private string? _schoolYear = "2023-2024";
+        private string? _schoolYear;
         public string? SchoolYear
         {
             get { return _schoolYear; }
