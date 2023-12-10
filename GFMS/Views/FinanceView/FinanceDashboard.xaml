@@ -125,7 +125,7 @@
                 </md:Card>
                 <!-- Row 3 -->
                 <md:Card Grid.Row="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-                    <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" Series="{Binding SampleSeries}"></lvc:CartesianChart>
+                    <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" XAxes="{Binding CrossX}" Series="{Binding ComparisonBarGraph}"></lvc:CartesianChart>
                 </md:Card>
 
             </Grid>

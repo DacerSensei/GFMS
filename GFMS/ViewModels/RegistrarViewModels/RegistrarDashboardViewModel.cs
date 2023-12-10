@@ -138,12 +138,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
                                       .GroupBy(s => s.Registration!.Year)
                                       .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
 
-            List<DataYear> generalTotal = StudentList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year))
-                                                     .GroupBy(s => s.Registration!.Year)
-                                                     .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
+            List<DataYear> TotalStudentEveryYear = Years.Select(year => new DataYear { Year = year, Count = StudentList.Count(s => s.Registration != null && s.Registration.Year == year) }).ToList();
 
             BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
-            LineGraph.Add(CreateLineSeries(new ObservableCollection<int>(generalTotal.Select(y => y.Count))));
+            LineGraph.Add(CreateLineSeries(new ObservableCollection<int>(TotalStudentEveryYear.Select(y => y.Count))));
         }
 
         public ICommand PreSchoolCommand { get; }

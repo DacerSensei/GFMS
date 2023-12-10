@@ -38,6 +38,7 @@ namespace GFMS.ViewModels.FinanceViewModels
             PieGraph.Clear();
             CrossX.Clear();
             LineGraph.Clear();
+            ComparisonBarGraph.Clear();
             Task<List<Student>>? studentListTask = Credentials.GetAllDataAsync<Student>("student");
             Task<List<Registration>>? registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
@@ -115,41 +116,20 @@ namespace GFMS.ViewModels.FinanceViewModels
                 Labels = Years!
             });
 
-            List<DataYear> PreSchoolDateYear = StudentSecondList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "PRE SCHOOL")
-                                      .GroupBy(s => s.Registration!.Year)
-                                      .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-            List<DataYear> ElementaryDateYear = StudentSecondList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "ELEMENTARY")
-                                      .GroupBy(s => s.Registration!.Year)
-                                      .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-            List<DataYear> JuniorDateYear = StudentSecondList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "JUNIOR HIGH SCHOOL")
-                                      .GroupBy(s => s.Registration!.Year)
-                                      .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
-            List<DataYear> SeniorDateYear = StudentSecondList.Where(s => s.Registration != null && Years.Contains(s.Registration.Year) && s.Registration.Level == "SENIOR HIGH SCHOOL")
-                                      .GroupBy(s => s.Registration!.Year)
-                                      .Select(group => new DataYear { Year = group.Key, Count = group.Count() }).ToList();
+            List<DataYear> PreSchoolDateYear = Years.Select(year => new DataYear { Year = year, Count = StudentSecondList.Count(s => s.Registration != null && s.Registration.Year == year && s.Registration.Level == "PRE SCHOOL") }).ToList();
+            List<DataYear> ElementaryDateYear = Years.Select(year => new DataYear { Year = year, Count = StudentSecondList.Count(s => s.Registration != null && s.Registration.Year == year && s.Registration.Level == "ELEMENTARY") }).ToList();
+            List<DataYear> JuniorDateYear = Years.Select(year => new DataYear { Year = year, Count = StudentSecondList.Count(s => s.Registration != null && s.Registration.Year == year && s.Registration.Level == "JUNIOR HIGH SCHOOL") }).ToList();
+            List<DataYear> SeniorDateYear = Years.Select(year => new DataYear { Year = year, Count = StudentSecondList.Count(s => s.Registration != null && s.Registration.Year == year && s.Registration.Level == "SENIOR HIGH SCHOOL") }).ToList();
 
             LineGraph.Add(CreateLineSeries("PRE SCHOOL", new ObservableCollection<int>(PreSchoolDateYear.Select(y => y.Count))));
             LineGraph.Add(CreateLineSeries("ELEMENTARY", new ObservableCollection<int>(ElementaryDateYear.Select(y => y.Count))));
             LineGraph.Add(CreateLineSeries("JHS", new ObservableCollection<int>(JuniorDateYear.Select(y => y.Count))));
             LineGraph.Add(CreateLineSeries("SHS", new ObservableCollection<int>(SeniorDateYear.Select(y => y.Count))));
 
-
-            //BarGraph.Add(CreateBarSeries("Senior High School", new ObservableCollection<int>(dataYear.Select(y => y.Count)), DataCategory.PRESCHOOL));
+            var TotalStudentEveryYear = Years.Select(year => new DataYear { Year = year, Count = StudentSecondList.Count(s => s.Registration != null && s.Registration.Year == year) }).ToList();
+            ComparisonBarGraph.Add(new ColumnSeries<int> { Values = new ObservableCollection<int>(TotalStudentEveryYear.Select(y => y.Count)) });
+            ComparisonBarGraph.Add(new ColumnSeries<int> { Values = new ObservableCollection<int>(Enumerable.Repeat(TotalStudentEveryYear.LastOrDefault()?.Count ?? 0, TotalStudentEveryYear.Count())) });
         }
-
-        public ISeries[] SampleSeries { get; set; } =
-    {
-        new ColumnSeries<double>
-        {
-            Values = new ObservableCollection<double> { 2, 5, 4, 3 },
-            IsVisible = true
-        },
-        new ColumnSeries<double>
-        {
-            Values = new ObservableCollection<double> { 6, 3, 2, 8 },
-            IsVisible = true
-        }
-    };
 
         public ObservableCollection<StudentAccounting> StudentList { get; set; } = new ObservableCollection<StudentAccounting>();
         public ObservableCollection<RegisteredStudent> StudentSecondList { get; set; } = new ObservableCollection<RegisteredStudent>();
@@ -159,6 +139,7 @@ namespace GFMS.ViewModels.FinanceViewModels
         public ObservableCollection<ISeries> BarGraph { get; set; } = new ObservableCollection<ISeries>();
         public ObservableCollection<ISeries> PieGraph { get; set; } = new ObservableCollection<ISeries>();
         public ObservableCollection<ISeries> LineGraph { get; set; } = new ObservableCollection<ISeries>();
+        public ObservableCollection<ISeries> ComparisonBarGraph { get; set; } = new ObservableCollection<ISeries>();
 
         public ICommand LoadedCommand { get; }
 
