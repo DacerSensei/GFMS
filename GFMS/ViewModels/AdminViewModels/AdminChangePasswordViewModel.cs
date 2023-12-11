@@ -7,15 +7,8 @@ using GFMSLibrary;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GFMS.ViewModels.AdminViewModels
@@ -44,9 +37,27 @@ namespace GFMS.ViewModels.AdminViewModels
                 NewPassword = string.Empty;
                 RetypePassword = string.Empty;
             });
+
+            ChangeSchoolYearCommand = new Command(async obj =>
+            {
+                var result = await DialogHost.Show(new AlertDialog("Notice!", "Are you sure you want to move next school year?"), "RootDialog");
+                if (!(bool)result!)
+                {
+                    return;
+                }
+                var YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
+                var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
+
+                int LastYear = Convert.ToInt16((Years.LastOrDefault() ?? "2023-2024").Substring(5));
+                string newYear = $"{LastYear}-{LastYear + 1}";
+
+                await Credentials.RegisterStudentAsync(new SchoolYear { Year = newYear }, "school_year");
+                await DialogHost.Show(new MessageDialog("Notice!", "School year been successfully changed"), "RootDialog");
+            });
         }
 
         public ICommand ChangePasswordCommand { get; }
+        public ICommand ChangeSchoolYearCommand { get; }
 
         private void ValidateOldPassword()
         {
