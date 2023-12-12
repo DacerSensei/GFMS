@@ -55,9 +55,18 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private async Task LoadAll()
         {
             StudentList.Clear();
-            var studentList = await Credentials.GetAllDataAsync<Student>("student");
-            var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
-            var studentGradeList = await Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+            var studentListTask = Credentials.GetAllDataAsync<Student>("student");
+            var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
+            var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+            var YearListTask = Credentials.GetAllDataAsync<SchoolYear>("school_year");
+
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, YearListTask);
+
+            var studentList = studentListTask.Result;
+            var registrationList = registrationListTask.Result;
+            var studentGradeList = studentGradeListTask.Result;
+            var YearList = YearListTask.Result;
+            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
             foreach (var student in registrationList)
             {
@@ -68,7 +77,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 };
                 studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
                 studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
-                StudentList.Add(studentReport);
+                if(studentReport.Registration.Year == (Years.LastOrDefault() ?? "2023-2024"))
+                {
+                    StudentList.Add(studentReport);
+                }
             }
         }
 

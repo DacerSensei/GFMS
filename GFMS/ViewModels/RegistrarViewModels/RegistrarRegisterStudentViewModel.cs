@@ -34,7 +34,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             {
                 await LoadDataAsync();
             });
-            
+
             DeleteCommand = new Command(obj =>
             {
                 Requirement? requirement = obj as Requirement;
@@ -196,16 +196,6 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private async Task LoadDataAsync()
         {
             ErrorsViewModel.ErrorsChanged += ErrorsViewModel_ErrorsChanged!;
-            GradeLevel = new ObservableCollection<string>()
-                {
-                    "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL"
-                };
-            ClassLevelList = new ObservableCollection<string>();
-            SexList = new ObservableCollection<string>()
-                {
-                    "MALE", "FEMALE"
-                };
-            RequirementList = new ObservableCollection<Requirement>();
             var YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
             var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
             SchoolYear = Years.LastOrDefault() ?? "2023 - 2024";
@@ -272,10 +262,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ICommand ChangePictureCommand { get; }
         public ICommand LoadedCommand { get; }
 
-        public static ObservableCollection<Requirement>? RequirementList { get; set; }
-        public ObservableCollection<string> GradeLevel { get; set; }
-        public ObservableCollection<string> ClassLevelList { get; set; }
-        public ObservableCollection<string> SexList { get; set; }
+        public static ObservableCollection<Requirement>? RequirementList { get; set; } = new ObservableCollection<Requirement>();
+        public ObservableCollection<string> GradeLevel { get; set; } = new ObservableCollection<string>() { "PRE SCHOOL", "ELEMENTARY", "JUNIOR HIGH SCHOOL", "SENIOR HIGH SCHOOL" };
+        public ObservableCollection<string> ClassLevelList { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> SexList { get; set; } = new ObservableCollection<string>() { "MALE", "FEMALE" };
 
         private void ValidateAll()
         {

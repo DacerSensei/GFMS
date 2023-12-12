@@ -57,15 +57,24 @@ namespace GFMS.ViewModels.TeacherViewModels
                 return;
             }
             StudentList.Clear();
+            var YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
+            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
             Where where = new Where()
             {
                 Grade = MainWindow.Teacher.Grade,
-                Year = "2024-2025"
+                Year = Years.LastOrDefault() ?? "2023 - 2024"
 
             };
-            var studentList = await Credentials.GetAllDataAsync<Student>("student");
-            var registrationList = await Credentials.GetAllDataAsync<Registration, Where>("registration", where);
-            var studentGradeList = await Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+
+            var studentListTask = Credentials.GetAllDataAsync<Student>("student");
+            var registrationListTask = Credentials.GetAllDataAsync<Registration, Where>("registration", where);
+            var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask);
+
+            var studentList = studentListTask.Result;
+            var registrationList = registrationListTask.Result;
+            var studentGradeList = studentGradeListTask.Result;
 
             foreach (var student in registrationList)
             {

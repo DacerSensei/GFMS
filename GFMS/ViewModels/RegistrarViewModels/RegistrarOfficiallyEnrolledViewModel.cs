@@ -39,9 +39,18 @@ namespace GFMS.ViewModels.RegistrarViewModels
         private async Task LoadAll()
         {
             StudentList.Clear();
-            var studentList = await Credentials.GetAllDataAsync<Student>("student");
-            var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
-            var previousSchoolList = await Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
+            var studentListTask = Credentials.GetAllDataAsync<Student>("student");
+            var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
+            var previousSchoolListTask = Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
+            var YearListTask = Credentials.GetAllDataAsync<SchoolYear>("school_year");
+            
+            await Task.WhenAll(studentListTask, registrationListTask, previousSchoolListTask, YearListTask);
+
+            var studentList = studentListTask.Result;
+            var registrationList = registrationListTask.Result;
+            var previousSchoolList = previousSchoolListTask.Result;
+            var YearList = YearListTask.Result;
+            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
             foreach (var student in studentList)
             {
@@ -62,7 +71,10 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     registeredStudent.Status = "Temporary Enrolled";
                     registeredStudent.StatusColor = "#ffb302";
                 }
-                StudentList.Add(registeredStudent);
+                if(registeredStudent.Registration.Year == (Years.LastOrDefault() ?? "2023-2024"))
+                {
+                    StudentList.Add(registeredStudent);
+                }
             }
         }
 
