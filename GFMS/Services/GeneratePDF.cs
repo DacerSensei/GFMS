@@ -45,7 +45,7 @@ namespace GFMS.Services
 
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "PDF document (*.pdf)|*.pdf";
-            dialog.FileName = CompleteName + " " +  DateIssued;
+            dialog.FileName = CompleteName + " " + DateTime.Now.Date.ToString("MM-dd-yyyy");
             var result = dialog.ShowDialog();
             string fileName = dialog.FileName;
             if (result == true)
