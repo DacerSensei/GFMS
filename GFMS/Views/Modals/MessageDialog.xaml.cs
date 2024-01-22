@@ -21,9 +21,19 @@ namespace GFMS.Views.Modals
     /// </summary>
     public partial class MessageDialog : UserControl
     {
-        public MessageDialog(string title, string message)
+        public MessageDialog(string title, string message, bool isChecked = false)
         {
             InitializeComponent();
+            if (isChecked)
+            {
+                MyIcon.Width = 25;
+                MyIcon.Height = 25;
+            }
+            else
+            {
+                MyIcon.Width = 0;
+                MyIcon.Height = 0;
+            }
             Title.Text = title;
             Message.Text = message;
         }
@@ -32,5 +42,6 @@ namespace GFMS.Views.Modals
         {
             DialogHost.CloseDialogCommand.Execute(true, null);
         }
+
     }
 }

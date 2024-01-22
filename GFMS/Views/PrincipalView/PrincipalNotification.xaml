@@ -48,16 +48,16 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Label FontSize="20" Grid.RowSpan="2" Content="{Binding FullName}" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                        <Label FontSize="14" Grid.RowSpan="2" Content="{Binding FullName}" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsBold}"/>
                                                     </StackPanel>
-                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="1" Content="{Binding User.Usertype}" VerticalContentAlignment="Center" Foreground="#ff2147" FontFamily="{StaticResource PoppinsRegular}"/>
-                                                    <Label FontSize="20" Grid.RowSpan="2" Grid.Column="2" Content="Request to print" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
+                                                    <Label FontSize="14" Grid.RowSpan="2" Grid.Column="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}" FontFamily="{StaticResource PoppinsBold}"/>
+                                                    <Label FontSize="14" Grid.RowSpan="2" Grid.Column="2" Content="Request to print" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
                                                 </Grid>
                                             </Expander.Header>
                                             <Expander.Background>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <GradientStop Color="#1abf32" Offset="0"/>
-                                                    <GradientStop Color="#1abf32" Offset="1"/>
+                                                    <GradientStop Color="#3f37c9" Offset="0"/>
+                                                    <GradientStop Color="#023e8a" Offset="1"/>
                                                 </LinearGradientBrush>
                                             </Expander.Background>
                                             <Grid Background="White">
@@ -69,12 +69,18 @@
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="14" Content="Message" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="14" Grid.Row="1" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Content="{Binding Notification.Message}" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="14" Grid.Column="1" Grid.Row="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
-                                                <StackPanel Grid.RowSpan="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="Message" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Content="{Binding Notification.Message}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Grid.Row="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
+                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="Requested" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Approved" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Content="{Binding Notification.Requested}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Grid.Row="1" Content="{Binding Notification.Approved}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <StackPanel Grid.RowSpan="2" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding CanModify}">
                                                     <Button Background="#3dc03c" BorderBrush="#3dc03c" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ApproveCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Approve">
                                                         <md:PackIcon Kind="Check" Height="24" Width="24" />
                                                     </Button>

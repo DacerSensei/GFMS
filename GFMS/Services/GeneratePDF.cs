@@ -39,6 +39,25 @@ namespace GFMS.Services
             doc.Range.Replace("<TA>", tuitionDetails.TotalAmount, findReplaceOptions);
             doc.Range.Replace("<Balance>", tuitionDetails.Balance, findReplaceOptions);
             doc.Range.Replace("<Payment>", tuitionDetails.Payment, findReplaceOptions);
+            if (tuitionDetails.AddFeeDscOne == null || tuitionDetails.AddFeeDscOne.ToString() == string.Empty)
+            {
+                doc.Range.Replace("<ADD1>", "  ", findReplaceOptions);
+                doc.Range.Replace("<ADDD1>", "  ", findReplaceOptions);
+            } else
+            {
+                doc.Range.Replace("<ADD1>", "Addtl. Fee: " + tuitionDetails.AddFeeDscOne, findReplaceOptions);
+                doc.Range.Replace("<ADDD1>", tuitionDetails.AddFeeOne, findReplaceOptions);
+            }
+            if (tuitionDetails.AddFeeDscTwo == null || tuitionDetails.AddFeeDscTwo.ToString() == string.Empty)
+            {
+                doc.Range.Replace("<ADD2>", "  ", findReplaceOptions);
+                doc.Range.Replace("<ADDD2>", "  ", findReplaceOptions);
+            }
+            else
+            {
+                doc.Range.Replace("<ADD2>", "Addtl. Fee: " + tuitionDetails.AddFeeDscTwo, findReplaceOptions);
+                doc.Range.Replace("<ADDD2>", tuitionDetails.AddFeeTwo, findReplaceOptions);
+            }
 
             doc.Range.Replace("<Date>", DateIssued, new FindReplaceOptions(FindReplaceDirection.Forward));
             // Save the Word document

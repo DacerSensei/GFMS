@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2" Text="User Accounts" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
-            <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Users" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10"/>
+            <TextBox Margin="0,12,0,0" md:HintAssist.Hint="Search Users" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="10"/>
         </Grid>
         <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
             <Grid>

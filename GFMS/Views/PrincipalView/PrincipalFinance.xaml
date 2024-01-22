@@ -117,20 +117,30 @@
                 </Border>
                 <!-- Row 2 -->
                 <md:Card Grid.Row="1" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-                    <lvc:CartesianChart Series="{Binding LineGraph}" XAxes="{Binding CrossX}" LegendPosition="Top" LegendTextSize="14">
-                    </lvc:CartesianChart>
+                    <StackPanel>
+                        <lvc:CartesianChart Series="{Binding LineGraph}" XAxes="{Binding CrossX}" LegendPosition="Top" LegendTextSize="14" Height="250">
+                        </lvc:CartesianChart>
+                    </StackPanel>
+                    
                 </md:Card>
                 <md:Card Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
                     <Calendar></Calendar>
                 </md:Card>
                 <!-- Row 3 -->
                 <md:Card Grid.Row="2" Grid.ColumnSpan="2" Margin="2" md:ElevationAssist.Elevation="Dp5">
-                    <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" XAxes="{Binding CrossX}" Series="{Binding ComparisonBarGraph}"></lvc:CartesianChart>
+                    <StackPanel>
+                        <Label Content="Yearly comparison of income" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        <lvc:CartesianChart Grid.Column="2" Grid.ColumnSpan="2" XAxes="{Binding CrossX}" Series="{Binding ComparisonBarGraph}" Height="200" ></lvc:CartesianChart>
+                    </StackPanel>
                 </md:Card>
 
             </Grid>
             <md:Card Margin="2" md:ElevationAssist.Elevation="Dp5" Width="470" HorizontalAlignment="Left">
-                <lvc:PieChart Height="400" Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
+                <StackPanel>
+                    <Label Content="Counts of paid and unpaid students" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                    <lvc:PieChart Height="400" Series="{Binding PieGraph}" LegendPosition="Right"></lvc:PieChart>
+
+                </StackPanel>
             </md:Card>
         </StackPanel>
     </ScrollViewer>

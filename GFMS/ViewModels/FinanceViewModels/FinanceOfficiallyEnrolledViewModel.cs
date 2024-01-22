@@ -91,7 +91,25 @@ namespace GFMS.ViewModels.FinanceViewModels
                         Console.WriteLine($"Error deserializing JSON: {ex.Message}");
                     }
                 }
-                StudentList.Add(studentAccounting);
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    string x = SearchText.ToLower();
+                    if (
+
+                        (studentAccounting.Student.LRN.Contains(x)) ||
+                        (studentAccounting.Student.FirstName.ToLower().Contains(x)) ||
+                        (studentAccounting.Student.LastName.ToLower().Contains(x))
+
+                        )
+                    {
+                        StudentList.Add(studentAccounting);
+                    }
+                }
+                else
+                {
+                    StudentList.Add(studentAccounting);
+                }
+                    
             }
         }
 
@@ -100,5 +118,21 @@ namespace GFMS.ViewModels.FinanceViewModels
         public ICommand PayCommand { get; }
         public ICommand HistoryCommand { get; }
         public ICommand LoadedCommand { get; }
+        private string _searchText;
+
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                if (_searchText == value)
+                {
+                    return;
+                }
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                LoadAllAsync();
+            }
+        }
     }
 }

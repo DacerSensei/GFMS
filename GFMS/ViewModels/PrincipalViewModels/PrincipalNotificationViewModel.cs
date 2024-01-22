@@ -28,7 +28,7 @@ namespace GFMS.ViewModels.PrincipalViewModels
                 {
                     return;
                 }
-                await Credentials.UpdateStudentAsync<Notification, Where>(new Notification { Status = "Approved" }, new Where { id = usersNotification!.Notification!.Id }, "notification");
+                await Credentials.UpdateStudentAsync<Notification, Where>(new Notification { Status = "Approved", Approved = DateTime.Now.ToShortDateString() }, new Where { id = usersNotification!.Notification!.Id }, "notification");
                 LoadAll();
             });
             RejectCommand = new Command(async obj =>
@@ -52,12 +52,12 @@ namespace GFMS.ViewModels.PrincipalViewModels
             var userList = await Credentials.GetAllDataAsync<Users>("users");
             var notifications = await Credentials.GetAllDataAsync<Notification>("notification");
 
-            foreach (var notification in notifications)
+            foreach (var notification in notifications.Reverse<Notification>())
             {
-                if(notification.Status!.ToLower() != "pending")
-                {
-                    continue;
-                }
+                //if(notification.Status!.ToLower() != "pending")
+                //{
+                //    continue;
+                //}
                 var userNotification = new UsersNotification
                 {
                     Notification = notification,

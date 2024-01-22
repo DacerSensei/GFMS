@@ -17,6 +17,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +28,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
     {
         private LoginCredentials Credentials = new LoginCredentials();
         private readonly ErrorsViewModel ErrorsViewModel;
+        private string errorsList = "";
         public RegistrarRegisterStudentViewModel()
         {
             ErrorsViewModel = new ErrorsViewModel();
@@ -41,6 +43,16 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 if (requirement != null)
                 {
                     RequirementList.Remove(requirement);
+                }
+            });
+            ChangeTabCommand = new Command(obj =>
+            {
+                if(SelectedTabIndex == 0)
+                {
+                    SelectedTabIndex = 1;
+                }else if(SelectedTabIndex == 1)
+                {
+                    SelectedTabIndex = 2;
                 }
             });
             AddCommand = new DialogCommand(async obj =>
@@ -73,10 +85,12 @@ namespace GFMS.ViewModels.RegistrarViewModels
             });
             RegisterCommand = new Command(async obj =>
             {
+                errorsList = "The following fields are empty: ";
                 ValidateGradeLevel();
                 ValidateAll();
                 if (ErrorsViewModel.HasErrors)
                 {
+                    MessageBox.Show(errorsList, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 Student request = new Student
@@ -181,7 +195,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                         }));
                     }
                     await Task.WhenAll(taskList);
-                    MessageDialog Dialog = new MessageDialog("Notice", "Student Registered Successfully");
+                    MessageDialog Dialog = new MessageDialog("Notice", "Student Registered Successfully", true);
                     await DialogHost.Show(Dialog, "RootDialog");
                     ClearForm();
                 }
@@ -260,6 +274,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         public ICommand AddCommand { get; }
         public ICommand RegisterCommand { get; }
         public ICommand ChangePictureCommand { get; }
+        public ICommand ChangeTabCommand { get; }
         public ICommand LoadedCommand { get; }
 
         public static ObservableCollection<Requirement>? RequirementList { get; set; } = new ObservableCollection<Requirement>();
@@ -271,6 +286,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         {
             if (string.IsNullOrWhiteSpace(SchoolYear))
             {
+                errorsList += "School Year, ";
                 ErrorsViewModel.AddError(nameof(SchoolYear), "This field is cannot be empty");
             }
             else
@@ -280,6 +296,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(LRN))
             {
+                errorsList += "LRN, ";
                 ErrorsViewModel.AddError(nameof(LRN), "This field is cannot be empty");
             }
             else
@@ -289,6 +306,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(LastName))
             {
+                errorsList += "Last Name, ";
                 ErrorsViewModel.AddError(nameof(LastName), "This field is cannot be empty");
             }
             else
@@ -298,6 +316,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(FirstName))
             {
+                errorsList += "First Name, ";
                 ErrorsViewModel.AddError(nameof(FirstName), "This field is cannot be empty");
             }
             else
@@ -307,6 +326,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(MiddleName))
             {
+                errorsList += "Middle Name, ";
                 ErrorsViewModel.AddError(nameof(MiddleName), "This field is cannot be empty");
             }
             else
@@ -316,6 +336,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NickName))
             {
+                errorsList += "Nickname, ";
                 ErrorsViewModel.AddError(nameof(NickName), "This field is cannot be empty");
             }
             else
@@ -325,6 +346,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(Address))
             {
+                errorsList += "Address, ";
                 ErrorsViewModel.AddError(nameof(Address), "This field is cannot be empty");
             }
             else
@@ -334,6 +356,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(BirthPlace))
             {
+                errorsList += "Birthplace, ";
                 ErrorsViewModel.AddError(nameof(BirthPlace), "This field is cannot be empty");
             }
             else
@@ -343,6 +366,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(MajorInterest))
             {
+                errorsList += "Major Interests, ";
                 ErrorsViewModel.AddError(nameof(MajorInterest), "This field is cannot be empty");
             }
             else
@@ -352,6 +376,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfFather))
             {
+                errorsList += "Father's Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfFather), "This field is cannot be empty");
             }
             else
@@ -361,6 +386,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfMother))
             {
+                errorsList += "Mother's Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfMother), "This field is cannot be empty");
             }
             else
@@ -370,6 +396,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(Age))
             {
+                errorsList += "Age, ";
                 ErrorsViewModel.AddError(nameof(Age), "This field is cannot be empty");
             }
             else
@@ -379,6 +406,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(Gender))
             {
+                errorsList += "Gender, ";
                 ErrorsViewModel.AddError(nameof(Gender), "This field is cannot be empty");
             }
             else
@@ -388,6 +416,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(MyMobileNumber))
             {
+                errorsList += "Mobile Number, ";
                 ErrorsViewModel.AddError(nameof(MyMobileNumber), "This field is cannot be empty");
             }
             else
@@ -397,6 +426,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(Religion))
             {
+                errorsList += "Religion, ";
                 ErrorsViewModel.AddError(nameof(Religion), "This field is cannot be empty");
             }
             else
@@ -406,6 +436,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (BirthDate == null)
             {
+                errorsList += "Birthdate, ";
                 ErrorsViewModel.AddError(nameof(BirthDate), "This field is cannot be empty");
             }
             else
@@ -415,6 +446,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(Citizenship))
             {
+                errorsList += "Citizenship, ";
                 ErrorsViewModel.AddError(nameof(Citizenship), "This field is cannot be empty");
             }
             else
@@ -424,6 +456,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(HealthIssues))
             {
+                errorsList += "Health Issues, ";
                 ErrorsViewModel.AddError(nameof(HealthIssues), "This field is cannot be empty");
             }
             else
@@ -433,6 +466,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NoOfSiblings))
             {
+                errorsList += "Number Of Siblings, ";
                 ErrorsViewModel.AddError(nameof(NoOfSiblings), "This field is cannot be empty");
             }
             else
@@ -442,6 +476,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(OrderInFamily))
             {
+                errorsList += "Order in Family, ";
                 ErrorsViewModel.AddError(nameof(OrderInFamily), "This field is cannot be empty");
             }
             else
@@ -451,6 +486,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(FatherWork))
             {
+                errorsList += "Father's Work, ";
                 ErrorsViewModel.AddError(nameof(FatherWork), "This field is cannot be empty");
             }
             else
@@ -460,6 +496,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(MotherWork))
             {
+                errorsList += "Mother's Work, ";
                 ErrorsViewModel.AddError(nameof(MotherWork), "This field is cannot be empty");
             }
             else
@@ -469,6 +506,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(ClassLevel))
             {
+                errorsList += "Class Level, ";
                 ErrorsViewModel.AddError(nameof(ClassLevel), "This field is cannot be empty");
             }
             else
@@ -478,6 +516,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(FatherMobile))
             {
+                errorsList += "Father's Mobile Number, ";
                 ErrorsViewModel.AddError(nameof(FatherMobile), "This field is cannot be empty");
             }
             else
@@ -487,6 +526,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(MotherMobile))
             {
+                errorsList += "Mother's Mobile Number, ";
                 ErrorsViewModel.AddError(nameof(MotherMobile), "This field is cannot be empty");
             }
             else
@@ -496,6 +536,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfSchool))
             {
+                errorsList += "School Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfSchool), "This field is cannot be empty");
             }
             else
@@ -505,6 +546,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfGuidance))
             {
+                errorsList += "Guidance Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfGuidance), "This field is cannot be empty");
             }
             else
@@ -514,6 +556,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfPrincipal))
             {
+                errorsList += "Principal Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfPrincipal), "This field is cannot be empty");
             }
             else
@@ -523,6 +566,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(NameOfAdviser))
             {
+                errorsList += "Adviser's Name, ";
                 ErrorsViewModel.AddError(nameof(NameOfAdviser), "This field is cannot be empty");
             }
             else
@@ -532,6 +576,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(PrevSchoolMobile))
             {
+                errorsList += "Previous School's Mobile Number, ";
                 ErrorsViewModel.AddError(nameof(PrevSchoolMobile), "This field is cannot be empty");
             }
             else
@@ -541,6 +586,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(GuidanceMobile))
             {
+                errorsList += "Mobile Number of Guidance, ";
                 ErrorsViewModel.AddError(nameof(GuidanceMobile), "This field is cannot be empty");
             }
             else
@@ -550,6 +596,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(PrincipalMobile))
             {
+                errorsList += "Mobile Number of Principal's, ";
                 ErrorsViewModel.AddError(nameof(PrincipalMobile), "This field is cannot be empty");
             }
             else
@@ -559,6 +606,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(AdviserMobile))
             {
+                errorsList += "Mobile Number of Adviser's, ";
                 ErrorsViewModel.AddError(nameof(AdviserMobile), "This field is cannot be empty");
             }
             else
@@ -568,6 +616,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             if (string.IsNullOrWhiteSpace(PrevSchoolAddress))
             {
+                errorsList += "Previous School's Address, ";
                 ErrorsViewModel.AddError(nameof(PrevSchoolAddress), "This field is cannot be empty");
             }
             else
@@ -580,6 +629,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
         {
             if (string.IsNullOrWhiteSpace(SelectedGradeLevel))
             {
+                errorsList += "grade level, ";
                 ErrorsViewModel.AddError(nameof(SelectedGradeLevel), "Please select your grade level");
             }
             else
@@ -612,7 +662,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             switch (value.ToUpper())
             {
                 case "PRE SCHOOL":
-                    ClassLevelList.Add("TOODLER");
+                    ClassLevelList.Add("TODDLER");
                     ClassLevelList.Add("NURSERY");
                     ClassLevelList.Add("KINDER 1");
                     ClassLevelList.Add("KINDER 2");
@@ -1192,6 +1242,20 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 }
                 _escIdNo = value;
                 OnPropertyChanged(nameof(EscIdNo));
+            }
+        }
+
+        private int selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get => selectedTabIndex;
+            set
+            {
+                if (selectedTabIndex != value)
+                {
+                    selectedTabIndex = value;
+                    OnPropertyChanged(nameof(SelectedTabIndex));
+                }
             }
         }
 

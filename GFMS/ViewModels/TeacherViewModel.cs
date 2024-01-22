@@ -21,7 +21,7 @@ namespace GFMS.ViewModels
         {
             if (MainWindow.User != null)
             {
-                UserType = MainWindow.User.Usertype;
+                UserType = MainWindow.User.Usertype == "TEACHER" ? MainWindow.Teacher.Grade + " Teacher" : MainWindow.User.Usertype;
                 FullName = $"Hi, {MainWindow.User.FirstName}";
             }
             CurrentView = MainPageView;

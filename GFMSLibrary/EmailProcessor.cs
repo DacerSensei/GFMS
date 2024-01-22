@@ -11,7 +11,7 @@ namespace GFMSLibrary
 {
     public static class EmailProcessor
     {
-        public static async Task<bool> SendEmail(string RecipientEmail)
+        public static async Task<bool> SendEmail(string RecipientEmail, string otp)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace GFMSLibrary
                         mail.From = new MailAddress(senderEmail);
                         mail.To.Add(RecipientEmail);
                         mail.Subject = "Forgot Password";
-                        mail.Body = "<h3>Click here to <a href='#'>Change your password</a></h3>";
+                        mail.Body = "To continue to change your password, please enter the following OTP into the program. Thank you.<br><br><h1>" + otp + "</h1>";
                         mail.IsBodyHtml = true;
 
                         await client.SendMailAsync(mail); // Use SendMailAsync for async operation

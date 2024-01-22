@@ -10,6 +10,10 @@
         public string? Books { get; set; }
         public string? Uniform { get; set; }
         public string? OtherFees { get; set; }
+        public string? AddFeeOne { get; set; }
+        public string? AddFeeDscOne { get; set; }
+        public string? AddFeeTwo { get; set; }
+        public string? AddFeeDscTwo { get; set; }
         public string? TotalAmount { get; set; }
         public string? Balance { get; set; }
         public string? Payment { get; set; }

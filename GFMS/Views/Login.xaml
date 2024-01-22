@@ -64,8 +64,31 @@
 
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50" Grid.Column="1">
                     <Image Source="/Assets/Logo.png" Height="150" Margin="10"/>
-                    <TextBlock TextAlignment="Center" FontSize="24" Text="Grading and Finance Management" FontFamily="{StaticResource PoppinsBold}"/>
+                    <TextBlock TextAlignment="Center" FontSize="36" Text="School Management" FontFamily="{StaticResource PoppinsBold}"/>
                     <TextBlock TextAlignment="Center" FontSize="24" Text="Information System" FontFamily="{StaticResource PoppinsBold}"/>
+                </StackPanel>
+                <StackPanel  Grid.Column="1" Orientation="Horizontal" Margin="399,10,36,520">
+                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Button BorderThickness="0" Style="{DynamicResource MinimizeButtonStyle}" Command="{Binding MinimizeCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Minimize.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                    </Border>
+                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Button BorderThickness="0" Style="{DynamicResource MaximizeButtonStyle}" Command="{Binding MaximizeCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Maximize.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                    </Border>
+                    <Border Height="15" Width="15" Cursor="Hand" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Button BorderThickness="0" Style="{DynamicResource CloseButtonStyle}" Command="{Binding CloseCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Close.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                    </Border>
                 </StackPanel>
             </Grid>
         </Border>

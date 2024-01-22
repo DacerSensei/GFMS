@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFMS.Views.Modals"
         mc:Ignorable="d"
-        Height="680" Width="1000" 
+        Height="831" Width="1027" 
         WindowStyle="None"
         xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
@@ -26,8 +26,10 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Margin="0,20,30,20" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Command="{Binding PayCommand}" Content="Pay" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                    <Button Command="{Binding AddFeeCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0" Content="{Binding AddFeeText}"/>
+                    <Button Command="{Binding PayCommand}" Content="Pay" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="32,0,0,0" />
                     <Button Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0">CANCEL</Button>
+                    
                 </StackPanel>
                 <md:Card Grid.Row="1" Margin="10,0,10,10" Padding="0,10,0,10">
                     <Grid Margin="10,0">
@@ -65,9 +67,13 @@
                             <TextBox CharacterCasing="Upper" Text="{Binding Inclusion}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,40,0">
-                            <ComboBox ItemsSource="{Binding DiscountList}" SelectedItem="{Binding SelectedDiscount}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,63,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
+                            <ComboBox ItemsSource="{Binding DiscountList}" SelectedItem="{Binding SelectedDiscount}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,10,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
                             <TextBox IsReadOnly="True" Text="{Binding Discounted, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Discounted Amount"/>
                             <ComboBox ItemsSource="{Binding ModeOfPaymentList}" SelectedItem="{Binding SelectedModeOfPayment}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Mode of Payment" Padding="10" Margin="0,10,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
+                            <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisOne}" Text="{Binding OtherFeeOne, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (1)"  Margin="0,0,0,20"/>
+                            <TextBox CharacterCasing="Upper" Text="{Binding DscFeeOne}" Visibility="{Binding OtherFeeVisOne}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (1)" />
+                            <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisTwo}" Text="{Binding OtherFeeTwo, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (2)"  Margin="0,0,0,20"/>
+                            <TextBox CharacterCasing="Upper" Text="{Binding DscFeeTwo}" Visibility="{Binding OtherFeeVisTwo}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (2)" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
                             <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />

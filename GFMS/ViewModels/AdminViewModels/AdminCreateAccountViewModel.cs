@@ -158,7 +158,7 @@ namespace GFMS.ViewModels.AdminViewModels
 
         public ObservableCollection<string> GradeList { get; set; } = new ObservableCollection<string>()
         {
-            "TOODLER",
+            "TODDLER",
             "NURSERY",
             "KINDER 1",
             "KINDER 2",

@@ -42,10 +42,11 @@ namespace GFMS.ViewModels
                 {
                     _forgotPasswordCommand = new Command(async obj =>
                     {
+
                         var result = await DialogHost.Show(new ForgotPassword(), "RootDialog");
                         if((bool)result! == true)
                         {
-                            MessageBox.Show("We just send an email to your account");
+                            MessageBox.Show("Password Reset!");
                         }
                     });
                 }
@@ -183,6 +184,62 @@ namespace GFMS.ViewModels
         public IEnumerable GetErrors(string? propertyName)
         {
             return ErrorsViewModel.GetErrors(propertyName);
+        }
+        private Command _closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                {
+                    _closeCommand = new Command(CloseCommandExecute);
+                }
+                return _closeCommand;
+            }
+        }
+        private Command _maximizeCommand;
+        public ICommand MaximizeCommand
+        {
+            get
+            {
+                if (_maximizeCommand == null)
+                {
+                    _maximizeCommand = new Command(MaximizeCommandExecute);
+                }
+                return _maximizeCommand;
+            }
+        }
+        private Command _minimizeCommand;
+        public ICommand MinimizeCommand
+        {
+            get
+            {
+                if (_minimizeCommand == null)
+                {
+                    _minimizeCommand = new Command(MinimizeCommandExecute);
+                }
+                return _minimizeCommand;
+            }
+        }
+
+        private void CloseCommandExecute(object sender)
+        {
+            Application.Current.MainWindow.Close();
+        }
+        private void MaximizeCommandExecute(object sender)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Normal)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+        }
+        private void MinimizeCommandExecute(object sender)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
 
         private void ValidateUsername()

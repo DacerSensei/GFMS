@@ -10,6 +10,7 @@ namespace GFMS.Models
     public class StudentRequirements
     {
         public Student? Student { get; set; }
+        public Registration? Registration { get; set; }
         public List<Requirement>? Requirement { get; set; }
         public string? StudentName
         {

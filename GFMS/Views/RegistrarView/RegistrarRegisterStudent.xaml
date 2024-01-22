@@ -31,10 +31,11 @@
                 <Button Grid.Row="1" Command="{Binding RegisterCommand}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" HorizontalAlignment="Right" Margin="10,0" Height="46">Register Student</Button>
             </Grid>
             <md:Card Margin="0,10,0,0">
-                <TabControl HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFilledTabControl}">
+                <TabControl HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFilledTabControl}" SelectedIndex="{Binding SelectedTabIndex}">
                     <TabItem Header="Student and Family">
                         <Grid Margin="10,0">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -83,11 +84,13 @@
                                 <TextBox CharacterCasing="Upper" Text="{Binding MotherWork}" md:HintAssist.Hint="WORK" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}"/>
                                 <TextBox CharacterCasing="Upper" Text="{Binding MotherMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
                             </StackPanel>
+                            <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding ChangeTabCommand}" Margin="0,0,15,30" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" HorizontalAlignment="Center" Height="46">Next Page</Button>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Previous School">
                         <Grid Margin="10,0">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -110,6 +113,7 @@
                                 <TextBox CharacterCasing="Upper" Text="{Binding AdviserMobile}" md:HintAssist.Hint="MOBILE NUMBER" Padding="10" Margin="12" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" PreviewTextInput="NumberValidationTextBox" MaxLength="11"/>
                             </StackPanel>
                             <TextBox CharacterCasing="Upper" Grid.Row="2" Grid.ColumnSpan="2" Margin="27,0,27,30" Text="{Binding PrevSchoolAddress}" md:HintAssist.Hint="ADDRESS" Padding="10" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="{StaticResource PoppinsRegular}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60"/>
+                            <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding ChangeTabCommand}" Margin="0,0,15,30" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" HorizontalAlignment="Center" Height="46">Next Page</Button>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Requirements" >

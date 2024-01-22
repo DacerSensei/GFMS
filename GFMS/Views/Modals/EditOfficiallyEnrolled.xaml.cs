@@ -175,7 +175,7 @@ namespace GFMS.Views.Modals
             switch (value.ToUpper())
             {
                 case "PRE SCHOOL":
-                    ClassLevelList.Add("TOODLER");
+                    ClassLevelList.Add("TODDLER");
                     ClassLevelList.Add("NURSERY");
                     ClassLevelList.Add("KINDER 1");
                     ClassLevelList.Add("KINDER 2");

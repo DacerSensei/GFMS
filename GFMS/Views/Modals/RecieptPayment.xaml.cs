@@ -28,12 +28,48 @@ namespace GFMS.Views.Modals
     public partial class RecieptPayment : Window, INotifyPropertyChanged
     {
         private readonly LoginCredentials Credentials = new LoginCredentials();
+        int revealView = 0;
         public RecieptPayment(StudentAccounting student)
         {
             InitializeComponent();
+            revealView = 0;
+            OtherFeeVisOne = "Hidden";
+            OtherFeeVisTwo = "Hidden";
+            AddFeeText = "Add FEE";
             LoadedCommand = new Command(obj =>
             {
 
+            });
+
+            AddFeeCommand = new Command(obj =>
+            {
+                if (revealView == 0)
+                {
+                    OtherFeeVisOne = "Visible";
+                    OtherFeeVisTwo = "Hidden";
+                    OtherFeeOne = "";
+                    DscFeeOne = "";
+                    AddFeeText = "Add FEE";
+                    revealView++;
+                } else if (revealView == 1)
+                {
+                    OtherFeeVisOne = "Visible";
+                    OtherFeeVisTwo = "Visible";
+                    OtherFeeTwo = "";
+                    DscFeeTwo = "";
+                    AddFeeText = "Remove all addtl. FEES";
+                    revealView++;
+                } else
+                {
+                    OtherFeeVisOne = "Hidden";
+                    OtherFeeVisTwo = "Hidden";
+                    OtherFeeOne = "";
+                    DscFeeOne = "";
+                    OtherFeeTwo = "";
+                    DscFeeTwo = "";
+                    AddFeeText = "Add FEE";
+                    revealView = 0;
+                }
             });
             LoadAllDataAsync(student);
             PayCommand = new Command(async obj =>
@@ -70,6 +106,10 @@ namespace GFMS.Views.Modals
                     TuitionFee = TuitionFee,
                     TotalTuitionFee = TotalTuitionFee,
                     Description = Description,
+                    AddFeeOne = OtherFeeOne,
+                    AddFeeTwo = OtherFeeTwo,
+                    AddFeeDscOne = DscFeeOne,
+                    AddFeeDscTwo = DscFeeTwo,
                     Date = DateTime.Now.ToShortDateString()
                 };
                 Accounting accounting = new Accounting()
@@ -111,6 +151,7 @@ namespace GFMS.Views.Modals
         public ICommand PayCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand LoadedCommand { get; }
+        public ICommand AddFeeCommand { get; }
 
         private string completeName;
 
@@ -255,6 +296,75 @@ namespace GFMS.Views.Modals
             }
         }
 
+        private string otherFeeOne = string.Empty;
+
+        public string OtherFeeOne
+        {
+            get { return otherFeeOne; }
+            set
+            {
+                otherFeeOne = value;
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(OtherFees));
+            }
+        }
+
+        private string otherFeeTwo = string.Empty;
+
+        public string OtherFeeTwo
+        {
+            get { return otherFeeTwo; }
+            set
+            {
+                otherFeeTwo = value;
+                OnPropertyChanged(nameof(TotalAmount));
+                OnPropertyChanged(nameof(CanPay));
+                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(OtherFees));
+            }
+        }
+
+        private string dscFeeOne = string.Empty;
+
+        public string DscFeeOne
+        {
+            get { return dscFeeOne; }
+            set { dscFeeOne = value; OnPropertyChanged(nameof(DscFeeOne)); }
+        }
+
+        private string dscFeeTwo = string.Empty;
+
+        public string DscFeeTwo
+        {
+            get { return dscFeeTwo; }
+            set { dscFeeTwo = value; OnPropertyChanged(nameof(DscFeeTwo)); }
+        }
+
+        private string otherFeeVisOne = string.Empty;
+
+        public string OtherFeeVisOne
+        {
+            get { return otherFeeVisOne; }
+            set { otherFeeVisOne = value; OnPropertyChanged(nameof(OtherFeeVisOne)); }
+        }
+
+        private string otherFeeVisTwo = string.Empty;
+
+        public string OtherFeeVisTwo
+        {
+            get { return otherFeeVisTwo; }
+            set { otherFeeVisTwo = value; OnPropertyChanged(nameof(OtherFeeVisTwo)); }
+        }
+
+        private string addFeeText = string.Empty;
+        public string AddFeeText
+        {
+            get { return addFeeText; }
+            set { addFeeText = value; OnPropertyChanged(nameof(AddFeeText)); }
+        }
+
         private string inclusion = string.Empty;
 
         public string Inclusion
@@ -332,6 +442,8 @@ namespace GFMS.Views.Modals
                 decimal booksFee = 0m;
                 decimal uniformFee = 0m;
                 decimal otherFees = 0m;
+                decimal feeOne = 0m;
+                decimal feeTwo = 0m;
                 if (!string.IsNullOrEmpty(TotalTuitionFee))
                 {
                     totalTuitionFee = Convert.ToDecimal(TotalTuitionFee ?? "0");
@@ -352,7 +464,15 @@ namespace GFMS.Views.Modals
                 {
                     otherFees = Convert.ToDecimal(OtherFees ?? "0");
                 }
-                decimal total = totalTuitionFee + registrationFee + booksFee + uniformFee + otherFees;
+                if (!string.IsNullOrEmpty(OtherFeeOne))
+                {
+                    feeOne = Convert.ToDecimal(OtherFeeOne ?? "0");
+                }
+                if (!string.IsNullOrEmpty(OtherFeeTwo))
+                {
+                    feeTwo = Convert.ToDecimal(OtherFeeTwo ?? "0");
+                }
+                decimal total = totalTuitionFee + registrationFee + booksFee + uniformFee + otherFees + feeOne + feeTwo;
                 return total > 0 ? total.ToString("N2") : string.Empty;
             }
         }

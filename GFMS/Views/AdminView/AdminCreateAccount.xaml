@@ -4,15 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFMS.Views.AdminView"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             mc:Ignorable="d"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.AdminViewModels"
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" Height="602" Width="774">
     <UserControl.DataContext>
         <ViewModel:AdminCreateAccountViewModel />
     </UserControl.DataContext>
     <md:Card UniformCornerRadius="10" md:ElevationAssist.Elevation="Dp5">
-        <Grid>
+        <Grid Margin="0,0,0,-16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -23,21 +22,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.ColumnSpan="2">
-                <Label Content="Hello," FontFamily="{StaticResource PoppinsBold}" FontSize="40" HorizontalContentAlignment="Center"/>
-                <Label Content="Create your account" FontFamily="{StaticResource PoppinsRegular}" HorizontalContentAlignment="Center"/>
+                <Label Content="Hello, Admin!" FontFamily="{StaticResource PoppinsBold}" FontSize="40" HorizontalContentAlignment="Center"/>
+                <Label Content="Create account for users" FontFamily="{StaticResource PoppinsRegular}" HorizontalContentAlignment="Center"/>
                 <ComboBox Visibility="{Binding IsTeacher}" ItemsSource="{Binding GradeList}" Width="300" Margin="0,20,0,5" SelectedItem="{Binding SelectedGrade}" md:HintAssist.Hint="Grade Level" Padding="10" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontFamily="{StaticResource PoppinsRegular}" md:HintAssist.FloatingOffset="0,-17.1"/>
 
             </StackPanel>
-            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="25">
-                <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Email" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+            <StackPanel VerticalAlignment="Top" Margin="185,199,185,0" Height="172" Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBox FontSize="14" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Email" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                 <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Username" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                <PasswordBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Password" Name="Password" 
+                <PasswordBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Password" x:Name="Password" 
                              md:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="25">
+            <StackPanel VerticalAlignment="Top" Margin="185,141,185,0" Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="First Name" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                 <TextBox FontSize="14" Margin="0,20,0,5" Padding="12,12,12,8" md:HintAssist.Foreground="#d32f2f" md:HintAssist.Hint="Last Name" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"

@@ -24,5 +24,21 @@ namespace GFMS.Views.PrincipalView
         {
             InitializeComponent();
         }
+
+        private StackPanel? PreviousHighlight = null;
+        private void DataHighlight(object sender, MouseButtonEventArgs e)
+        {
+            if (PreviousHighlight == null)
+            {
+                PreviousHighlight = sender as StackPanel;
+            }
+            else
+            {
+                PreviousHighlight.Background = new SolidColorBrush(Colors.White);
+                PreviousHighlight = sender as StackPanel;
+            }
+            var ObjectSender = (StackPanel)sender;
+            ObjectSender.Background = new SolidColorBrush(Color.FromRgb(173, 216, 255));
+        }
     }
 }

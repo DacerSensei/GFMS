@@ -26,7 +26,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Margin="0,20,30,20" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Command="{Binding SaveCommand}" Visibility="{Binding SaveVisibility}" Content="{Binding IsTeacher}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}"></Button>
+                    <Button Command="{Binding FormCommand}" Visibility="{Binding SaveVisibility}" Content="{Binding IsTeacherForm}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                    <Button Command="{Binding SaveCommand}" Visibility="{Binding SaveVisibility}" Content="{Binding IsTeacher}" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0"></Button>
                     <Button Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0">CANCEL</Button>
                 </StackPanel>
                 <md:Card Grid.Row="1" Margin="10,0,10,10">
@@ -41,16 +42,17 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="83*" />
+                                    <ColumnDefinition Width="342*"/>
+                                    <ColumnDefinition Width="425*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="../../Assets/Logo.png" Height="100" Width="100" Margin="20" HorizontalAlignment="Left"/>
-                                <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource PoppinsBold}">
+                                <Image Source="../../Assets/Logo.png" Height="100" Width="100" Margin="20,20,0,20" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                                <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Left" FontSize="18" FontFamily="{StaticResource PoppinsBold}" Grid.Column="1" Margin="99,0,0,0">
                                     <Bold>Republic of the philippines</Bold><LineBreak/>
                                     <Bold>Department of Education</Bold><LineBreak/>
                                     <Bold>Region IV-A | District of Alaminos | Division of Laguna</Bold><LineBreak/>
                                 </TextBlock>
-                                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                                <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
                                     <md:Card Background="#c12d2b">
                                         <Label Content="PALM VALLEY MULTIPLE INTELLEGENCE SCHOOL" Foreground="White" HorizontalContentAlignment="Center" />
                                     </md:Card>
@@ -62,17 +64,17 @@
                                     <TextBlock Text="LOWER GRADE SCHOOL REPORT CARD" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                                     <TextBlock Text="SCHOOL YEAR 2022-2023" VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                                 </StackPanel>
-                                <TextBox Text="{Binding FullName}" IsReadOnly="True" Grid.Row="2" Margin="40,0" Grid.ColumnSpan="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
-                                <StackPanel Grid.Row="3" Margin="40,0,10,0">
+                                <TextBox Text="{Binding FullName}" IsReadOnly="True" Grid.Row="2" Margin="40,0,40,112" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" Grid.RowSpan="2" />
+                                <StackPanel Grid.Row="3" Margin="40,0,10,297" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                     <TextBox IsReadOnly="True" Text="{Binding Age}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Age" />
                                     <TextBox IsReadOnly="True" Text="{Binding Grade}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade and Section" />
                                 </StackPanel>
-                                <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,0,40,0">
+                                <StackPanel Grid.Row="3" Grid.Column="2" Margin="10,0,40,297" Grid.RowSpan="2">
                                     <TextBox IsReadOnly="True" Text="{Binding Sex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Sex" />
                                     <TextBox IsReadOnly="True" Text="{Binding LRN}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="LRN" />
                                 </StackPanel>
                                 <!-- Row 4 -->
-                                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,50">
+                                <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,0,0,50">
                                     <TextBlock VerticalAlignment="Bottom" TextAlignment="Left" Margin="0,30,0,0" HorizontalAlignment="Center" FontSize="14" FontFamily="{StaticResource PoppinsBold}">
                                     <Bold>Dear Parents:</Bold><LineBreak/>
                                     <Bold>This report card shows the ability and progress your child has made in the different learning</Bold><LineBreak/>
@@ -86,7 +88,7 @@
                             </Grid>
                         </TabItem>
                         <TabItem Header="Grading System">
-                            <Grid Margin="10,0">
+                            <Grid Margin="10,0" Name="deezGrid">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -159,7 +161,8 @@
                                                         <ColumnDefinition Width=".8*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Border BorderBrush="Black" BorderThickness="1">
-                                                        <Label Content="{Binding SubjectName}" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="{StaticResource PoppinsBold}"/>
+                                                       
+                                                        <TextBox IsReadOnly="{Binding DataContext.IsReadOnly, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" VerticalAlignment="Center" Text="{Binding SubjectName}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" />
                                                     </Border>
                                                     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
                                                         <TextBox IsReadOnly="{Binding DataContext.IsReadOnly, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" VerticalAlignment="Center" Text="{Binding FirstGrading, Converter={StaticResource NullableIntToStringConverter}}"  Foreground="Black" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignTextBox}" MaxLength="3" PreviewTextInput="NumberValidationTextBox" md:TextFieldAssist.CharacterCounterVisibility="Hidden"/>
@@ -395,40 +398,40 @@
                                             <Label Content="MONTHS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontSize="14"/>
                                         </Border>
                                         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Aug." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Aug." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Sept." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Sept." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="3" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Oct." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Oct." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="4" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Nov." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Nov." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="5" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Dec." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Dec." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="6" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Jan." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Jan." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="7" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Feb." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Feb." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="8" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Mar." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Mar." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="9" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Apr." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Apr." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="10" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="May" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="May" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="11" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Jun." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Jun." Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="12" BorderBrush="Black" BorderThickness="1">
-                                            <Label Content="Total" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
+                                            <TextBox Text="Total" Foreground="Black" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center"/>
                                         </Border>
                                     </Grid>
                                     <ItemsControl Grid.Row="2"  ItemsSource="{Binding AttendanceList}" MinHeight="200">

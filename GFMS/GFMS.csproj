@@ -12,6 +12,7 @@
     <None Remove="Assets\Background.png" />
     <None Remove="Assets\ChangePassword.png" />
     <None Remove="Assets\ChangePasswordActive.png" />
+    <None Remove="Assets\Checked.png" />
     <None Remove="Assets\Close.png" />
     <None Remove="Assets\CloseHover.png" />
     <None Remove="Assets\CreateAccount.png" />
@@ -71,6 +72,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aspose.Words" Version="23.12.0" />
+    <PackageReference Include="itext7" Version="8.0.2" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
+    <PackageReference Include="itext7.pdfhtml" Version="5.0.2" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc1.2" />
     <PackageReference Include="LottieSharp" Version="2.3.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
@@ -80,6 +84,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Checked.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\FinanceDashboard.png" />
     <Resource Include="Assets\FinanceDashboardActive.png" />
     <Resource Include="Assets\FinanceReport.png" />

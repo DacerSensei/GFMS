@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
+using System.Runtime.CompilerServices;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -22,6 +23,23 @@ namespace GFMS.ViewModels.RegistrarViewModels
         {
             LoadedCommand = new Command(async obj =>
             {
+                this.YearList.Clear();
+                var YearList = await Credentials.GetAllDataAsync<SchoolYear>("school_year");
+                var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
+                foreach (var item in Years)
+                {
+                    if (item != null)
+                    {
+                        this.YearList.Add(item);
+                    }
+                }
+                await LoadAll();
+            });
+            ClearCommand = new Command(async obj =>
+            {
+                GradeLevelSelected = null;
+                YearSelected = null;
+                SearchText = null;
                 await LoadAll();
             });
             RefreshCommand = new Command(async obj =>
@@ -35,7 +53,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 {
                     Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
                     UserTeacher findTeacher = await Credentials.GetByAnonymousAsync<UserTeacher>("grade", student.Registration!.Grade!, "teachers");
-                    if(findTeacher != null)
+                    if (findTeacher != null)
                     {
                         Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
                         ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
@@ -58,15 +76,12 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var studentListTask = Credentials.GetAllDataAsync<Student>("student");
             var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
-            var YearListTask = Credentials.GetAllDataAsync<SchoolYear>("school_year");
 
-            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, YearListTask);
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask);
 
             var studentList = studentListTask.Result;
             var registrationList = registrationListTask.Result;
             var studentGradeList = studentGradeListTask.Result;
-            var YearList = YearListTask.Result;
-            var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
             foreach (var student in registrationList)
             {
@@ -77,17 +92,155 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 };
                 studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
                 studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
-                if(studentReport.Registration.Year == (Years.LastOrDefault() ?? "2023-2024"))
+
+                if (studentReport.Registration.Year == (YearList.LastOrDefault() ?? "2023-2024") || !string.IsNullOrEmpty(YearSelected))
                 {
-                    StudentList.Add(studentReport);
+                    if (!string.IsNullOrWhiteSpace(SearchText))
+                    {
+                        string searchText = SearchText.ToLower();
+                        if (studentReport.Student.LRN.Contains(searchText) || studentReport.Student.LastName.ToLower().Contains(searchText))
+                        {
+                            if (!string.IsNullOrEmpty(GradeLevelSelected))
+                            {
+                                if (studentReport.Registration.Grade == GradeLevelSelected)
+                                {
+                                    if (!string.IsNullOrEmpty(YearSelected))
+                                    {
+                                        if (studentReport.Registration.Year == YearSelected)
+                                        {
+                                            StudentList.Add(studentReport);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        StudentList.Add(studentReport);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(YearSelected))
+                                {
+                                    if (studentReport.Registration.Year == YearSelected)
+                                    {
+                                        StudentList.Add(studentReport);
+                                    }
+                                }
+                                else
+                                {
+                                    StudentList.Add(studentReport);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(GradeLevelSelected))
+                        {
+                            if (studentReport.Registration.Grade == GradeLevelSelected)
+                            {
+                                if (!string.IsNullOrEmpty(YearSelected))
+                                {
+                                    if (studentReport.Registration.Year == YearSelected)
+                                    {
+                                        StudentList.Add(studentReport);
+                                    }
+                                }
+                                else
+                                {
+                                    StudentList.Add(studentReport);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(YearSelected))
+                            {
+                                if (studentReport.Registration.Year == YearSelected)
+                                {
+                                    StudentList.Add(studentReport);
+                                }
+                            }
+                            else
+                            {
+                                StudentList.Add(studentReport);
+                            }
+                        }
+                    }
                 }
             }
         }
 
         public ObservableCollection<StudentReport> StudentList { get; set; } = new ObservableCollection<StudentReport>();
+        public ObservableCollection<string> GradeLevel { get; set; } = new ObservableCollection<string>
+        {
+            "TODDLER",
+            "NURSERY",
+            "KINDER 1",
+            "KINDER 2",
+            "Grade 1",
+            "Grade 2",
+            "Grade 3",
+            "Grade 4",
+            "Grade 5",
+            "Grade 6",
+            "Grade 7",
+            "Grade 8",
+            "Grade 9",
+            "Grade 10",
+            "Grade 11 - ABM",
+            "Grade 11 - HUMSS",
+            "Grade 11 - STEM",
+            "Grade 11 - GAS",
+            "Grade 12 - ABM",
+            "Grade 12 - HUMMS",
+            "Grade 12 - STEM",
+            "Grade 12 - GAS"
+        };
+
+        public ObservableCollection<string> YearList { get; set; } = new ObservableCollection<string>();
+
+        private string? gradeLevelSelected;
+        public string? GradeLevelSelected
+        {
+            get => gradeLevelSelected;
+            set => SetProperty(ref gradeLevelSelected, value);
+        }
+
+        private string? yearSelected;
+        public string? YearSelected
+        {
+            get => yearSelected;
+            set => SetProperty(ref yearSelected, value);
+        }
+
+        private string? _searchText;
+
+        public string? SearchText
+        {
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
+        }
+
+        private void SetProperty<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(property, value))
+            {
+                return;
+            }
+
+            property = value;
+            OnPropertyChanged(propertyName);
+            if (value != null)
+            {
+                LoadAll();
+            }
+
+        }
 
         public ICommand ViewCommand { get; }
         public ICommand RefreshCommand { get; }
+        public ICommand ClearCommand { get; }
         public ICommand LoadedCommand { get; }
     }
 }

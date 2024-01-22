@@ -1,10 +1,15 @@
-﻿using GFMS.Models;
+﻿
+using GFMS.Models;
 using GFMSLibrary;
 using MaterialDesignThemes.Wpf;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using MySqlConnector;
+using System.Diagnostics;
+using GFMS.Commands;
 
 namespace GFMS.Views.Modals
 {
@@ -14,6 +19,10 @@ namespace GFMS.Views.Modals
     public partial class ForgotPassword : UserControl, INotifyPropertyChanged
     {
         private LoginCredentials Credentials = new LoginCredentials();
+        private readonly string? Server = "localhost";
+        private readonly string? Username = "root";
+        private readonly string? Password = "";
+        private readonly string? Database = "school_db";
         public ForgotPassword()
         {
             InitializeComponent();
@@ -28,12 +37,55 @@ namespace GFMS.Views.Modals
                 return;
             }
             var User = await Credentials.GetByAnonymousAsync<Users>("email", Email, "users");
+            string OTP = new Random().Next(100000, 999999).ToString();
             if (User != null)
             {
-                var result = await EmailProcessor.SendEmail(Email);
+                
+                var result = await EmailProcessor.SendEmail(Email, OTP);
                 if (result == true)
                 {
-                    DialogHost.CloseDialogCommand.Execute(true, null);
+                    string userotp = Microsoft.VisualBasic.Interaction.InputBox("Enter the OTP you received in your email address:", "OTP Validation", "");
+                    if (userotp != null)
+                    {
+                        if (userotp.Equals(OTP))
+                        {
+                            string newpass = Microsoft.VisualBasic.Interaction.InputBox("Enter your new password:", "Password Reset", "");
+                            if (newpass != null)
+                            {
+                                string ConnectionString = $"Server={Server};Database={Database};Username={Username};Password={Password}";
+
+                                try
+                                {
+                                    MySqlConnection Connectiona = new MySqlConnection(ConnectionString);
+                                    Connectiona.Open();
+                                    MySqlCommand x = new MySqlCommand("UPDATE users SET password = @pass WHERE email = @email", Connectiona);
+                                    x.Parameters.AddWithValue("@email", Email);
+                                    x.Parameters.AddWithValue("@pass", newpass);
+                                    x.ExecuteNonQuery();
+                                    Connectiona.Close();
+                                    MessageBox.Show("Password is changed! You can now close the forgot password dialog.", "Password Reset", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    DialogHost.CloseDialogCommand.Execute(true, null);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine(ex.Message);
+                                }
+
+
+                            } else
+                            {
+                                MessageBox.Show("Invalid Password!", "Password Reset", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            DialogHost.CloseDialogCommand.Execute(true, null);
+                            return;
+                        } else
+                        {
+                            MessageBox.Show("Wrong OTP!", "OTP Validation", MessageBoxButton.OK, MessageBoxImage.Error);
+                            DialogHost.CloseDialogCommand.Execute(true, null);
+                            return;
+                        }
+                    }
+                    
                 }
             }
             else

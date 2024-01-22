@@ -19,6 +19,14 @@ namespace GFMS.Models
             }
         }
 
+        public string FullNamee
+        {
+            get
+            {
+                return Notification.Message.Split("for ", StringSplitOptions.RemoveEmptyEntries)[1];
+            }
+        }
+
         public string? StatusColor
         {
             get
@@ -31,16 +39,60 @@ namespace GFMS.Models
                         {
                             return "#ffb302";
                         }
-                        else if(Notification.Status.ToLower() == "approved")
+                        else if (Notification.Status.ToLower() == "approved")
                         {
                             return "LimeGreen";
-                        }else
+                        }
+                        else
                         {
-                            return "#fe3839";
+                            return "#ff2147";
                         }
                     }
                 }
                 return "#000";
+            }
+        }
+        public string? PrintVisible
+        {
+            get
+            {
+                if (Notification != null)
+                {
+                    if (Notification.Status != null)
+                    {
+                        if (Notification.Status.ToLower() == "pending")
+                        {
+                            return "Hidden";
+                        }
+                        else if (Notification.Status.ToLower() == "approved")
+                        {
+                            return "Visible";
+                        }
+                        else
+                        {
+                            return "Hidden";
+                        }
+                    }
+                }
+                return "#000";
+            }
+        }
+
+        public string? CanModify
+        {
+            get
+            {
+                if (Notification != null)
+                {
+                    if (Notification.Status != null)
+                    {
+                        if (Notification.Status.ToLower() == "pending")
+                        {
+                            return "Visible";
+                        }
+                    }
+                }
+                return "Hidden";
             }
         }
     }

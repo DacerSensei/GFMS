@@ -16,7 +16,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Title" x:Name="Title" FontFamily="{StaticResource PoppinsBold}"/>
-        <TextBlock Grid.Row="1" Margin="30" Text="Message" x:Name="Message" FontFamily="{StaticResource PoppinsRegular}" TextAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="30">
+            <Image Source="../../Assets/Checked.png" Width="25" Height="25" x:Name="MyIcon"/>
+            <TextBlock Margin="10,0"  Text="Message" x:Name="Message" FontFamily="{StaticResource PoppinsRegular}" TextAlignment="Center"/>
+        </StackPanel>
         <StackPanel Grid.Row="2">
             <Button Click="OkButton" Margin="60,0" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}">Ok</Button>
         </StackPanel>

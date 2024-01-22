@@ -85,7 +85,25 @@ namespace GFMS.ViewModels.TeacherViewModels
                 };
                 studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
                 studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
-                StudentList.Add(studentReport);
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    string x = SearchText.ToLower();
+                    if (
+
+                        (studentReport.Student.LRN.Contains(x)) ||
+                        (studentReport.Student.FirstName.ToLower().Contains(x)) ||
+                        (studentReport.Student.LastName.ToLower().Contains(x))
+
+                        )
+                    {
+                        StudentList.Add(studentReport);
+                    }
+                }
+                else
+                {
+                    StudentList.Add(studentReport);
+                }
+                    
             }
         }
 
@@ -93,7 +111,22 @@ namespace GFMS.ViewModels.TeacherViewModels
 
         public ICommand ViewCommand { get; }
         public ICommand EditCommand { get; }
+        private string _searchText;
 
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                if (_searchText == value)
+                {
+                    return;
+                }
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                LoadAll();
+            }
+        }
         private class Where
         {
             public string? Grade { get; set; }

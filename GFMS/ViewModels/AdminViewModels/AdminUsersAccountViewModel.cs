@@ -64,14 +64,47 @@ namespace GFMS.ViewModels.AdminViewModels
                 {
                     User = user,
                 };
-                UserList.Add(userDisplay);
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    string x = SearchText.ToLower();
+                    if (
+                        (user.Username.ToLower().Contains(x)) ||
+                        (user.Email.ToLower().Contains(x)) ||
+                        (user.FirstName.ToLower().Contains(x)) ||
+                        (user.LastName.ToLower().Contains(x))
+
+                        )
+                    {
+                        UserList.Add(userDisplay);
+                    }
+                }
+                else
+                {
+                    UserList.Add(userDisplay);
+
+                }
             }
         }
 
         public ObservableCollection<UsersDisplay> UserList { get; set; } = new ObservableCollection<UsersDisplay>();
 
         public ICommand BanCommand { get; }
+        private string _searchText;
 
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                if (_searchText == value)
+                {
+                    return;
+                }
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                LoadAll();
+            }
+        }
         private class Request
         {
             public int status { get; set; }

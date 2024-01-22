@@ -1,14 +1,24 @@
-﻿using GFMS.Commands;
+﻿using Aspose.Words;
+using GFMS.Commands;
 using GFMS.Core;
 using GFMS.Models;
 using GFMS.Views;
+using GFMS.Views.Modals;
 using GFMSLibrary;
+using MaterialDesignThemes.Wpf;
+using Microsoft.VisualBasic;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GFMS.ViewModels.RegistrarViewModels
@@ -28,7 +38,38 @@ namespace GFMS.ViewModels.RegistrarViewModels
 
             PrintCommand = new Command(obj =>
             {
+                UsersNotification? nt = obj as UsersNotification;
+                string hashedString = (BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(nt.FullNamee))).Replace("-", "").ToLower()) + ".dtt";
+                if (nt.Notification.Message.Contains("FORM 137")) {
+                    hashedString = (BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(nt.FullNamee))).Replace("-", "").ToLower()) + ".f137";
+                }
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "PDF document (*.pdf)|*.pdf";
+                string mfiln = " Report Card ";
+                if (nt.Notification.Message.Contains("FORM 137"))
+                {
+                    mfiln = " Form 137 ";
+                }
+                dialog.FileName = nt.FullName + mfiln + DateTime.Now.Date.ToString("MM-dd-yyyy") + ".pdf";
+                
+                var result = dialog.ShowDialog();
+                string fileName = dialog.FileName;
+                if (result == true)
+                {
+                    try
+                        {
+                        File.Copy(hashedString, fileName, true);
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
 
+                    DialogHost.CloseDialogCommand.Execute(true, null);
+                }
+                
             });
         }
 

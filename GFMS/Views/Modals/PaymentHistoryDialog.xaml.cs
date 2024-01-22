@@ -105,9 +105,9 @@ namespace GFMS.Views.Modals
                     }
                     var totalTuitionFee = HistoryList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
                     var tuition = Convert.ToDecimal(totalTuitionFee!.TotalTuitionFee ?? "0");
-                    var total = tuition - totalPaid;
+                    var total = totalPaid - tuition;
 
-                    return total > tuition ? "0.00" : total.ToString("N2");
+                    return total >= tuition ? "0.00" : Math.Abs(total).ToString("N2");
                 }
                 else
                 {
