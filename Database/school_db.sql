@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 12:09 AM
+-- Generation Time: Jan 24, 2024 at 06:10 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,23 +37,6 @@ CREATE TABLE `accounting` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `current_school_year`
---
-
-CREATE TABLE `current_school_year` (
-  `schlyr` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `current_school_year`
---
-
-INSERT INTO `current_school_year` (`schlyr`) VALUES
-('2023-2024');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `notification`
 --
 
@@ -61,6 +44,8 @@ CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
+  `requested` tinytext NOT NULL,
+  `approved` tinytext NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,8 +122,7 @@ CREATE TABLE `school_year` (
 --
 
 INSERT INTO `school_year` (`id`, `year`) VALUES
-(1, '2023-2024'),
-(2, '2024-2025');
+(1, '2023-2024');
 
 -- --------------------------------------------------------
 
@@ -222,7 +206,7 @@ INSERT INTO `subjects` (`id`, `json`, `type`) VALUES
 (1, '[{\"BehaviorDescription\":\"1. God-fearing - expresses one\'s spiritual beliefs while respecting the spiritual beliefs of others with strong adherence to ethical principles by upholding truth, integritiy and credibility at all times.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"2. Pro-Humanity - values individual differences and capabilities to bring about positive change and solidarity without any form of stereotyping nor prejudices.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"3. Pro-Environment - cares for the environment and utilizes resources wisely, judiciously and economically.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"4. Personal Discipline - demonstrates the will power to develop appropriate behavior in carrying out activities in the school and community.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"5. Life-long Learning - demonstrates love of truth, critical thinking and creativity in solving problems.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"6. Total Development - show progress in developing his/her God-given multiple intelligences by actively joining extra-curricular activities.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"7. Nationalistic - exercises his/her rights and responsibilities as a Filipino with appropriate display of conduct for the benefit of the majority.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"8. Institutional Discipline - demonstrates initiative to embrace PVMIS D.O.E.R (Disciplined, Organized, Excellent && Responsive to changes) attributes to his/her lifestyle.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"9. Social Discipline - demonstrates courtesy and restraint in conducting himself/herself in public or when dealing with other people in school and in the community.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null},{\"BehaviorDescription\":\"10. Occupational Discipline - demonstrates the will to improve his/her knowledge && skills in his/her chosen path.\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null}]\n', 'BEHAVIOR'),
 (2, '[{\"AttendanceDescription\":\"Number of School Days\",\"Aug\":\"\",\"Sept\":\"\",\"Oct\":\"\",\"Nov\":\"\",\"Dec\":\"\",\"Jan\":\"\",\"Feb\":\"\",\"Mar\":\"\",\"Apr\":\"\",\"May\":\"\",\"Jun\":\"\"},{\"AttendanceDescription\":\"Number of School Days Present\",\"Aug\":\"\",\"Sept\":\"\",\"Oct\":\"\",\"Nov\":\"\",\"Dec\":\"\",\"Jan\":\"\",\"Feb\":\"\",\"Mar\":\"\",\"Apr\":\"\",\"May\":\"\",\"Jun\":\"\"},{\"AttendanceDescription\":\"Number of times Tardy\",\"Aug\":\"\",\"Sept\":\"\",\"Oct\":\"\",\"Nov\":\"\",\"Dec\":\"\",\"Jan\":\"\",\"Feb\":\"\",\"Mar\":\"\",\"Apr\":\"\",\"May\":\"\",\"Jun\":\"\"}]', 'ATTENDANCE'),
 (7, '[{\"Title\":\"First Quarter\",\"Message\":\"\",\"Signature\":\"\",\"Date\":\"\"},{\"Title\":\"Second Quarter\",\"Message\":\"\",\"Signature\":\"\",\"Date\":\"\"},{\"Title\":\"Third Quarter\",\"Message\":\"\",\"Signature\":\"\",\"Date\":\"\"},{\"Title\":\"Fourth Quarter\",\"Message\":\"\",\"Signature\":\"\",\"Date\":\"\"}]', 'NARRATIVE'),
-(8, '[{\"SubjectName\":\"English\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Filipino\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Mathematics\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Science\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Social Studies / AP\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Reading and Writing\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Character Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ICT\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ESL\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Music\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Arts\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Physical Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Health\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null}]', 'TOODLER'),
+(8, '[{\"SubjectName\":\"English\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Filipino\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Mathematics\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Science\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Social Studies / AP\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Reading and Writing\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Character Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ICT\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ESL\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Music\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Arts\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Physical Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Health\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null}]', 'TODDLER'),
 (14, '[{\"SubjectName\":\"English\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Filipino\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Mathematics\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Science\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Social Studies / AP\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Reading and Writing\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Character Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ICT\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ESL\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Music\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Arts\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Physical Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Health\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null}]', 'NURSERY'),
 (15, '[{\"SubjectName\":\"English\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Filipino\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Mathematics\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Science\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Social Studies / AP\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Reading and Writing\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Character Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ICT\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ESL\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Music\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Arts\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Physical Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Health\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null}]', 'KINDER 1'),
 (16, '[{\"SubjectName\":\"English\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Filipino\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Mathematics\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Science\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Social Studies / AP\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Reading and Writing\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Character Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ICT\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"ESL\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Music\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Arts\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Physical Education\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null},{\"SubjectName\":\"Health\",\"FirstGrading\":null,\"SecondGrading\":null,\"ThirdGrading\":null,\"FourthGrading\":null,\"FinalRating\":null,\"Remarks\":null}]', 'KINDER 2'),
@@ -248,27 +232,6 @@ INSERT INTO `subjects` (`id`, `json`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sysadmin`
---
-
-CREATE TABLE `sysadmin` (
-  `userid` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
-  `firstname` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sysadmin`
---
-
-INSERT INTO `sysadmin` (`userid`, `username`, `password`, `lastname`, `firstname`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `teachers`
 --
 
@@ -277,14 +240,6 @@ CREATE TABLE `teachers` (
   `user_id` int(11) NOT NULL,
   `grade` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `teachers`
---
-
-INSERT INTO `teachers` (`id`, `user_id`, `grade`) VALUES
-(8, 32, 'TOODLER'),
-(9, 36, 'TOODLER');
 
 -- --------------------------------------------------------
 
@@ -302,19 +257,6 @@ CREATE TABLE `users` (
   `usertype` varchar(30) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `lastname`, `firstname`, `email`, `username`, `password`, `usertype`, `status`) VALUES
-(17, 'Admin', 'Admin', 'admin@gmail.com', 'admin', 'admin', 'ADMIN', 1),
-(32, 'orijuela', 'dave', 'dacerz14@gmail.com', 'a', 'a', 'TEACHER', 1),
-(33, 'Orijuela', 'Dave', 'dave@gmail.com', 'principal', '123', 'PRINCIPAL', 1),
-(34, 'Orijuela', 'Dave', 'finance@yahoo.com', 'finance', '123', 'FINANCE', 1),
-(35, 'Orijuela', 'Dave', 'registrar@yahoo.com', 'registrar', '123', 'REGISTRAR', 1),
-(36, 'Orijuela', 'Dave', 'teacher@gmail.com', 'teacher', '123', 'TEACHER', 1),
-(37, 'Jackson', 'Michael', 'hello@yahoo.com', 'registrar1', '123', 'REGISTRAR', 1);
 
 --
 -- Indexes for dumped tables
@@ -375,12 +317,6 @@ ALTER TABLE `subjects`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sysadmin`
---
-ALTER TABLE `sysadmin`
-  ADD PRIMARY KEY (`userid`);
-
---
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -401,43 +337,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounting`
 --
 ALTER TABLE `accounting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `previous_school`
 --
 ALTER TABLE `previous_school`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `studentgrades`
 --
 ALTER TABLE `studentgrades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `student_requirements`
@@ -452,22 +388,16 @@ ALTER TABLE `subjects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `sysadmin`
---
-ALTER TABLE `sysadmin`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Constraints for dumped tables

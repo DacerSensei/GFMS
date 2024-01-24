@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GFMS.Models;
+using GFMS.ViewModels;
+using GFMS.Views;
 
 namespace GFMS.Services
 {
@@ -26,6 +28,8 @@ namespace GFMS.Services
             // You can close the stream now, it is no longer needed because the document is in memory.
             // Find and replace text in the document
             doc.Range.Replace("<Name>", CompleteName, findReplaceOptions);
+            doc.Range.Replace("<Grade>", student.Registration!.Grade, findReplaceOptions);
+            doc.Range.Replace("<Finance Name>", $"{MainWindow.User!.FirstName} {MainWindow.User!.LastName}", findReplaceOptions);
             doc.Range.Replace("<TFA>", tuitionDetails.TuitionFee, findReplaceOptions);
             doc.Range.Replace("<TTF>", tuitionDetails.TotalTuitionFee, findReplaceOptions);
             doc.Range.Replace("<OF>", tuitionDetails.OtherFees, findReplaceOptions);

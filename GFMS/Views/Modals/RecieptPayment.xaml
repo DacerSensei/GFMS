@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFMS.Views.Modals"
         mc:Ignorable="d"
-        Height="831" Width="1027" 
+        Height="680" Width="900" 
         WindowStyle="None"
         xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
