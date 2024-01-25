@@ -16,6 +16,7 @@ using Microsoft.Win32;
 using System.Net.Http;
 using Aspose.Words.Shaping;
 using iText.Html2pdf;
+using Newtonsoft.Json;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -52,11 +53,11 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     string htmlContent = "";
                     htmlContent += @"<h1 style=""text-align: center;"">Officially Enrolled</h1><table border=""1"" style=""width: 100%; border-collapse: collapse;"">";
                     htmlContent += @"<tr><th>LRN</th><th>Student Name</th><th>Grade Level</th><th>Status</th></tr>";
-                    for(int i = 0; i < StudentList.Count; i++)
+                    for (int i = 0; i < StudentList.Count; i++)
                     {
                         htmlContent += @$"<tr><td>{StudentList[i].Student.LRN}</td><td>{StudentList[i].StudentName}</td><td>{StudentList[i].Registration.Grade}</td><td>{StudentList[i].Status}</td></tr>";
                     }
-                    
+
                     htmlContent += @"</table>";
 
                     HtmlConverter.ConvertToPdf(htmlContent, new FileStream(saveFileDialog.FileName, FileMode.Create));
@@ -81,13 +82,18 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             var previousSchoolListTask = Credentials.GetAllDataAsync<PreviousSchool>("previous_school");
             var YearListTask = Credentials.GetAllDataAsync<SchoolYear>("school_year");
+            Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
+            var requirementListTask = Credentials.GetAllDataAsync<Requirement>("student_requirements");
 
-            await Task.WhenAll(studentListTask, registrationListTask, previousSchoolListTask, YearListTask);
+            await Task.WhenAll(studentListTask, registrationListTask, previousSchoolListTask, YearListTask, accountingListTask, requirementListTask);
 
             var studentList = studentListTask.Result;
             var registrationList = registrationListTask.Result;
             var previousSchoolList = previousSchoolListTask.Result;
             var YearList = YearListTask.Result;
+            List<Accounting> accountingList = accountingListTask.Result;
+            var requirementList = requirementListTask.Result;
+
             var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
             foreach (var student in studentList.Reverse<Student>())
@@ -96,18 +102,27 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var registeredStudent = new RegisteredStudent
                 {
                     Student = student,
+                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault(),
+                    PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault(),
+                    Requirement = requirementList.Where(r => r.Student_ID == student.id).ToList(),
+                    TuitionDetailsList = new List<TuitionDetails>()
                 };
-                registeredStudent.Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault();
-                registeredStudent.PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault();
-                if (Convert.ToInt16(registeredStudent.Registration!.Status) == 1)
+                registeredStudent.PaymentList = accountingList.Where(a => a.Registration_Id == registeredStudent.Registration.Id.ToString()).ToList();
+
+                foreach (var payment in registeredStudent.PaymentList)
                 {
-                    registeredStudent.Status = "Enrolled";
-                    registeredStudent.StatusColor = "#3dc03c";
-                }
-                else
-                {
-                    registeredStudent.Status = "Temporary Enrolled";
-                    registeredStudent.StatusColor = "#ffb302";
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<TuitionDetails>(payment.Payment ?? "");
+                        if (result != null)
+                        {
+                            registeredStudent.TuitionDetailsList.Add(result);
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+                    }
                 }
 
                 if (registeredStudent.Registration.Year == (Years.LastOrDefault() ?? "2023-2024"))

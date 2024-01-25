@@ -84,17 +84,6 @@ namespace GFMS.ViewModels.PrincipalViewModels
                     Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault(),
                     PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault()
                 };
-
-                if (Convert.ToInt16(registeredStudent.Registration!.Status) == 1)
-                {
-                    registeredStudent.Status = "Enrolled";
-                    registeredStudent.StatusColor = "#3dc03c";
-                }
-                else
-                {
-                    registeredStudent.Status = "Temporary Enrolled";
-                    registeredStudent.StatusColor = "#ffb302";
-                }
                 StudentSecondList.Add(registeredStudent);
             }
 

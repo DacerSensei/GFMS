@@ -122,7 +122,7 @@ namespace GFMS.Views.Modals
         public ObservableCollection<Attendance> AttendanceList { get; set; } = new ObservableCollection<Attendance>();
         public ObservableCollection<Narrative> NarrativeList { get; set; } = new ObservableCollection<Narrative>();
         private readonly LoginCredentials Credentials = new LoginCredentials();
-        public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false, bool isVisible = true, bool toPrint = false)
+        public ReportCardDialog(StudentReport student, Users teacher, Users principal, bool isEditable = false, bool isVisible = true, bool toPrint = false, bool isPaid = false)
         {
             InitializeComponent();
             LoadedCommand = new Command(obj =>
@@ -166,26 +166,40 @@ namespace GFMS.Views.Modals
                 }
                 else
                 {
-                    var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's REPORT CARD to the principal?"), "SecondaryDialog");
-                    if ((bool)result! == false)
+                    if (isPaid)
                     {
-                        return;
+                        var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's REPORT CARD to the principal?"), "SecondaryDialog");
+                        if ((bool)result! == false)
+                        {
+                            return;
+                        }
+                        await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print report card for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
+                        await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
+                        Close();
                     }
-                    await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print report card for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
-                    await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
-                    Close();
+                    else
+                    {
+                        await DialogHost.Show(new MessageDialog("Notice", "You cannot request because you have balance to be paid."), "SecondaryDialog");
+                    }
                 }
             });
             FormCommand = new Command(async obj =>
             {
-                var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's FORM 137 to the principal?"), "SecondaryDialog");
-                if ((bool)result! == false)
+                if (isPaid)
                 {
-                    return;
+                    var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's FORM 137 to the principal?"), "SecondaryDialog");
+                    if ((bool)result! == false)
+                    {
+                        return;
+                    }
+                    await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print FORM 137 for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
+                    await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
+                    Close();
                 }
-                await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print FORM 137 for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
-                await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
-                Close();
+                else
+                {
+                    await DialogHost.Show(new MessageDialog("Notice", "You cannot request because you have balance to be paid."), "SecondaryDialog");
+                }
             });
             CancelCommand = new Command(obj =>
             {

@@ -61,6 +61,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="2" Margin="40,0,10,0">
                             <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
+                            <TextBox IsReadOnly="True" Text="{Binding GradeLevel}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade Level" />
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding TuitionFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Tuition Fee Amount"/>
                             <TextBox IsReadOnly="True" Text="{Binding TotalTuitionFee, Mode=OneWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" />
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding OtherFees, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"  Margin="0,0,0,20"/>
@@ -76,6 +77,7 @@
                             <TextBox CharacterCasing="Upper" Text="{Binding DscFeeTwo}" Visibility="{Binding OtherFeeVisTwo}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (2)" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
+                            <TextBox IsReadOnly="True" Text="{Binding FinanceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Finance" />
                             <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
                             <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />

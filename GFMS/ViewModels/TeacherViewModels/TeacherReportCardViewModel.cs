@@ -4,6 +4,7 @@ using GFMS.Models;
 using GFMS.Views;
 using GFMS.Views.Modals;
 using GFMSLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,7 +43,7 @@ namespace GFMS.ViewModels.TeacherViewModels
                 {
                     Users principal = await Credentials.GetByAnonymousAsync<Users>("usertype", "PRINCIPAL", "users");
                     ReportCardDialog window = new ReportCardDialog(student, MainWindow.User!, principal, true);
-                    if(window.ShowDialog() == true)
+                    if (window.ShowDialog() == true)
                     {
                         LoadAll();
                     }
@@ -69,12 +70,16 @@ namespace GFMS.ViewModels.TeacherViewModels
             var studentListTask = Credentials.GetAllDataAsync<Student>("student");
             var registrationListTask = Credentials.GetAllDataAsync<Registration, Where>("registration", where);
             var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+            Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
+            var requirementListTask = Credentials.GetAllDataAsync<Requirement>("student_requirements");
 
-            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask);
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, accountingListTask, requirementListTask);
 
             var studentList = studentListTask.Result;
             var registrationList = registrationListTask.Result;
             var studentGradeList = studentGradeListTask.Result;
+            List<Accounting> accountingList = accountingListTask.Result;
+            var requirementList = requirementListTask.Result;
 
             foreach (var student in registrationList)
             {
@@ -82,9 +87,32 @@ namespace GFMS.ViewModels.TeacherViewModels
                 var studentReport = new StudentReport
                 {
                     Registration = student,
+                    Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault(),
+                    ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault(),
+                    PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList(),
+                    TuitionDetailsList = new List<TuitionDetails>()
+
                 };
-                studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
-                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
+
+                studentReport.Requirement = requirementList.Where(r => r.Student_ID == studentReport.Student.id).ToList();
+
+                foreach (var payment in studentReport.PaymentList)
+                {
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<TuitionDetails>(payment.Payment ?? "");
+                        if (result != null)
+                        {
+                            studentReport.TuitionDetailsList.Add(result);
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+                    }
+                }
+
+
                 if (!string.IsNullOrWhiteSpace(SearchText))
                 {
                     string x = SearchText.ToLower();
@@ -103,7 +131,7 @@ namespace GFMS.ViewModels.TeacherViewModels
                 {
                     StudentList.Add(studentReport);
                 }
-                    
+
             }
         }
 

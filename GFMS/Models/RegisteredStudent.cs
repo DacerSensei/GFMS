@@ -14,6 +14,10 @@ namespace GFMS.Models
         public Student? Student { get; set; }
         public Registration? Registration { get; set; }
         public PreviousSchool? PreviousSchool { get; set; }
+        public List<Requirement>? Requirement { get; set; }
+        public List<Accounting>? PaymentList { get; set; }
+        public List<TuitionDetails>? TuitionDetailsList { get; set; }
+
         public string? StudentName
         {
             get
@@ -21,15 +25,42 @@ namespace GFMS.Models
                 return $"{Student!.LastName} {Student!.FirstName}";
             }
         }
-        public string? Status { get; set; }
-        public string? StatusColor { get; set; } = "#ffb302";
+        public string? Status
+        {
+            get
+            {
+                if (IsPaid && Requirement.Count == 9)
+                {
+                    return "Enrolled";
+                }
+                else
+                {
+                    return "Temporary Enrolled";
+                }
+            }
+        }
+        public string? StatusColor
+        {
+            get
+            {
+                if (IsPaid && Requirement.Count == 9)
+                {
+                    return "#3dc03c";
+                }
+                else
+                {
+                    return "#ffb302";
+                }
+            }
+        }
+
         public ImageSource? ProfilePicture
         {
             get
             {
                 try
                 {
-                    if(Registration != null)
+                    if (Registration != null)
                     {
                         if (Registration.Pic != null)
                         {
@@ -54,6 +85,64 @@ namespace GFMS.Models
                     return null;
                 }
                 return null;
+            }
+        }
+
+        private decimal DecimalPaid
+        {
+            get
+            {
+                decimal totalPaid = 0m;
+                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0)
+                {
+                    for (int i = 0; i < TuitionDetailsList.Count; i++)
+                    {
+                        if (string.IsNullOrWhiteSpace(TuitionDetailsList[i].Payment))
+                        {
+                            continue;
+                        }
+                        totalPaid += Convert.ToDecimal(TuitionDetailsList[i].Payment);
+                    }
+                }
+                return totalPaid;
+            }
+        }
+
+        public string TotalPaid
+        {
+            get
+            {
+                return DecimalPaid.ToString("N2");
+            }
+        }
+
+        public bool IsPaid
+        {
+            get
+            {
+                if (TuitionDetailsList != null && TuitionDetailsList.Count > 0 && !TuitionDetailsList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
+                {
+                    var totalTuitionFee = TuitionDetailsList.LastOrDefault();
+                    var tuition = Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.TotalTuitionFee) ? totalTuitionFee!.TotalTuitionFee : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Books) ? totalTuitionFee!.Books : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Uniform) ? totalTuitionFee!.Uniform : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.OtherFees) ? totalTuitionFee!.OtherFees : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.RegistrationFee) ? totalTuitionFee!.RegistrationFee : "0");
+
+                    if (totalTuitionFee != null)
+                    {
+                        if (totalTuitionFee.TotalTuitionFee != null &&
+                            DecimalPaid >= Convert.ToDecimal(tuition))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                return false;
             }
         }
     }

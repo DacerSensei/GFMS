@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace GFMS.ViewModels.RegistrarViewModels
 {
@@ -56,7 +57,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     if (findTeacher != null)
                     {
                         Users teacher = await Credentials.GetByIdAsync<Users>(findTeacher.User_Id.ToString(), "users");
-                        ReportCardDialog window = new ReportCardDialog(student, teacher, principal);
+                        ReportCardDialog window = new ReportCardDialog(student, teacher, principal, false, true, false, student.IsPaid);
                         if (window.ShowDialog() == true)
                         {
                             await LoadAll();
@@ -76,12 +77,14 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var studentListTask = Credentials.GetAllDataAsync<Student>("student");
             var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
+            Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
 
-            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask);
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, accountingListTask);
 
             var studentList = studentListTask.Result;
             var registrationList = registrationListTask.Result;
             var studentGradeList = studentGradeListTask.Result;
+            List<Accounting> accountingList = accountingListTask.Result;
 
             foreach (var student in registrationList.Reverse<Registration>())
             {
@@ -89,9 +92,28 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var studentReport = new StudentReport
                 {
                     Registration = student,
+                    Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault(),
+                    ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault(),
+                    PaymentList = accountingList.Where(a => a.Registration_Id == student.Id.ToString()).ToList(),
+                    TuitionDetailsList = new List<TuitionDetails>()
                 };
-                studentReport.Student = studentList.Where(r => r.id == Convert.ToInt16(student.Student_Id)).ToList().FirstOrDefault();
-                studentReport.ReportCard = studentGradeList.Where(r => Convert.ToInt32(r.Registration_Id) == student.Id).ToList().FirstOrDefault();
+
+
+                foreach (var payment in studentReport.PaymentList)
+                {
+                    try
+                    {
+                        var result = JsonConvert.DeserializeObject<TuitionDetails>(payment.Payment ?? "");
+                        if (result != null)
+                        {
+                            studentReport.TuitionDetailsList.Add(result);
+                        }
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+                    }
+                }
 
                 if (studentReport.Registration.Year == (YearList.LastOrDefault() ?? "2023-2024") || !string.IsNullOrEmpty(YearSelected))
                 {

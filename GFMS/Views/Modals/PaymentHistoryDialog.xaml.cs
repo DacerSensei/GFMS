@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -88,6 +89,14 @@ namespace GFMS.Views.Modals
             set { status = value; OnPropertyChanged(nameof(Status)); }
         }
 
+        private decimal totalPaid;
+
+        public decimal TotalPaid
+        {
+            get { return totalPaid; }
+            set { totalPaid = value; OnPropertyChanged(nameof(TotalPaid)); }
+        }
+
         public string BalanceToBePaid
         {
             get
@@ -103,8 +112,14 @@ namespace GFMS.Views.Modals
                         }
                         totalPaid += Convert.ToDecimal(HistoryList[i].Payment);
                     }
-                    var totalTuitionFee = HistoryList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
-                    var tuition = Convert.ToDecimal(totalTuitionFee!.TotalTuitionFee ?? "0");
+                    TotalPaid = totalPaid;
+                    var totalTuitionFee = HistoryList.LastOrDefault();
+                    var tuition = Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.TotalTuitionFee) ? totalTuitionFee!.TotalTuitionFee : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Books) ? totalTuitionFee!.Books : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Uniform) ? totalTuitionFee!.Uniform : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.OtherFees) ? totalTuitionFee!.OtherFees : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.RegistrationFee) ? totalTuitionFee!.RegistrationFee : "0");
+
                     var total = totalPaid - tuition;
 
                     return total >= tuition ? "0.00" : Math.Abs(total).ToString("N2");

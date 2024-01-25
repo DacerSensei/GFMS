@@ -59,13 +59,17 @@ namespace GFMS.Models
             {
                 if (TuitionDetailsList != null && TuitionDetailsList.Count > 0 && !TuitionDetailsList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
                 {
-
-                    var totalTuitionFee = TuitionDetailsList.FirstOrDefault(details => !string.IsNullOrEmpty(details.TotalTuitionFee));
+                    var totalTuitionFee = TuitionDetailsList.LastOrDefault();
+                    var tuition = Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.TotalTuitionFee) ? totalTuitionFee!.TotalTuitionFee : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Books) ? totalTuitionFee!.Books : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Uniform) ? totalTuitionFee!.Uniform : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.OtherFees) ? totalTuitionFee!.OtherFees : "0") +
+                    Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.RegistrationFee) ? totalTuitionFee!.RegistrationFee : "0");
 
                     if (totalTuitionFee != null)
                     {
                         if (totalTuitionFee.TotalTuitionFee != null &&
-                            DecimalPaid >= Convert.ToDecimal(totalTuitionFee.TotalTuitionFee))
+                            DecimalPaid >= Convert.ToDecimal(tuition))
                         {
                             return "Paid";
                         }
