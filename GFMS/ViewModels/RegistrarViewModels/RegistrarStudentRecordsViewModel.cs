@@ -37,6 +37,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             ClearCommand = new Command(async obj =>
             {
                 GradeLevelSelected = null;
+                YearSelected = null;
                 SearchText = null;
                 await LoadAll();
             });
@@ -71,7 +72,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var registrationList = registrationListTask.Result;
             var previousSchoolList = previousSchoolListTask.Result;
 
-            foreach (var student in studentList)
+            foreach (var student in studentList.Reverse<Student>())
             {
                 // Find the requirements associated with the current student using the Student_ID
                 var registeredStudent = new RegisteredStudent

@@ -67,7 +67,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var requirementList = await Credentials.GetAllDataAsync<Requirement>("student_requirements");
             var registrationList = await Credentials.GetAllDataAsync<Registration>("registration");
 
-            foreach (var student in studentList)
+            foreach (var student in studentList.Reverse<Student>())
             {
                 // Find the requirements associated with the current student using the Student_ID
                 var studentRequirements = new StudentRequirements

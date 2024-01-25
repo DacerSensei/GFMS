@@ -57,7 +57,7 @@ namespace GFMS.ViewModels.AdminViewModels
             UserList.Clear();
             var userList = await Credentials.GetAllDataAsync<Users>("users");
 
-            foreach (var user in userList)
+            foreach (var user in userList.Reverse<Users>())
             {
                 // Find the requirements associated with the current student using the Student_ID
                 var userDisplay = new UsersDisplay

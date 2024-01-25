@@ -83,7 +83,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var registrationList = registrationListTask.Result;
             var studentGradeList = studentGradeListTask.Result;
 
-            foreach (var student in registrationList)
+            foreach (var student in registrationList.Reverse<Registration>())
             {
                 // Find the requirements associated with the current student using the Student_ID
                 var studentReport = new StudentReport

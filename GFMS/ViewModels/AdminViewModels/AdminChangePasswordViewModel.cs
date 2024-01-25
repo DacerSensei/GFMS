@@ -32,7 +32,7 @@ namespace GFMS.ViewModels.AdminViewModels
                 }
                 await Credentials.UpdateStudentAsync(new Request { password = NewPassword }, new { id = MainWindow.User!.Id }, "users");
                 MainWindow.User.Password = NewPassword;
-                var result = await DialogHost.Show(new MessageDialog("Notice!", "Your password has been successfully changed"), "RootDialog");
+                var result = await DialogHost.Show(new MessageDialog("Notice!", "Your password has been successfully changed", true), "RootDialog");
                 OldPassword = string.Empty;
                 NewPassword = string.Empty;
                 RetypePassword = string.Empty;
@@ -52,7 +52,7 @@ namespace GFMS.ViewModels.AdminViewModels
                 string newYear = $"{LastYear}-{LastYear + 1}";
 
                 await Credentials.RegisterStudentAsync(new SchoolYear { Year = newYear }, "school_year");
-                await DialogHost.Show(new MessageDialog("Notice!", "School year been successfully changed"), "RootDialog");
+                await DialogHost.Show(new MessageDialog("Notice!", "School year been successfully changed", true), "RootDialog");
             });
         }
 

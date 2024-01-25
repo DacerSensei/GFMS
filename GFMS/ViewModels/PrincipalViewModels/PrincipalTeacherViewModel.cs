@@ -90,7 +90,7 @@ namespace GFMS.ViewModels.PrincipalViewModels
             var YearList = YearListTask.Result;
             var Years = YearList.OrderBy(y => y.Id).Select(y => y.Year).ToList();
 
-            foreach (var student in studentList)
+            foreach (var student in studentList.Reverse<Student>())
             {
                 // Find the requirements associated with the current student using the Student_ID
                 var registeredStudent = new RegisteredStudent

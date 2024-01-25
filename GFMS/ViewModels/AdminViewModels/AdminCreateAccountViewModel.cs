@@ -64,7 +64,7 @@ namespace GFMS.ViewModels.AdminViewModels
                     };
                     await Credentials.RegisterStudentAsync(teacher, "teachers");
                 }
-                var result = await DialogHost.Show(new MessageDialog($"Welcome, {user.FirstName}", $"Account {user.Usertype} has been created"), "RootDialog");
+                var result = await DialogHost.Show(new MessageDialog($"Welcome, {user.FirstName}", $"Account {user.Usertype} has been created", true), "RootDialog");
                 ClearForm();
             });
         }
