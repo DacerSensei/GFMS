@@ -78,13 +78,17 @@ namespace GFMS.ViewModels.RegistrarViewModels
             var registrationListTask = Credentials.GetAllDataAsync<Registration>("registration");
             var studentGradeListTask = Credentials.GetAllDataAsync<ReportCard>("studentgrades");
             Task<List<Accounting>>? accountingListTask = Credentials.GetAllDataAsync<Accounting>("accounting");
+            var requirementListTask = Credentials.GetAllDataAsync<Requirement>("student_requirements");
 
-            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, accountingListTask);
+
+            await Task.WhenAll(studentListTask, registrationListTask, studentGradeListTask, accountingListTask, requirementListTask);
 
             var studentList = studentListTask.Result;
             var registrationList = registrationListTask.Result;
             var studentGradeList = studentGradeListTask.Result;
             List<Accounting> accountingList = accountingListTask.Result;
+            var requirementList = requirementListTask.Result;
+
 
             foreach (var student in registrationList.Reverse<Registration>())
             {
@@ -98,6 +102,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                     TuitionDetailsList = new List<TuitionDetails>()
                 };
 
+                studentReport.Requirement = requirementList.Where(r => r.Student_ID == studentReport.Student.id).ToList();
 
                 foreach (var payment in studentReport.PaymentList)
                 {

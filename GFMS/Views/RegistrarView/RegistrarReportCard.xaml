@@ -86,7 +86,7 @@
                                                 <Label Grid.Column="0" Content="{Binding Student.LRN}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <Label Grid.Column="1" Content="{Binding StudentName}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <Label Grid.Column="2" Content="{Binding Registration.Grade}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
-                                                <Label Grid.Column="3" Content="{Binding Registration.Level}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
+                                                <Label Grid.Column="3" Content="{Binding Registration.Level}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="#2dccff" BorderBrush="#2dccff" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ViewCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Edit Student">
                                                         <md:PackIcon Kind="Account" Height="24" Width="24" />
