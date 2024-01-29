@@ -140,7 +140,7 @@
                                     <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Actions" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                                 </Grid>
                             </Border>
-                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden" Margin="10,0">
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="10,0">
                                 <ItemsControl ItemsSource="{Binding RequirementList}" x:Name="MyList" MinHeight="200" Background="#f6f7fb">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>

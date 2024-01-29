@@ -10,7 +10,8 @@ namespace GFMS.Models
     {
         public int Id { get; set; }
         public string? User_Id { get; set; }
-        public string? Message { get; set; }
+        public string? Type { get; set; }
+        public string? Student_Id { get; set; }
         public string? Requested { get; set; }
         public string? Approved { get; set; }
         public string? Status { get; set; }

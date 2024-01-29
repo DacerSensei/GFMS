@@ -161,6 +161,9 @@
     <Compile Update="Views\Modals\RequirementListDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\PrincipalView\PrincipalApproved.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

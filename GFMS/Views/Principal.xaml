@@ -60,6 +60,9 @@
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding NotificationCommand}" Style="{DynamicResource ButtonNotification}"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand">
+                        <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding ApprovedCommand}" Style="{DynamicResource ButtonApproved}"/>
+                    </StackPanel>
+                    <StackPanel Cursor="Hand">
                         <RadioButton Height="50" Background="Transparent" Margin="0,5" Padding="5" FontSize="14" BorderThickness="0" GroupName="SideButton" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Command="{Binding LogoutCommand}" Style="{DynamicResource ButtonLogout}"/>
                     </StackPanel>
 
@@ -83,6 +86,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type ViewModel:PrincipalNotificationViewModel}">
                         <View:PrincipalNotification />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:PrincipalApprovedViewModel}">
+                        <View:PrincipalApproved />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>

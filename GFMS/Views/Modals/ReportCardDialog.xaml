@@ -14,7 +14,7 @@
         <Converter:NullableIntToStringConverter x:Key="NullableIntToStringConverter" />
     </Window.Resources>
     <md:DialogHost Identifier="SecondaryDialog" FontFamily="{StaticResource PoppinsRegular}" FontSize="18">
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Margin="5" Background="White">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>

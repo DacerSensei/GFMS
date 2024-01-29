@@ -112,7 +112,6 @@ namespace GFMS.ViewModels.TeacherViewModels
                     }
                 }
 
-
                 if (!string.IsNullOrWhiteSpace(SearchText))
                 {
                     string x = SearchText.ToLower();
@@ -131,7 +130,6 @@ namespace GFMS.ViewModels.TeacherViewModels
                 {
                     StudentList.Add(studentReport);
                 }
-
             }
         }
 

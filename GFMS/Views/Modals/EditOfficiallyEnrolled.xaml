@@ -11,7 +11,7 @@
         xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent">
     <md:DialogHost Identifier="SecondaryDialog">
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Margin="5" Background="White">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>

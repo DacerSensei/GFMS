@@ -102,7 +102,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var registeredStudent = new RegisteredStudent
                 {
                     Student = student,
-                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault(),
+                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().LastOrDefault(),
                     PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault(),
                     Requirement = requirementList.Where(r => r.Student_ID == student.id).ToList(),
                     TuitionDetailsList = new List<TuitionDetails>()

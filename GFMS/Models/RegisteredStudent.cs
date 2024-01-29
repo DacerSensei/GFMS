@@ -145,5 +145,20 @@ namespace GFMS.Models
                 return false;
             }
         }
+
+        public string? CanGoUp
+        {
+            get
+            {
+                if (IsPaid && Requirement.Count == 9)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
+            }
+        }
     }
 }

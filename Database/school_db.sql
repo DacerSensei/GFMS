@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2024 at 06:10 AM
+-- Generation Time: Jan 29, 2024 at 01:11 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -43,7 +43,8 @@ CREATE TABLE `accounting` (
 CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
   `requested` tinytext NOT NULL,
   `approved` tinytext NOT NULL,
   `status` varchar(255) NOT NULL
@@ -85,26 +86,6 @@ CREATE TABLE `registration` (
   `pic` longblob NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `school_profile`
---
-
-CREATE TABLE `school_profile` (
-  `school_id` varchar(50) NOT NULL,
-  `school_name` text NOT NULL,
-  `school_address` text NOT NULL,
-  `school_contactno` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `school_profile`
---
-
-INSERT INTO `school_profile` (`school_id`, `school_name`, `school_address`, `school_contactno`) VALUES
-('424531', 'PALM VALLEY MULTIPLE INTELLIGENCE SCHOOL, INC', 'PALM VALLEY', '');
 
 -- --------------------------------------------------------
 
@@ -259,6 +240,18 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `lastname`, `firstname`, `email`, `username`, `password`, `usertype`, `status`) VALUES
+(1, 'admin', 'admin', 'admin@gmail.com', 'admin', 'admin', 'ADMIN', 1),
+(39, 'Malone', 'Post', 'registrar@gmail.com', 'registrar', '123', 'REGISTRAR', 1),
+(40, 'Orijuela', 'Dave', 'finance@gmail.com', 'finance', '123', 'FINANCE', 1),
+(41, 'Orijuela', 'Dave', 'principal@gmail.com', 'principal', '123', 'PRINCIPAL', 1),
+(42, 'Orijuela', 'Dave', 'teacher@gmail.com', 'teacher', '123', 'TEACHER', 1),
+(43, 'Orijuela', 'Dave', 'teacher1@gmail.com', 'teacher1', '123', 'TEACHER', 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -337,49 +330,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounting`
 --
 ALTER TABLE `accounting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `previous_school`
 --
 ALTER TABLE `previous_school`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `studentgrades`
 --
 ALTER TABLE `studentgrades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student_requirements`
 --
 ALTER TABLE `student_requirements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -391,13 +384,13 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables

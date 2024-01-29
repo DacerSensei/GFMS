@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GFMS.Models
 {
@@ -10,20 +11,14 @@ namespace GFMS.Models
     {
         public Users? User { get; set; }
         public Notification? Notification { get; set; }
+        public Registration? Registration { get; set; }
+        public Student? Student { get; set; }
 
         public string FullName
         {
             get
             {
                 return User == null ? "" : User.FirstName + " " + User.LastName;
-            }
-        }
-
-        public string FullNamee
-        {
-            get
-            {
-                return Notification.Message.Split("for ", StringSplitOptions.RemoveEmptyEntries)[1];
             }
         }
 
@@ -93,6 +88,33 @@ namespace GFMS.Models
                     }
                 }
                 return "Hidden";
+            }
+        }
+
+        public string Message
+        {
+            get
+            {
+                if (Registration != null && Notification != null)
+                {
+                    if (Notification.Type != null)
+                    {
+                        return $"Request print for {Notification.Type}";
+                    }
+                }
+                return "Unknown";
+            }
+        }
+
+        public string StudentName
+        {
+            get
+            {
+                if (Student != null)
+                {
+                    return $"{Student.LastName} {Student.FirstName}";
+                }
+                return "Unknown";
             }
         }
     }

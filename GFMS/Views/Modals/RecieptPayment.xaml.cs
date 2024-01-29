@@ -29,9 +29,11 @@ namespace GFMS.Views.Modals
     {
         private readonly LoginCredentials Credentials = new LoginCredentials();
         int revealView = 0;
+        private StudentAccounting student;
         public RecieptPayment(StudentAccounting student)
         {
             InitializeComponent();
+            this.student = student;
             revealView = 0;
             OtherFeeVisOne = "Hidden";
             OtherFeeVisTwo = "Hidden";
@@ -86,6 +88,11 @@ namespace GFMS.Views.Modals
                     var errorResult = await DialogHost.Show(new MessageDialog("Notice", "Your payment is empty"), "SecondaryDialog");
                     return;
                 }
+                if (Convert.ToDecimal(Payment) > Convert.ToDecimal(TotalAmount))
+                {
+                    var errorResult = await DialogHost.Show(new MessageDialog("Notice", "Your payment is too high"), "SecondaryDialog");
+                    return;
+                }
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to pay?"), "SecondaryDialog");
                 if ((bool)result! == false)
                 {
@@ -112,7 +119,8 @@ namespace GFMS.Views.Modals
                     AddFeeTwo = OtherFeeTwo,
                     AddFeeDscOne = DscFeeOne,
                     AddFeeDscTwo = DscFeeTwo,
-                    Date = DateTime.Now.ToShortDateString()
+                    Date = DateTime.Now.ToShortDateString(),
+                    IsPartial = IsPartial.ToString()
                 };
                 Accounting accounting = new Accounting()
                 {
@@ -136,7 +144,7 @@ namespace GFMS.Views.Modals
         {
             DiscountList = new ObservableCollection<string>()
                 {
-                    "FULL PAID TUITION", "SIBLING DISCOUNT", "PARTIAL TUITION", "VALEDICTORIAN", "SALUTATORIAN"
+                    "FULL PAID TUITION", "SIBLING DISCOUNT", "VALEDICTORIAN", "SALUTATORIAN"
                 };
             ModeOfPaymentList = new ObservableCollection<string>()
                 {
@@ -160,11 +168,28 @@ namespace GFMS.Views.Modals
                     OtherFees = !string.IsNullOrWhiteSpace(lastPayment.OtherFees) ? lastPayment.OtherFees : "";
                 }
             }
+            var firstPayment = student.TuitionDetailsList.FirstOrDefault();
+            DateTime firstPaymentDate;
+            if (firstPayment != null)
+            {
+                firstPaymentDate = Convert.ToDateTime(firstPayment.Date);
+                IsPartial = Convert.ToBoolean(firstPayment.IsPartial);
+            }
+            else
+            {
+                firstPaymentDate = Convert.ToDateTime(Date);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                PartialList.Add($"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {(Convert.ToDecimal(TotalAmount) + student.DecimalPaid) / 10}");
+            }
+
         }
 
         public ObservableCollection<TuitionDetails> HistoryList { get; set; }
 
         public ObservableCollection<string> DiscountList { get; set; } = new();
+        public ObservableCollection<string> PartialList { get; set; } = new();
         public ObservableCollection<string> ModeOfPaymentList { get; set; } = new();
 
         public ICommand PayCommand { get; }
@@ -256,12 +281,6 @@ namespace GFMS.Views.Modals
                         decimal discountAmount = tuition - (tuition * discountPercentage);
                         return discountAmount.ToString("N2");
                     }
-                    else if (SelectedDiscount.ToLower() == "PARTIAL TUITION".ToLower())
-                    {
-                        decimal discountPercentage = 0.9m;
-                        decimal discountAmount = tuition - (tuition * discountPercentage);
-                        return discountAmount.ToString("N2");
-                    }
                 }
                 return TuitionFee;
             }
@@ -314,12 +333,6 @@ namespace GFMS.Views.Modals
                         {
                             decimal discountPercentage = 0.5m;
                             decimal discountAmount = tuition * discountPercentage;
-                            return discountAmount.ToString("N2");
-                        }
-                        else if (SelectedDiscount.ToLower() == "PARTIAL TUITION".ToLower())
-                        {
-                            decimal discountPercentage = 0.9m;
-                            decimal discountAmount = tuition - (tuition * discountPercentage);
                             return discountAmount.ToString("N2");
                         }
                     }
@@ -428,6 +441,52 @@ namespace GFMS.Views.Modals
             set { selectedModeOfPayment = value; OnPropertyChanged(nameof(SelectedModeOfPayment)); }
         }
 
+        private bool isPartial = false;
+
+        public bool IsPartial
+        {
+            get { return isPartial; }
+            set
+            {
+                isPartial = value;
+                if (value == true)
+                {
+                    PartialList.Clear();
+                    var firstPayment = student.TuitionDetailsList.FirstOrDefault();
+                    DateTime firstPaymentDate;
+                    if (firstPayment != null)
+                    {
+                        firstPaymentDate = Convert.ToDateTime(firstPayment.Date);
+                    }
+                    else
+                    {
+                        firstPaymentDate = Convert.ToDateTime(Date);
+                    }
+                    for (int i = 0; i < 10; i++)
+                    {
+                        PartialList.Add($"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {(Convert.ToDecimal(TotalAmount) + student.DecimalPaid) / 10}");
+                    }
+                }
+                OnPropertyChanged(nameof(IsPartial));
+                OnPropertyChanged(nameof(IsDueVisible));
+            }
+        }
+
+        public string IsDueVisible
+        {
+            get
+            {
+                if (IsPartial == true)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
+            }
+        }
+
         private string registrationFee = string.Empty;
 
         public string RegistrationFee
@@ -519,7 +578,7 @@ namespace GFMS.Views.Modals
                 {
                     feeTwo = Convert.ToDecimal(OtherFeeTwo ?? "0");
                 }
-                decimal total = totalTuitionFee + registrationFee + booksFee + uniformFee + otherFees + feeOne + feeTwo;
+                decimal total = totalTuitionFee + registrationFee + booksFee + uniformFee + otherFees + feeOne + feeTwo - student.DecimalPaid;
                 return total > 0 ? total.ToString("N2") : string.Empty;
             }
         }
@@ -605,6 +664,11 @@ namespace GFMS.Views.Modals
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

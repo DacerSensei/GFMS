@@ -15,7 +15,7 @@
             <behavior:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <Grid>
                 <Grid.RowDefinitions>

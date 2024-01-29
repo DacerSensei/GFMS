@@ -24,7 +24,7 @@ namespace GFMS.ViewModels
                 UserType = MainWindow.User.Usertype;
                 FullName = $"Hi, {MainWindow.User.FirstName}";
             }
-            
+
             CurrentView = MainPageView;
 
             RegistrarCommand = new Command(action =>
@@ -42,6 +42,10 @@ namespace GFMS.ViewModels
             NotificationCommand = new Command(action =>
             {
                 CurrentView = NotificationView;
+            }); 
+            ApprovedCommand = new Command(action =>
+            {
+                CurrentView = ApprovedView;
             });
 
             LogoutCommand = new Command(async action =>
@@ -63,12 +67,14 @@ namespace GFMS.ViewModels
         public ICommand FinanceCommand { get; }
         public ICommand TeacherCommand { get; }
         public ICommand NotificationCommand { get; }
+        public ICommand ApprovedCommand { get; }
 
         private readonly MainPageViewModel MainPageView = new();
         private readonly PrincipalRegistrarViewModel RegistrarView = new();
         private readonly PrincipalFinanceViewModel FinanceView = new();
         private readonly PrincipalTeacherViewModel TeacherView = new();
         private readonly PrincipalNotificationViewModel NotificationView = new();
+        private readonly PrincipalApprovedViewModel ApprovedView = new();
 
         public ICommand LogoutCommand { get; }
 

@@ -173,7 +173,7 @@ namespace GFMS.Views.Modals
                         {
                             return;
                         }
-                        await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print report card for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
+                        await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Type = "Report Card", Student_Id = student.Student.id.ToString(), Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
                         await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
                         Close();
                     }
@@ -192,7 +192,7 @@ namespace GFMS.Views.Modals
                     {
                         return;
                     }
-                    await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Message = $"Request print FORM 137 for {student.StudentName}", Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
+                    await Credentials.RegisterStudentAsync(new Notification { User_Id = MainWindow.User!.Id.ToString(), Type = "FORM 137", Student_Id = student.Student.id.ToString(), Status = "Pending", Requested = DateTime.Now.ToShortDateString(), Approved = "Unknown" }, "notification");
                     await DialogHost.Show(new MessageDialog("Notice", "You just sent a request to the principal.", true), "SecondaryDialog");
                     Close();
                 }

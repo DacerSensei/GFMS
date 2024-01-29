@@ -72,7 +72,18 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 if (currentIndex != -1 && currentIndex < GradeLevel.Count - 1)
                 {
                     string nextGradeLevel = GradeLevel[currentIndex + 1];
-                    await Credentials.UpdateStudentAsync(new Registration { Grade = nextGradeLevel, Year = YearList.LastOrDefault() ?? "2023-2024" }, new { id = student.Registration.Id }, "registration");
+                    Registration registration = new Registration()
+                    {
+                        Student_Id = student.Registration.Student_Id,
+                        Year = YearList.LastOrDefault() ?? "2023-2024",
+                        Registration_Date = DateTime.Now.ToString("MM/dd/yyyy"),
+                        Level = student.Registration.Level,
+                        Grade = nextGradeLevel,
+                        Pic = student.Registration.Pic,
+                        Status = "0"
+                    };
+                    await Credentials.RegisterStudentAsync(registration, "registration");
+                    
                     MessageDialog Dialog = new MessageDialog("Notice", "Successfully changed the year of student.", true);
                     await DialogHost.Show(Dialog, "RootDialog");
                     await LoadAll();
@@ -112,7 +123,7 @@ namespace GFMS.ViewModels.RegistrarViewModels
                 var registeredStudent = new RegisteredStudent
                 {
                     Student = student,
-                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().FirstOrDefault(),
+                    Registration = registrationList.Where(r => Convert.ToInt32(r.Student_Id) == student.id).ToList().LastOrDefault(),
                     PreviousSchool = previousSchoolList.Where(r => Convert.ToInt32(r.student_id) == student.id).ToList().FirstOrDefault(),
                     Requirement = requirementList.Where(r => r.Student_ID == student.id).ToList(),
                     TuitionDetailsList = new List<TuitionDetails>()

@@ -65,7 +65,7 @@
                         <Label FontFamily="{StaticResource PoppinsBold}" FontSize="14" Height="26" Margin="0,10" Content="Actions" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DDFFFFFF"/>
                     </Grid>
                 </Border>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding StudentList}" x:Name="MyList" MinHeight="200">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -85,7 +85,7 @@
                                                 <Label Grid.Column="2" Content="{Binding Registration.Grade}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="Black"/>
                                                 <Label Grid.Column="3" Content="{Binding Status}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="{Binding StatusColor}"/>
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button Background="#173ca0" BorderBrush="#173ca0" Command="{Binding Source={x:Reference MyList}, Path=DataContext.EditCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Change Year">
+                                                    <Button Background="#173ca0" BorderBrush="#173ca0" Command="{Binding Source={x:Reference MyList}, Path=DataContext.EditCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Change Year" Visibility="{Binding CanGoUp}">
                                                         <md:PackIcon Kind="ArrowUp" Height="24" Width="24" />
                                                     </Button>
                                                 </StackPanel>

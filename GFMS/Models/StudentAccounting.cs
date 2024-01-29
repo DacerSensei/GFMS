@@ -25,7 +25,7 @@ namespace GFMS.Models
             }
         }
 
-        private decimal DecimalPaid
+        public decimal DecimalPaid
         {
             get
             {

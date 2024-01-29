@@ -21,5 +21,6 @@
         public string? ModeOfPayment { get; set; }
         public string? Description { get; set; }
         public string? Date { get; set; }
+        public string? IsPartial { get; set; }
     }
 }

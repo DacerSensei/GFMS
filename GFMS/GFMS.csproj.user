@@ -159,6 +159,9 @@
     <Page Update="Views\PrincipalView\PrincipalFinance.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\PrincipalView\PrincipalApproved.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\PrincipalView\PrincipalNotification.xaml">
       <SubType>Designer</SubType>
     </Page>

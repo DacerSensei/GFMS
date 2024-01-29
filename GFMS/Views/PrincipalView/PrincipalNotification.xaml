@@ -7,10 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:ViewModel="clr-namespace:GFMS.ViewModels.PrincipalViewModels"
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <UserControl.DataContext>
-        <ViewModel:PrincipalNotificationViewModel />
-    </UserControl.DataContext>
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors">
+    <behavior:Interaction.Triggers>
+        <behavior:EventTrigger EventName="Loaded">
+            <behavior:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </behavior:EventTrigger>
+    </behavior:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,9 +26,17 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2" Text="PRINT NOTIFICATION" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"/>
+            <TextBlock Grid.ColumnSpan="5" TextAlignment="Center" FontSize="25" FontFamily="{StaticResource PoppinsBold}"><Run Language="en-ph" Text="PRINT NOTIFICATION"/></TextBlock>
+            <TextBox Grid.Row="1" Margin="0,12,0,0" md:HintAssist.Hint="Search..." Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="10" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox Grid.Row="1" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectedItem="{Binding GradeLevelSelected}" ItemsSource="{Binding GradeLevel}" md:HintAssist.Hint="Grade Level" Padding="10" Margin="10,12,0,0" FontFamily="{StaticResource PoppinsRegular}" MinWidth="200"/>
+            <Button Grid.Row="1" Grid.Column="3" Background="#d32f2f" BorderBrush="#d32f2f" Command="{Binding ClearCommand}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5,0,0,0" ToolTip="Clear Filters" VerticalAlignment="Bottom">
+                <md:PackIcon Kind="ClearBox" Height="24" Width="24" />
+            </Button>
         </Grid>
         <md:Card Grid.Row="1" md:ElevationAssist.Elevation="Dp5" UniformCornerRadius="10">
             <Grid>
@@ -33,7 +44,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding NotificationList}" x:Name="MyList" MinHeight="200">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -48,7 +60,7 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Label FontSize="14" Grid.RowSpan="2" Content="{Binding FullName}" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsBold}"/>
+                                                        <Label FontSize="14" Grid.RowSpan="2" Content="{Binding StudentName}" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsBold}"/>
                                                     </StackPanel>
                                                     <Label FontSize="14" Grid.RowSpan="2" Grid.Column="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}" FontFamily="{StaticResource PoppinsBold}"/>
                                                     <Label FontSize="14" Grid.RowSpan="2" Grid.Column="2" Content="Request to print" VerticalContentAlignment="Center" Foreground="white" FontFamily="{StaticResource PoppinsRegular}"/>
@@ -56,12 +68,13 @@
                                             </Expander.Header>
                                             <Expander.Background>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <GradientStop Color="#3f37c9" Offset="0"/>
-                                                    <GradientStop Color="#023e8a" Offset="1"/>
+                                                    <GradientStop Color="DarkSlateBlue" Offset="0"/>
+                                                    <GradientStop Color="DarkSlateBlue" Offset="1"/>
                                                 </LinearGradientBrush>
                                             </Expander.Background>
                                             <Grid Background="White">
                                                 <Grid.RowDefinitions>
+                                                    <RowDefinition />
                                                     <RowDefinition />
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
@@ -72,15 +85,19 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="Message" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Content="{Binding Notification.Message}" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Grid.Row="1" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
-                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="Requested" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Approved" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Content="{Binding Notification.Requested}" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Grid.Row="1" Content="{Binding Notification.Approved}" VerticalContentAlignment="Center" Foreground="Black"/>
-                                                <StackPanel Grid.RowSpan="2" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding CanModify}">
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="Type" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Message" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="2" Content="Status" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Content="{Binding Notification.Type}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Grid.Row="1" Content="{Binding Message}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="1" Grid.Row="2" Content="{Binding Notification.Status}" VerticalContentAlignment="Center" Foreground="{Binding StatusColor}"/>
+                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Content="From" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="1" Content="Requested" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label HorizontalContentAlignment="Right" Grid.Column="2"  FontFamily="{StaticResource PoppinsBold}" FontSize="13" Grid.Row="2" Content="Approved" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Content="{Binding FullName}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Grid.Row="1" Content="{Binding Notification.Requested}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <Label FontFamily="{StaticResource PoppinsRegular}" FontSize="13" Grid.Column="3" Grid.Row="2" Content="{Binding Notification.Approved}" VerticalContentAlignment="Center" Foreground="Black"/>
+                                                <StackPanel Grid.RowSpan="3" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding CanModify}">
                                                     <Button Background="#3dc03c" BorderBrush="#3dc03c" Command="{Binding Source={x:Reference MyList}, Path=DataContext.ApproveCommand}" CommandParameter="{Binding .}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5" ToolTip="Approve">
                                                         <md:PackIcon Kind="Check" Height="24" Width="24" />
                                                     </Button>
@@ -101,7 +118,7 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate>
-                                                    <TextBlock Text="Empty Student" FontFamily="{StaticResource PoppinsBold}" TextAlignment="Center" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="No Notification" FontFamily="{StaticResource PoppinsBold}" TextAlignment="Center" VerticalAlignment="Center"/>
                                                 </ControlTemplate>
                                             </Setter.Value>
                                         </Setter>
