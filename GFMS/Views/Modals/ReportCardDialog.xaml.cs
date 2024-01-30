@@ -24,6 +24,7 @@ using Aspose.Words.Replacing;
 using Aspose.Words;
 using Microsoft.Win32;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 namespace GFMS.Views.Modals
 {
@@ -166,6 +167,12 @@ namespace GFMS.Views.Modals
                 }
                 else
                 {
+                    int countOfNull = SubjectList.Count(subject => subject.FirstGrading == null);
+                    if (countOfNull > 0)
+                    {
+                        await DialogHost.Show(new MessageDialog("Notice", "You cannot request because you have empty grades on first grading."), "SecondaryDialog");
+                        return;
+                    }
                     if (isPaid)
                     {
                         var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's REPORT CARD to the principal?"), "SecondaryDialog");
@@ -185,6 +192,15 @@ namespace GFMS.Views.Modals
             });
             FormCommand = new Command(async obj =>
             {
+                int countOfNull = SubjectList.Count(subject => subject.FirstGrading == null) + 
+                                  SubjectList.Count(subject => subject.SecondGrading == null) +
+                                  SubjectList.Count(subject => subject.ThirdGrading == null) +
+                                  SubjectList.Count(subject => subject.FourthGrading == null);
+                if (countOfNull > 0)
+                {
+                    await DialogHost.Show(new MessageDialog("Notice", "You cannot request because you need to complete report card first."), "SecondaryDialog");
+                    return;
+                }
                 if (isPaid)
                 {
                     var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to send a request for this student's FORM 137 to the principal?"), "SecondaryDialog");

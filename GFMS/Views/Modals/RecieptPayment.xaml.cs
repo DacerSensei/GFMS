@@ -168,20 +168,13 @@ namespace GFMS.Views.Modals
                     OtherFees = !string.IsNullOrWhiteSpace(lastPayment.OtherFees) ? lastPayment.OtherFees : "";
                 }
             }
-            var firstPayment = student.TuitionDetailsList.FirstOrDefault();
-            DateTime firstPaymentDate;
-            if (firstPayment != null)
+
+            var firstPaymentThatArePartial = student.TuitionDetailsList.FirstOrDefault(student => Convert.ToBoolean(student.IsPartial));
+            var firstPaymentIndex = student.TuitionDetailsList.FindIndex(student => Convert.ToBoolean(student.IsPartial));
+            TuitionDetails? lastPaymentInThePartial = student.TuitionDetailsList.LastOrDefault();
+            if (firstPaymentThatArePartial != null && lastPaymentInThePartial != null)
             {
-                firstPaymentDate = Convert.ToDateTime(firstPayment.Date);
-                IsPartial = Convert.ToBoolean(firstPayment.IsPartial);
-            }
-            else
-            {
-                firstPaymentDate = Convert.ToDateTime(Date);
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                PartialList.Add($"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {(Convert.ToDecimal(TotalAmount) + student.DecimalPaid) / 10}");
+                IsPartial = Convert.ToBoolean(firstPaymentThatArePartial.IsPartial);
             }
 
         }
@@ -189,7 +182,7 @@ namespace GFMS.Views.Modals
         public ObservableCollection<TuitionDetails> HistoryList { get; set; }
 
         public ObservableCollection<string> DiscountList { get; set; } = new();
-        public ObservableCollection<string> PartialList { get; set; } = new();
+        public ObservableCollection<PartialTuition> PartialList { get; set; } = new();
         public ObservableCollection<string> ModeOfPaymentList { get; set; } = new();
 
         public ICommand PayCommand { get; }
@@ -452,19 +445,49 @@ namespace GFMS.Views.Modals
                 if (value == true)
                 {
                     PartialList.Clear();
-                    var firstPayment = student.TuitionDetailsList.FirstOrDefault();
+                    var firstPaymentThatArePartial = student.TuitionDetailsList.FirstOrDefault(student => Convert.ToBoolean(student.IsPartial));
+                    var firstPaymentIndex = student.TuitionDetailsList.FindIndex(student => Convert.ToBoolean(student.IsPartial));
+                    TuitionDetails? lastPaymentInThePartial = student.TuitionDetailsList.LastOrDefault();
+                    decimal totalPaymentBeforePartial = 0;
+                    decimal totalPaymentAfterPartial = 0;
+                    Debug.WriteLine("Index first payment: " + firstPaymentIndex);
                     DateTime firstPaymentDate;
-                    if (firstPayment != null)
+                    if (firstPaymentThatArePartial != null && lastPaymentInThePartial != null)
                     {
-                        firstPaymentDate = Convert.ToDateTime(firstPayment.Date);
+                        firstPaymentDate = Convert.ToDateTime(firstPaymentThatArePartial.Date);
+                        List<TuitionDetails> beforePartialPaymentList = new();
+                        List<TuitionDetails> afterPartialPaymentList = new();
+                        if (firstPaymentIndex > 0)
+                        {
+                            beforePartialPaymentList = student.TuitionDetailsList.GetRange(0, firstPaymentIndex);
+                            totalPaymentBeforePartial = beforePartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment));
+                        }
+                        if (firstPaymentIndex >= 0 && firstPaymentIndex < student.TuitionDetailsList.Count)
+                        {
+                            afterPartialPaymentList = student.TuitionDetailsList.Skip(firstPaymentIndex).ToList();
+                            totalPaymentAfterPartial = afterPartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment));
+                        }
+
+
+                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : string.IsNullOrWhiteSpace(TotalAmount)) + totalPaymentAfterPartial) / 10;
+
+                        for (int i = 0; i < 10; i++)
+                        {
+                            PartialList.Add(new PartialTuition { Dues = $"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {totalComputations}", IsPaid = i < afterPartialPaymentList.Count ? true : false }); ;
+                        }
                     }
                     else
                     {
+                        totalPaymentBeforePartial = student.TuitionDetailsList.Sum(student => Convert.ToDecimal(student.Payment));
+                        totalPaymentAfterPartial = student.TuitionDetailsList.Sum(student => Convert.ToDecimal(student.Payment));
                         firstPaymentDate = Convert.ToDateTime(Date);
-                    }
-                    for (int i = 0; i < 10; i++)
-                    {
-                        PartialList.Add($"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {(Convert.ToDecimal(TotalAmount) + student.DecimalPaid) / 10}");
+
+                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : string.IsNullOrWhiteSpace(TotalAmount)) + totalPaymentAfterPartial - totalPaymentBeforePartial) / 10;
+
+                        for (int i = 0; i < 10; i++)
+                        {
+                            PartialList.Add(new PartialTuition { Dues = $"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {totalComputations}", IsPaid = false }); ;
+                        }
                     }
                 }
                 OnPropertyChanged(nameof(IsPartial));
@@ -666,9 +689,10 @@ namespace GFMS.Views.Modals
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public class PartialTuition
         {
-
+            public bool IsPaid { get; set; }
+            public string? Dues { get; set; }
         }
     }
 }

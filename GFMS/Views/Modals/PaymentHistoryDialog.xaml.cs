@@ -97,6 +97,14 @@ namespace GFMS.Views.Modals
             set { totalPaid = value; OnPropertyChanged(nameof(TotalPaid)); }
         }
 
+        private decimal overallFees;
+
+        public decimal OverallFees
+        {
+            get { return overallFees; }
+            set { overallFees = value; OnPropertyChanged(nameof(OverallFees)); }
+        }
+
         public string BalanceToBePaid
         {
             get
@@ -119,7 +127,7 @@ namespace GFMS.Views.Modals
                     Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Uniform) ? totalTuitionFee!.Uniform : "0") +
                     Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.OtherFees) ? totalTuitionFee!.OtherFees : "0") +
                     Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.RegistrationFee) ? totalTuitionFee!.RegistrationFee : "0");
-
+                    OverallFees = tuition;
                     var total = totalPaid - tuition;
 
                     return total >= tuition ? "0.00" : Math.Abs(total).ToString("N2");
