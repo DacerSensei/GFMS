@@ -469,7 +469,7 @@ namespace GFMS.Views.Modals
                         }
 
 
-                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : string.IsNullOrWhiteSpace(TotalAmount)) + totalPaymentAfterPartial) / 10;
+                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial) / 10;
 
                         for (int i = 0; i < 10; i++)
                         {
@@ -482,7 +482,7 @@ namespace GFMS.Views.Modals
                         totalPaymentAfterPartial = student.TuitionDetailsList.Sum(student => Convert.ToDecimal(student.Payment));
                         firstPaymentDate = Convert.ToDateTime(Date);
 
-                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : string.IsNullOrWhiteSpace(TotalAmount)) + totalPaymentAfterPartial - totalPaymentBeforePartial) / 10;
+                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial - totalPaymentBeforePartial) / 10;
 
                         for (int i = 0; i < 10; i++)
                         {
