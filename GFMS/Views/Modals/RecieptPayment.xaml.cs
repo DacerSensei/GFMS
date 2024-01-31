@@ -166,6 +166,7 @@ namespace GFMS.Views.Modals
                     Books = !string.IsNullOrWhiteSpace(lastPayment.Books) ? lastPayment.Books : "";
                     Uniform = !string.IsNullOrWhiteSpace(lastPayment.Uniform) ? lastPayment.Uniform : "";
                     OtherFees = !string.IsNullOrWhiteSpace(lastPayment.OtherFees) ? lastPayment.OtherFees : "";
+                    IsRegistrationSet = !string.IsNullOrWhiteSpace(lastPayment.RegistrationFee) ? true : false;
                 }
             }
 
@@ -450,30 +451,29 @@ namespace GFMS.Views.Modals
                     TuitionDetails? lastPaymentInThePartial = student.TuitionDetailsList.LastOrDefault();
                     decimal totalPaymentBeforePartial = 0;
                     decimal totalPaymentAfterPartial = 0;
-                    Debug.WriteLine("Index first payment: " + firstPaymentIndex);
                     DateTime firstPaymentDate;
                     if (firstPaymentThatArePartial != null && lastPaymentInThePartial != null)
                     {
-                        firstPaymentDate = Convert.ToDateTime(firstPaymentThatArePartial.Date);
+                        firstPaymentDate = Convert.ToDateTime(firstPaymentThatArePartial.Date); // Your first date payment of partial
                         List<TuitionDetails> beforePartialPaymentList = new();
                         List<TuitionDetails> afterPartialPaymentList = new();
                         if (firstPaymentIndex > 0)
                         {
-                            beforePartialPaymentList = student.TuitionDetailsList.GetRange(0, firstPaymentIndex);
-                            totalPaymentBeforePartial = beforePartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment));
+                            beforePartialPaymentList = student.TuitionDetailsList.GetRange(0, firstPaymentIndex); // List of before partial Tuition
+                            totalPaymentBeforePartial = beforePartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment)); // Total Payments before partial Tuition
                         }
                         if (firstPaymentIndex >= 0 && firstPaymentIndex < student.TuitionDetailsList.Count)
                         {
-                            afterPartialPaymentList = student.TuitionDetailsList.Skip(firstPaymentIndex).ToList();
-                            totalPaymentAfterPartial = afterPartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment));
+                            afterPartialPaymentList = student.TuitionDetailsList.Skip(firstPaymentIndex).ToList(); // List of after partial Tuition
+                            totalPaymentAfterPartial = afterPartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment)); // Total Payments of partial Tuition
                         }
 
-
-                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial) / 10;
-
+                        decimal totalPartialTuition = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial); // Overall total of how much you will pay partial
+                        decimal partialTuitionMonthly = totalPartialTuition / 10; // Monthly Partial
+                        int totalOfPaymentsInPartial = (int)Math.Floor(totalPaymentAfterPartial / partialTuitionMonthly); // Number of how many did you already pay in
                         for (int i = 0; i < 10; i++)
                         {
-                            PartialList.Add(new PartialTuition { Dues = $"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {totalComputations}", IsPaid = i < afterPartialPaymentList.Count ? true : false }); ;
+                            PartialList.Add(new PartialTuition { Dues = $"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {partialTuitionMonthly}", IsPaid = i < totalOfPaymentsInPartial ? true : false }); ;
                         }
                     }
                     else
@@ -627,7 +627,6 @@ namespace GFMS.Views.Modals
         }
 
         private string payment = string.Empty;
-
         public string Payment
         {
             get { return payment; }
@@ -636,6 +635,17 @@ namespace GFMS.Views.Modals
                 payment = value;
                 OnPropertyChanged(nameof(Balance));
                 OnPropertyChanged(nameof(Payment));
+            }
+        }
+
+        private bool isRegistrationSet = false;
+        public bool IsRegistrationSet
+        {
+            get => isRegistrationSet;
+            set
+            {
+                isRegistrationSet = value;
+                OnPropertyChanged(nameof(IsRegistrationSet));
             }
         }
 

@@ -133,7 +133,7 @@
                             <TextBox IsReadOnly="True" Text="{Binding FinanceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Finance" />
                             <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
                             <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
+                            <TextBox IsReadOnly="{Binding IsRegistrationSet}" PreviewTextInput="NumberValidationTextBox" Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Books, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Uniform, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
 
