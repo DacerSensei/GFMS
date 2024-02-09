@@ -39,10 +39,14 @@ namespace GFMS.Services
             doc.Range.Replace("<MP>", tuitionDetails.ModeOfPayment, findReplaceOptions);
             doc.Range.Replace("<RF>", tuitionDetails.RegistrationFee, findReplaceOptions);
             doc.Range.Replace("<Books>", tuitionDetails.Books, findReplaceOptions);
-            doc.Range.Replace("<Uniform>", tuitionDetails.Books, findReplaceOptions);
+            doc.Range.Replace("<Uniform>", tuitionDetails.Uniform, findReplaceOptions);
             doc.Range.Replace("<TA>", tuitionDetails.TotalAmount, findReplaceOptions);
             doc.Range.Replace("<Balance>", tuitionDetails.Balance, findReplaceOptions);
             doc.Range.Replace("<Payment>", tuitionDetails.Payment, findReplaceOptions);
+            // Bagong code
+
+            doc.Range.Replace("<BooksPayment>", tuitionDetails.UniformPayment, findReplaceOptions);
+
             if (tuitionDetails.AddFeeDscOne == null || tuitionDetails.AddFeeDscOne.ToString() == string.Empty)
             {
                 doc.Range.Replace("<ADD1>", "  ", findReplaceOptions);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFMS.Views.Modals"
         mc:Ignorable="d"
-        Height="680" Width="900" 
+        Height="680" Width="1200" 
         WindowStyle="None"
         xmlns:md="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent"
@@ -15,7 +15,7 @@
     </Window.Resources>
     <md:DialogHost Identifier="SecondaryDialog" FontFamily="{StaticResource PoppinsRegular}" FontSize="18">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="5" Background="White">
+            <Grid Margin="5" Background="White" Width="1170">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
                 </Grid.Effect>
@@ -26,7 +26,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Margin="0,20,30,20" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Command="{Binding AddFeeCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0" Content="{Binding AddFeeText}"/>
+                    <!-- <Button Command="{Binding AddFeeCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0" Content="{Binding AddFeeText}"/> -->
                     <Button Command="{Binding PayCommand}" Content="Pay" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="32,0,0,0" />
                     <Button Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource MaterialDesignRaisedDarkButton}" Margin="8,0,0,0">CANCEL</Button>
 
@@ -42,8 +42,9 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.ColumnSpan="3">
+                        <Grid Grid.ColumnSpan="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -56,16 +57,19 @@
                                     Denmark St.., Alaminos Heights Subd., Alaminos, Laguna<LineBreak/>
                             </TextBlock>
                         </Grid>
-                        <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="5">
                             <TextBlock Text="OFFICIAL RECEIPT" VerticalAlignment="Bottom" FontSize="26" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource PoppinsBold}"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Margin="40,0,10,0">
                             <TextBox IsReadOnly="True" Text="{Binding CompleteName}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Name" />
                             <TextBox IsReadOnly="True" Text="{Binding GradeLevel}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Grade Level" />
+                            <TextBox IsReadOnly="True" Text="{Binding FinanceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Finance" />
+                            <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                             <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding TuitionFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Tuition Fee Amount"/>
-                            <TextBox IsReadOnly="True" Text="{Binding TotalTuitionFee, Mode=OneWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" />
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding OtherFees, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"  Margin="0,0,0,20"/>
-                            <TextBox CharacterCasing="Upper" Text="{Binding Inclusion}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" Margin="0,0,0,10"/>
+                            <ComboBox ItemsSource="{Binding DiscountList}" SelectedItem="{Binding SelectedDiscount}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,20,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
+                            <TextBox IsReadOnly="True" Text="{Binding Discounted, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Discounted Amount"/>
+
+                            <ComboBox ItemsSource="{Binding ModeOfPaymentList}" SelectedItem="{Binding SelectedModeOfPayment}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Mode of Payment" Padding="10" Margin="0,20,0,10" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
                             <CheckBox md:CheckBoxAssist.CheckBoxSize="30" IsChecked="{Binding IsPartial}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="PARTIAL TUITION" FontSize="15" VerticalContentAlignment="Center"/>
                             <Grid Visibility="{Binding IsDueVisible}">
                                 <Grid.RowDefinitions>
@@ -120,26 +124,57 @@
                                 </ItemsControl>
                             </Grid>
                         </StackPanel>
-                        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,40,0">
-                            <ComboBox ItemsSource="{Binding DiscountList}" SelectedItem="{Binding SelectedDiscount}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Discount" Padding="10" Margin="0,10,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
-                            <TextBox IsReadOnly="True" Text="{Binding Discounted, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Discounted Amount"/>
-                            <ComboBox ItemsSource="{Binding ModeOfPaymentList}" SelectedItem="{Binding SelectedModeOfPayment}" Style="{StaticResource MaterialDesignOutlinedComboBox}" md:HintAssist.Hint="Mode of Payment" Padding="10" Margin="0,10,0,0" FontFamily="{StaticResource PoppinsRegular}"  md:HintAssist.FloatingOffset="0,-21"/>
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisOne}" Text="{Binding OtherFeeOne, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (1)"  Margin="0,0,0,20"/>
-                            <TextBox CharacterCasing="Upper" Text="{Binding DscFeeOne}" Visibility="{Binding OtherFeeVisOne}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (1)" />
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisTwo}" Text="{Binding OtherFeeTwo, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (2)"  Margin="0,0,0,20"/>
-                            <TextBox CharacterCasing="Upper" Text="{Binding DscFeeTwo}" Visibility="{Binding OtherFeeVisTwo}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (2)" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
-                            <TextBox IsReadOnly="True" Text="{Binding FinanceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Finance" />
-                            <TextBox IsReadOnly="True" Text="{Binding Date}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Date" />
-                            <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,30,0,0" HorizontalAlignment="Left" />
-                            <TextBox IsReadOnly="{Binding IsRegistrationSet}" PreviewTextInput="NumberValidationTextBox" Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Books, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
-                            <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Uniform, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
+                        <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="10,0,40,0">
+                                <TextBlock Text="To be paid" FontSize="20" HorizontalAlignment="Left" FontFamily="{StaticResource PoppinsBold}"/>
 
-                            <TextBox IsReadOnly="True" Text="{Binding TotalAmount, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" Margin="0,40,0,0"/>
-                            <TextBox IsReadOnly="True" Text="{Binding Balance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
-                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding CanPay, Mode=OneWay}" Text="{Binding Payment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                                <TextBox IsReadOnly="True" Text="{Binding TotalTuitionFee, Mode=OneWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Tuition Fee" />
+                                <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                                <TextBox IsReadOnly="{Binding IsRegistrationSet}" PreviewTextInput="NumberValidationTextBox" Text="{Binding RegistrationFee, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Registration Fee" />
+                                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Books, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Books" />
+                                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding Uniform, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Uniform" />
+                                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding OtherFees, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Other Fees"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="10,0,40,0">
+                                <TextBlock Text="Balance" FontSize="20" HorizontalAlignment="Left" FontFamily="{StaticResource PoppinsBold}"/>
+
+                                <TextBox IsReadOnly="True" Text="{Binding TuitionBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                                <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                                <TextBox IsReadOnly="True" Text="{Binding RegistrationBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                                <TextBox IsReadOnly="True" Text="{Binding BooksBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                                <TextBox IsReadOnly="True" Text="{Binding UniformBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                                <TextBox IsReadOnly="True" Text="{Binding OtherFeesBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="10,0,40,0">
+                                <TextBox  CharacterCasing="Upper" Text="{Binding Inclusion}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="120" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Inclusion" Margin="0,40,0,10"/>
+                                <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisOne}" Text="{Binding OtherFeeOne, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (1)"  Margin="0,0,0,20"/>
+                                <TextBox CharacterCasing="Upper" Text="{Binding DscFeeOne}" Visibility="{Binding OtherFeeVisOne}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (1)" />
+                                <TextBox PreviewTextInput="NumberValidationTextBox" Visibility="{Binding OtherFeeVisTwo}" Text="{Binding OtherFeeTwo, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Additional Fee (2)"  Margin="0,0,0,20"/>
+                                <TextBox CharacterCasing="Upper" Text="{Binding DscFeeTwo}" Visibility="{Binding OtherFeeVisTwo}" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Height="60" Style="{StaticResource MaterialDesignOutlinedTextBox}" md:HintAssist.Hint="Fee Dsc. (2)" />
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="2" Grid.Column="3" Margin="10,0,40,0">
+                            <TextBlock Text="Payments" FontSize="20" HorizontalAlignment="Left" FontFamily="{StaticResource PoppinsBold}"/>
+
+                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding TuitionCanPay, Mode=OneWay}" Text="{Binding TuitionPayment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBlock Text="Miscellaneous:" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Left" />
+                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding RegistrationCanPay, Mode=OneWay}" Text="{Binding RegistrationPayment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding BooksCanPay, Mode=OneWay}" Text="{Binding BooksPayment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding UniformCanPay, Mode=OneWay}" Text="{Binding UniformPayment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+                            <TextBox PreviewTextInput="NumberValidationTextBox" IsEnabled="{Binding OtherFeesCanPay, Mode=OneWay}" Text="{Binding OtherFeesPayment, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
+
+                            <TextBlock Text="Total Amount" FontSize="20" HorizontalAlignment="Left" FontFamily="{StaticResource PoppinsBold}" Margin="0,40,0,0"/>
+                            <TextBox IsReadOnly="True" Text="{Binding TotalAmount, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Total Amount" />
+                            <TextBox IsReadOnly="True" Text="{Binding TotalBalance,Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Balance"/>
+                            <TextBox IsReadOnly="True" IsEnabled="{Binding CanPay, Mode=OneWay}" Text="{Binding Payment, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Payment"/>
                         </StackPanel>
                     </Grid>
                 </md:Card>

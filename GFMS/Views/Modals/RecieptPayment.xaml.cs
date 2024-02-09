@@ -90,7 +90,7 @@ namespace GFMS.Views.Modals
                 }
                 if (Convert.ToDecimal(Payment) > Convert.ToDecimal(TotalAmount))
                 {
-                    var errorResult = await DialogHost.Show(new MessageDialog("Notice", "Your payment is too high"), "SecondaryDialog");
+                    var errorResult = await DialogHost.Show(new MessageDialog("Notice", "Please input exact Amount."), "SecondaryDialog");
                     return;
                 }
                 var result = await DialogHost.Show(new AlertDialog("Notice", "Are you sure you want to pay?"), "SecondaryDialog");
@@ -101,7 +101,7 @@ namespace GFMS.Views.Modals
 
                 TuitionDetails tuitionDetails = new TuitionDetails()
                 {
-                    Balance = Balance,
+                    Balance = TotalBalance,
                     Books = Books,
                     DiscountedTuition = Discounted,
                     DiscountType = SelectedDiscount ?? "",
@@ -120,7 +120,18 @@ namespace GFMS.Views.Modals
                     AddFeeDscOne = DscFeeOne,
                     AddFeeDscTwo = DscFeeTwo,
                     Date = DateTime.Now.ToShortDateString(),
-                    IsPartial = IsPartial.ToString()
+                    IsPartial = IsPartial.ToString(),
+                    // Modification starts here
+                    TuitionPayment = TuitionPayment,
+                    RegistrationPayment = RegistrationPayment,
+                    BooksPayment = BooksPayment,
+                    UniformPayment = UniformPayment,
+                    OtherFeePayment = OtherFeesPayment,
+                    TuitionBalance = TuitionBalance,
+                    RegistrationBalance = RegistrationBalance,
+                    BooksBalance = BooksBalance,
+                    UniformBalance = UniformBalance,
+                    OtherFeesBalance = OtherFeesBalance
                 };
                 Accounting accounting = new Accounting()
                 {
@@ -156,6 +167,7 @@ namespace GFMS.Views.Modals
             GradeLevel = student.Registration.Grade ?? "";
             FinanceName = $"{MainWindow.User!.FirstName} {MainWindow.User.LastName}";
             HistoryList = new ObservableCollection<TuitionDetails>(student.TuitionDetailsList!);
+            NotifyBalance();
             if (HistoryList != null && HistoryList.Count > 0)
             {
                 var lastPayment = HistoryList.LastOrDefault();
@@ -235,7 +247,7 @@ namespace GFMS.Views.Modals
                 OnPropertyChanged(nameof(Discounted));
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
                 OnPropertyChanged(nameof(TuitionFee));
             }
         }
@@ -291,7 +303,7 @@ namespace GFMS.Views.Modals
                 OnPropertyChanged(nameof(TotalTuitionFee));
                 OnPropertyChanged(nameof(Discounted));
                 OnPropertyChanged(nameof(TotalAmount));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
                 OnPropertyChanged(nameof(SelectedDiscount));
             }
         }
@@ -345,7 +357,9 @@ namespace GFMS.Views.Modals
                 otherFees = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(OtherFeesBalance));
+                OnPropertyChanged(nameof(OtherFeesCanPay));
                 OnPropertyChanged(nameof(OtherFees));
             }
         }
@@ -360,7 +374,7 @@ namespace GFMS.Views.Modals
                 otherFeeOne = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
                 OnPropertyChanged(nameof(OtherFees));
             }
         }
@@ -375,7 +389,7 @@ namespace GFMS.Views.Modals
                 otherFeeTwo = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
                 OnPropertyChanged(nameof(OtherFees));
             }
         }
@@ -464,13 +478,16 @@ namespace GFMS.Views.Modals
                         }
                         if (firstPaymentIndex >= 0 && firstPaymentIndex < student.TuitionDetailsList.Count)
                         {
-                            afterPartialPaymentList = student.TuitionDetailsList.Skip(firstPaymentIndex).ToList(); // List of after partial Tuition
-                            totalPaymentAfterPartial = afterPartialPaymentList.Sum(student => Convert.ToDecimal(student.Payment)); // Total Payments of partial Tuition
+                            afterPartialPaymentList = student.TuitionDetailsList.Skip(firstPaymentIndex).Where(item => !string.IsNullOrEmpty(item.TuitionPayment)).ToList(); // List of after partial Tuition then sort the payment that have tuition
+                            totalPaymentAfterPartial = afterPartialPaymentList.Sum(student => Convert.ToDecimal(student.TuitionPayment)); // Total Payments of partial Tuition
                         }
 
-                        decimal totalPartialTuition = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial); // Overall total of how much you will pay partial
+                        decimal totalPartialTuition = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalTuitionFee) ? "0" : TotalTuitionFee)); // Overall total of how much you will pay partial
                         decimal partialTuitionMonthly = totalPartialTuition / 10; // Monthly Partial
-                        int totalOfPaymentsInPartial = (int)Math.Floor(totalPaymentAfterPartial / partialTuitionMonthly); // Number of how many did you already pay in
+                        int totalOfPaymentsInPartial = 0;
+
+                            totalOfPaymentsInPartial = (int)Math.Floor(totalPaymentAfterPartial / partialTuitionMonthly); // Number of how many did you already pay in
+
                         for (int i = 0; i < 10; i++)
                         {
                             PartialList.Add(new PartialTuition { Dues = $"{firstPaymentDate.AddMonths(i).ToShortDateString()} = {partialTuitionMonthly}", IsPaid = i < totalOfPaymentsInPartial ? true : false }); ;
@@ -482,7 +499,7 @@ namespace GFMS.Views.Modals
                         totalPaymentAfterPartial = student.TuitionDetailsList.Sum(student => Convert.ToDecimal(student.Payment));
                         firstPaymentDate = Convert.ToDateTime(Date);
 
-                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalAmount) ? "0" : TotalAmount) + totalPaymentAfterPartial - totalPaymentBeforePartial) / 10;
+                        var totalComputations = (Convert.ToDecimal(string.IsNullOrWhiteSpace(TotalTuitionFee) ? "0" : TotalTuitionFee)) / 10;
 
                         for (int i = 0; i < 10; i++)
                         {
@@ -520,7 +537,9 @@ namespace GFMS.Views.Modals
                 registrationFee = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(RegistrationBalance));
+                OnPropertyChanged(nameof(RegistrationCanPay));
                 OnPropertyChanged(nameof(RegistrationFee));
             }
         }
@@ -535,7 +554,9 @@ namespace GFMS.Views.Modals
                 books = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(BooksBalance));
+                OnPropertyChanged(nameof(BooksCanPay));
                 OnPropertyChanged(nameof(Books));
             }
         }
@@ -550,7 +571,9 @@ namespace GFMS.Views.Modals
                 uniform = value;
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(CanPay));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(UniformBalance));
+                OnPropertyChanged(nameof(UniformCanPay));
                 OnPropertyChanged(nameof(Uniform));
             }
         }
@@ -559,13 +582,6 @@ namespace GFMS.Views.Modals
         {
             get
             {
-                if (!string.IsNullOrEmpty(SelectedDiscount))
-                {
-                    if (SelectedDiscount.ToLower() == "VALEDICTORIAN".ToLower())
-                    {
-                        return new decimal(0).ToString("N2");
-                    }
-                }
                 decimal totalTuitionFee = 0m;
                 decimal registrationFee = 0m;
                 decimal booksFee = 0m;
@@ -606,7 +622,7 @@ namespace GFMS.Views.Modals
             }
         }
 
-        public string Balance
+        public string TotalBalance
         {
             get
             {
@@ -626,15 +642,23 @@ namespace GFMS.Views.Modals
             }
         }
 
-        private string payment = string.Empty;
         public string Payment
         {
-            get { return payment; }
-            set
+            get
             {
-                payment = value;
-                OnPropertyChanged(nameof(Balance));
-                OnPropertyChanged(nameof(Payment));
+                if (string.IsNullOrWhiteSpace(TuitionPayment) && string.IsNullOrWhiteSpace(RegistrationPayment) && string.IsNullOrWhiteSpace(BooksPayment) &&
+                     string.IsNullOrWhiteSpace(UniformPayment) && string.IsNullOrWhiteSpace(OtherFeesPayment))
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return (Convert.ToDecimal(!string.IsNullOrWhiteSpace(TuitionPayment) ? TuitionPayment : "0") +
+                           Convert.ToDecimal(!string.IsNullOrWhiteSpace(RegistrationPayment) ? RegistrationPayment : "0") +
+                           Convert.ToDecimal(!string.IsNullOrWhiteSpace(BooksPayment) ? BooksPayment : "0") +
+                           Convert.ToDecimal(!string.IsNullOrWhiteSpace(UniformPayment) ? UniformPayment : "0") +
+                           Convert.ToDecimal(!string.IsNullOrWhiteSpace(OtherFeesPayment) ? OtherFeesPayment : "0")).ToString("N2");
+                }
             }
         }
 
@@ -655,7 +679,6 @@ namespace GFMS.Views.Modals
             {
                 if (string.IsNullOrEmpty(TotalAmount))
                 {
-                    Payment = string.Empty;
                     return false;
                 }
                 return true;
@@ -666,7 +689,7 @@ namespace GFMS.Views.Modals
         {
             get
             {
-                StringBuilder description = new StringBuilder("You pay in ");
+                StringBuilder description = new StringBuilder("");
 
                 AppendDescription(description, "Tuition", !string.IsNullOrEmpty(TotalTuitionFee));
                 AppendDescription(description, "Registration Fee", !string.IsNullOrEmpty(RegistrationFee));
@@ -703,6 +726,416 @@ namespace GFMS.Views.Modals
         {
             public bool IsPaid { get; set; }
             public string? Dues { get; set; }
+        }
+
+        // Modification for new design
+        // Payments
+
+        private string tuitionPayment = string.Empty;
+        public string TuitionPayment
+        {
+            get { return tuitionPayment; }
+            set
+            {
+                tuitionPayment = value;
+                OnPropertyChanged(nameof(TuitionBalance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(Payment));
+                OnPropertyChanged(nameof(TuitionPayment));
+            }
+        }
+
+        private string registrationPayment = string.Empty;
+        public string RegistrationPayment
+        {
+            get { return registrationPayment; }
+            set
+            {
+                registrationPayment = value;
+                OnPropertyChanged(nameof(RegistrationBalance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(Payment));
+                OnPropertyChanged(nameof(RegistrationPayment));
+            }
+        }
+
+        private string booksPayment = string.Empty;
+        public string BooksPayment
+        {
+            get { return booksPayment; }
+            set
+            {
+                booksPayment = value;
+                OnPropertyChanged(nameof(BooksBalance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(Payment));
+                OnPropertyChanged(nameof(BooksPayment));
+            }
+        }
+
+        private string uniformPayment = string.Empty;
+        public string UniformPayment
+        {
+            get { return uniformPayment; }
+            set
+            {
+                uniformPayment = value;
+                OnPropertyChanged(nameof(UniformBalance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(Payment));
+                OnPropertyChanged(nameof(UniformPayment));
+            }
+        }
+
+        private string otherfeesPayment = string.Empty;
+        public string OtherFeesPayment
+        {
+            get { return otherfeesPayment; }
+            set
+            {
+                otherfeesPayment = value;
+                OnPropertyChanged(nameof(OtherFeesBalance));
+                OnPropertyChanged(nameof(TotalBalance));
+                OnPropertyChanged(nameof(Payment));
+                OnPropertyChanged(nameof(OtherFeesPayment));
+            }
+        }
+
+        // Balance
+
+        public string TuitionBalance
+        {
+            get
+            {
+                return BalanceComputation(TuitionPayment, TotalTuitionFee, TypeOfPayment.TUITION);
+            }
+        }
+
+        public string RegistrationBalance
+        {
+            get
+            {
+                return BalanceComputation(RegistrationPayment, RegistrationFee, TypeOfPayment.REGISTRATION);
+            }
+        }
+
+        public string BooksBalance
+        {
+            get
+            {
+                return BalanceComputation(BooksPayment, Books, TypeOfPayment.BOOKS);
+            }
+        }
+
+        public string UniformBalance
+        {
+            get
+            {
+                return BalanceComputation(UniformPayment, Uniform, TypeOfPayment.UNIFORM);
+            }
+        }
+
+        public string OtherFeesBalance
+        {
+            get
+            {
+                return BalanceComputation(OtherFeesPayment, OtherFees, TypeOfPayment.OTHER);
+            }
+        }
+
+        private string BalanceComputation(string Payment, string TotalAmount, TypeOfPayment typeOfPayment)
+        {
+            decimal payment = 0m;
+            decimal totalAmount = 0m;
+            decimal total = 0m;
+            if (HistoryList != null && HistoryList.Count > 0)
+            {
+                var lastPayment = HistoryList.LastOrDefault();
+                if (lastPayment != null)
+                {
+                    if (!string.IsNullOrEmpty(Payment))
+                    {
+                        switch (typeOfPayment)
+                        {
+                            case TypeOfPayment.TUITION:
+                                if (string.IsNullOrEmpty(lastPayment.TuitionBalance))
+                                {
+                                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                else
+                                {
+                                    totalAmount = Convert.ToDecimal(lastPayment.TuitionBalance ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                break;
+                            case TypeOfPayment.REGISTRATION:
+                                if (string.IsNullOrEmpty(lastPayment.RegistrationBalance))
+                                {
+                                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                else
+                                {
+                                    totalAmount = Convert.ToDecimal(lastPayment.RegistrationBalance ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(RegistrationFee) ? "0" : RegistrationFee) > Convert.ToDecimal(lastPayment.RegistrationFee))
+                                    {
+                                        totalAmount += Convert.ToDecimal(RegistrationFee) - Convert.ToDecimal(lastPayment.RegistrationFee);
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                    else
+                                    {
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                }
+                                break;
+                            case TypeOfPayment.BOOKS:
+                                if (string.IsNullOrEmpty(lastPayment.BooksBalance))
+                                {
+                                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                else
+                                {
+                                    totalAmount = Convert.ToDecimal(lastPayment.BooksBalance ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(Books) ? "0" : Books) > Convert.ToDecimal(lastPayment.Books))
+                                    {
+                                        totalAmount += Convert.ToDecimal(Books) - Convert.ToDecimal(lastPayment.Books);
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                    else
+                                    {
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                }
+                                break;
+                            case TypeOfPayment.UNIFORM:
+                                if (string.IsNullOrEmpty(lastPayment.UniformBalance))
+                                {
+                                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                else
+                                {
+                                    totalAmount = Convert.ToDecimal(lastPayment.UniformBalance ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(Uniform) ? "0" : Uniform) > Convert.ToDecimal(lastPayment.Uniform))
+                                    {
+                                        totalAmount += Convert.ToDecimal(Uniform) - Convert.ToDecimal(lastPayment.Uniform);
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                    else
+                                    {
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                }
+                                break;
+                            case TypeOfPayment.OTHER:
+                                if (string.IsNullOrEmpty(lastPayment.OtherFeesBalance))
+                                {
+                                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    total = payment > totalAmount ? 0 : totalAmount - payment;
+                                }
+                                else
+                                {
+                                    totalAmount = Convert.ToDecimal(lastPayment.OtherFeesBalance ?? "0");
+                                    payment = Convert.ToDecimal(Payment ?? "0");
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(OtherFees) ? "0" : OtherFees) > Convert.ToDecimal(lastPayment.OtherFees))
+                                    {
+                                        totalAmount += Convert.ToDecimal(OtherFees) - Convert.ToDecimal(lastPayment.OtherFees);
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                    else
+                                    {
+                                        total = payment > totalAmount ? 0 : totalAmount - payment;
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (typeOfPayment)
+                        {
+                            case TypeOfPayment.TUITION:
+                                return lastPayment.TuitionBalance ?? string.Empty;
+                            case TypeOfPayment.REGISTRATION:
+                                if (!string.IsNullOrEmpty(lastPayment.RegistrationFee))
+                                {
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(RegistrationFee) ? "0" : RegistrationFee) > Convert.ToDecimal(lastPayment.RegistrationFee))
+                                    {
+                                        return ((Convert.ToDecimal(RegistrationFee) - Convert.ToDecimal(lastPayment.RegistrationFee)) + Convert.ToDecimal(lastPayment.RegistrationBalance)).ToString("N2");
+                                    }
+                                }
+                                return lastPayment.RegistrationBalance ?? string.Empty;
+                            case TypeOfPayment.BOOKS:
+                                if (!string.IsNullOrEmpty(lastPayment.Books))
+                                {
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(Books) ? "0" : Books) > Convert.ToDecimal(lastPayment.Books))
+                                    {
+                                        return ((Convert.ToDecimal(Books) - Convert.ToDecimal(lastPayment.Books)) + Convert.ToDecimal(lastPayment.BooksBalance)).ToString("N2");
+                                    }
+                                }
+                                return lastPayment.BooksBalance ?? string.Empty;
+                            case TypeOfPayment.UNIFORM:
+                                if (!string.IsNullOrEmpty(lastPayment.Uniform))
+                                {
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(Uniform) ? "0" : Uniform) > Convert.ToDecimal(lastPayment.Uniform))
+                                    {
+                                        return ((Convert.ToDecimal(Uniform) - Convert.ToDecimal(lastPayment.Uniform)) + Convert.ToDecimal(lastPayment.UniformBalance)).ToString("N2");
+                                    }
+                                }
+                                return lastPayment.UniformBalance ?? string.Empty;
+                            case TypeOfPayment.OTHER:
+                                if (!string.IsNullOrEmpty(lastPayment.OtherFees))
+                                {
+                                    if (Convert.ToDecimal(string.IsNullOrEmpty(OtherFees) ? "0" : OtherFees) > Convert.ToDecimal(lastPayment.OtherFees))
+                                    {
+                                        return ((Convert.ToDecimal(OtherFees) - Convert.ToDecimal(lastPayment.OtherFees)) + Convert.ToDecimal(lastPayment.OtherFeesBalance)).ToString("N2");
+                                    }
+                                }
+                                return lastPayment.OtherFeesBalance ?? string.Empty;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Payment))
+                {
+                    payment = Convert.ToDecimal(Payment ?? "0");
+                    totalAmount = Convert.ToDecimal(TotalAmount ?? "0");
+                }
+                else
+                {
+                    return string.Empty;
+                }
+                total = payment > totalAmount ? 0 : totalAmount - payment;
+            }
+            return total.ToString("N2");
+        }
+
+        // Can Pay
+
+        public bool TuitionCanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(TotalTuitionFee))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(TuitionBalance))
+                {
+                    if (Convert.ToDecimal(TuitionBalance) == 0m)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public bool RegistrationCanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(RegistrationFee))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(RegistrationBalance))
+                {
+                    if (Convert.ToDecimal(RegistrationBalance) == 0m)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public bool BooksCanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Books))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(BooksBalance))
+                {
+                    if (Convert.ToDecimal(BooksBalance) == 0m)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public bool UniformCanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Uniform))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(UniformBalance))
+                {
+                    if (Convert.ToDecimal(UniformBalance) == 0m)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public bool OtherFeesCanPay
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(OtherFees))
+                {
+                    return false;
+                }
+                if (!string.IsNullOrEmpty(OtherFeesBalance))
+                {
+                    if (Convert.ToDecimal(OtherFeesBalance) == 0m)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        private void NotifyBalance()
+        {
+            OnPropertyChanged(nameof(TuitionBalance));
+            OnPropertyChanged(nameof(RegistrationBalance));
+            OnPropertyChanged(nameof(BooksBalance));
+            OnPropertyChanged(nameof(UniformBalance));
+            OnPropertyChanged(nameof(OtherFeesBalance));
+        }
+
+        public enum TypeOfPayment
+        {
+            TUITION,
+            REGISTRATION,
+            BOOKS,
+            UNIFORM,
+            OTHER
         }
     }
 }

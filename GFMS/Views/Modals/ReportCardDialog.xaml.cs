@@ -664,6 +664,20 @@ namespace GFMS.Views.Modals
             set { _isReadOnly = value; OnPropertyChanged(nameof(IsReadOnly)); }
         }
 
+        public Visibility FormVisibility
+        {
+            get 
+            { 
+                if(MainWindow.User.Usertype == "REGISTRAR")
+                {
+                    return Visibility.Visible;
+                }else
+                {
+                    return Visibility.Hidden;
+                }
+            }
+        }
+
 
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

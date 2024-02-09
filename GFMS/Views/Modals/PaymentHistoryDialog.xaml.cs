@@ -43,7 +43,8 @@ namespace GFMS.Views.Modals
             DataContext = this;
         }
 
-        public ObservableCollection<TuitionDetails> HistoryList { get; set; }
+        public ObservableCollection<SeparateHistory> HistoryList { get; set; } = new ObservableCollection<SeparateHistory>();
+        public List<TuitionDetails> RawHistory { get; set; }
 
         private void LoadAllDataAsync(StudentAccounting student)
         {
@@ -51,7 +52,32 @@ namespace GFMS.Views.Modals
             LRN = student.Student.LRN!;
             GradeLevel = student.Registration!.Grade!;
             Status = student.Status!;
-            HistoryList = new ObservableCollection<TuitionDetails>(student.TuitionDetailsList!);
+            RawHistory = new List<TuitionDetails>(student.TuitionDetailsList!);
+
+            foreach (var item in RawHistory.Reverse<TuitionDetails>())
+            {
+                if (!string.IsNullOrEmpty(item.TuitionPayment))
+                {
+                    HistoryList.Add(new SeparateHistory { Date = item.Date, ModeOfPayment = item.ModeOfPayment, Description = "Tuition", Payment = item.TuitionPayment, Balance = item.TuitionBalance });
+                }
+                if (!string.IsNullOrEmpty(item.RegistrationPayment))
+                {
+                    HistoryList.Add(new SeparateHistory { Date = item.Date, ModeOfPayment = item.ModeOfPayment, Description = "Registration", Payment = item.RegistrationPayment, Balance = item.RegistrationBalance });
+                }
+                if (!string.IsNullOrEmpty(item.BooksPayment))
+                {
+                    HistoryList.Add(new SeparateHistory { Date = item.Date, ModeOfPayment = item.ModeOfPayment, Description = "Books", Payment = item.BooksPayment, Balance = item.BooksBalance });
+                }
+                if (!string.IsNullOrEmpty(item.UniformPayment))
+                {
+                    HistoryList.Add(new SeparateHistory { Date = item.Date, ModeOfPayment = item.ModeOfPayment, Description = "Uniform", Payment = item.UniformPayment, Balance = item.UniformBalance });
+                }
+                if (!string.IsNullOrEmpty(item.OtherFeePayment))
+                {
+                    HistoryList.Add(new SeparateHistory { Date = item.Date, ModeOfPayment = item.ModeOfPayment, Description = "Other Fee", Payment = item.OtherFeePayment, Balance = item.OtherFeesBalance });
+                }
+            }
+            
         }
 
         public ICommand CancelCommand { get; }
@@ -109,19 +135,19 @@ namespace GFMS.Views.Modals
         {
             get
             {
-                if (HistoryList != null && HistoryList.Count > 0 && !HistoryList.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
+                if (RawHistory != null && RawHistory.Count > 0 && !RawHistory.All(details => string.IsNullOrEmpty(details.TotalTuitionFee)))
                 {
                     decimal totalPaid = 0m;
-                    for (int i = 0; i < HistoryList.Count; i++)
+                    for (int i = 0; i < RawHistory.Count; i++)
                     {
-                        if (string.IsNullOrWhiteSpace(HistoryList[i].Payment) || string.IsNullOrWhiteSpace(HistoryList[i].TuitionFee))
+                        if (string.IsNullOrWhiteSpace(RawHistory[i].Payment) || string.IsNullOrWhiteSpace(RawHistory[i].TuitionFee))
                         {
                             continue;
                         }
-                        totalPaid += Convert.ToDecimal(HistoryList[i].Payment);
+                        totalPaid += Convert.ToDecimal(RawHistory[i].Payment);
                     }
                     TotalPaid = totalPaid;
-                    var totalTuitionFee = HistoryList.LastOrDefault();
+                    var totalTuitionFee = RawHistory.LastOrDefault();
                     var tuition = Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.TotalTuitionFee) ? totalTuitionFee!.TotalTuitionFee : "0") +
                     Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Books) ? totalTuitionFee!.Books : "0") +
                     Convert.ToDecimal(!string.IsNullOrWhiteSpace(totalTuitionFee!.Uniform) ? totalTuitionFee!.Uniform : "0") +
@@ -152,6 +178,15 @@ namespace GFMS.Views.Modals
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public class SeparateHistory
+        {
+            public string? Date { get; set; }
+            public string? ModeOfPayment { get; set; }
+            public string? Description { get; set; }
+            public string? Payment { get; set; }
+            public string? Balance { get; set; }
         }
     }
 }

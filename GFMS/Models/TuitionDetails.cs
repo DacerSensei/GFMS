@@ -22,5 +22,19 @@
         public string? Description { get; set; }
         public string? Date { get; set; }
         public string? IsPartial { get; set; }
+
+        // Modification 
+
+        public string? TuitionPayment { get; set; }
+        public string? RegistrationPayment { get; set; }
+        public string? BooksPayment { get; set; }
+        public string? UniformPayment { get; set; }
+        public string? OtherFeePayment { get; set; }
+        public string? TuitionBalance { get; set; }
+        public string? RegistrationBalance { get; set; }
+        public string? BooksBalance { get; set; }
+        public string? UniformBalance { get; set; }
+        public string? OtherFeesBalance { get; set; }
+
     }
 }
